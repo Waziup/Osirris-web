@@ -1,0 +1,11 @@
+fragment PageParts on Page {
+  __typename
+  title
+  hero {
+    __typename
+    heading
+    subheading
+    images
+  }
+  body
+}

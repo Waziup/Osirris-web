@@ -1,3 +1,5 @@
+"use client";
+
 import Navigation from "../components/sections/Navigation";
 import TechnologySection from "../components/sections/TechnologySection";
 import ApplicationSection from "../components/sections/ApplicationSection";

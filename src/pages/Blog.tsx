@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { ChevronRight, Calendar, Clock, User, Leaf, ArrowRight } from "lucide-react";
 

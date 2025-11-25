@@ -4,13 +4,25 @@ import ApplicationSection from "../components/sections/ApplicationSection";
 import PilotsSection from "../components/sections/PilotsSection";
 import PartnersSection from "../components/sections/PartnersSection";
 import Footer from "../components/sections/Footer";
-import { APP_LOGO, APP_TITLE } from "@/const";
-import { ChevronDown } from "lucide-react";
 import HeroSlider from "../components/sections/HeroSlider";
 
-export default function Home({ tinaData }) {
+interface HeroData {
+  heading: string;
+  subheading: string;
+  images: string[];
+}
 
+interface TinaData {
+  title: string;
+  hero: HeroData;
+  body: string;
+}
 
+interface HomeProps {
+  tinaData: TinaData;
+}
+
+export default function Home({ tinaData }: HomeProps) {
   const { title, hero, body } = tinaData;
 
   return (

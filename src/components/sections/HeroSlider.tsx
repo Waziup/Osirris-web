@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 import Image from "next/image";
 
-export default function HeroSlider({ hero }) {
+export default function HeroSlider({ hero }: { hero: { heading: string; subheading: string; images: string[]; body: string } }) {
   const { heading, subheading, images, body } = hero;
 
   return (

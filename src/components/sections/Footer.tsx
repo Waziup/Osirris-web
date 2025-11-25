@@ -1,6 +1,6 @@
 import { Leaf } from "lucide-react";
 
-export default function Footer({ heroHeading }) {
+export default function Footer({ heroHeading }: { heroHeading: string }) {
   return (
     <footer className="bg-gray-900 text-white py-12 sm:py-16 lg:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

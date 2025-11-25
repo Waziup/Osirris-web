@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Leaf } from "lucide-react";
 
-export default function Navigation({ heroHeading }) {
+export default function Navigation({ heroHeading }: { heroHeading: string }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {

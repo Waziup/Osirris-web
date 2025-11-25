@@ -1,32 +1,40 @@
-import { tinaClient } from "../app/tina/client";
 import Home from "../pages/Home";
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
 
 export default async function Page() {
-  // TinaCMS data fetching logic
-  let tinaData = {};
+  // Read content from MDX file directly
+  let tinaData = {
+    title: "Home Page",
+    hero: {
+      heading: "Welcome to Osirris",
+      subheading: "The future of technology",
+      images: [] as string[],
+    },
+    body: "This is the content for the home page.",
+  };
+
   try {
-    const result = await tinaClient.queries.page({
-      relativePath: "index.mdx",
-    });
-    tinaData = {
-      title: result.data.page.title,
-      hero: result.data.page.hero,
-      body: result.data.page.body,
-    };
+    const contentPath = path.join(process.cwd(), "content/pages/index.mdx");
+    if (fs.existsSync(contentPath)) {
+      const fileContents = fs.readFileSync(contentPath, "utf8");
+      const { data, content } = matter(fileContents);
+      
+      tinaData = {
+        title: data.title || "Home Page",
+        hero: {
+          heading: data.hero?.heading || "Welcome to Osirris",
+          subheading: data.hero?.subheading || "The future of technology",
+          images: data.hero?.images || [],
+        },
+        body: content || "This is the content for the home page.",
+      };
+    }
   } catch (e) {
-    console.error("Error fetching TinaCMS data:", e);
-    // Fallback data structure in case TinaCMS is not running or content is missing
-    tinaData = {
-      title: "Fallback Home Page",
-      hero: {
-        heading: "Welcome to Osirris (Fallback)",
-        subheading: "The future of technology",
-        images: [],
-      },
-      body: "Content not loaded from TinaCMS. Please run TinaCMS server.",
-    };
+    console.error("Error reading content file:", e);
   }
 
-  // Pass the TinaCMS data to the Home component
+  // Pass the data to the Home component
   return <Home tinaData={tinaData} />;
 }

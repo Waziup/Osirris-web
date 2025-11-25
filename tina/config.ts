@@ -2,9 +2,11 @@ import { defineConfig } from "tinacms";
 
 // The TinaCMS configuration for the project.
 export default defineConfig({
-  branch: "main", // Replace with your default branch name
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID, // Get this from your Tina Cloud dashboard
-  token: process.env.TINA_TOKEN, // Get this from your Tina Cloud dashboard
+  branch: "main",
+  
+  // For local development without TinaCloud
+  clientId: null as any,
+  token: null as any,
 
   build: {
     outputFolder: "admin",

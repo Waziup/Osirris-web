@@ -110,7 +110,7 @@ export default function Blog({ posts = [], globalData = { header: { navLinks: []
                     </span>
                     <span className="text-sm text-gray-500 flex items-center">
                       <Calendar className="w-4 h-4 mr-2" />
-                      {new Date(featuredPost.date).toLocaleDateString()}
+                      {new Date(featuredPost.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                     </span>
                   </div>
                   <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6 leading-tight">
@@ -230,7 +230,7 @@ export default function Blog({ posts = [], globalData = { header: { navLinks: []
                       <div className="flex items-center text-xs text-gray-500 mb-3 space-x-3">
                         <span className="flex items-center">
                           <Calendar className="w-3 h-3 mr-1" />
-                          {new Date(post.date).toLocaleDateString()}
+                          {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
                         </span>
                         <span className="flex items-center">
                           <Clock className="w-3 h-3 mr-1" />

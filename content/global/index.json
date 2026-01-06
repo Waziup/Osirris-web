@@ -1,6 +1,6 @@
 {
   "header": {
-    "logo": "https://images.unsplash.com/photo-1611532736579-6b16e2b50449?w=200&h=200&fit=crop",
+    "logo": "/uploads/logo.svg",
     "navLinks": [
       {
         "label": "Home",

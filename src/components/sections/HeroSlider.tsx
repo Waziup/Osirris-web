@@ -10,25 +10,25 @@ export default function HeroSlider({ hero }: { hero: { heading: string; subheadi
   // Helper function to convert relative paths to absolute URLs
   const getImageUrl = (imagePath: string): string => {
     if (!imagePath) return "";
-    
+
     // If it's already a full URL, return as is
     if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
       return imagePath;
     }
-    
+
     // If it's a relative path starting with /, it's a local file
     if (imagePath.startsWith("/")) {
       // For local files, we'll use them directly
       // Next.js will serve them from the public folder
       return imagePath;
     }
-    
+
     // If it doesn't start with /, add it
     return "/" + imagePath;
   };
 
   // Filter out empty image paths
-  const validImages = images && images.length > 0 
+  const validImages = images && images.length > 0
     ? images.filter((img) => img && img.trim().length > 0).map(getImageUrl)
     : [];
 
@@ -69,7 +69,7 @@ export default function HeroSlider({ hero }: { hero: { heading: string; subheadi
         </CarouselContent>
       </Carousel>
 
-      <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/90 via-emerald-500/85 to-blue-600/85"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/40 via-emerald-500/30 to-blue-600/40"></div>
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
         <div className="mb-6 inline-block">
           <span className="bg-white/20 backdrop-blur-md text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-full border border-white/30">

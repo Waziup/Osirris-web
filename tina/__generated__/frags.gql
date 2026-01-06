@@ -82,7 +82,7 @@ fragment HomeParts on Home {
     heading
     subheading
     description
-    partnerList {
+    partners {
       __typename
       name
       logo

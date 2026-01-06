@@ -395,7 +395,7 @@ var config_default = defineConfig({
               },
               {
                 type: "object",
-                name: "partnerList",
+                name: "partners",
                 label: "Partners",
                 list: true,
                 ui: {

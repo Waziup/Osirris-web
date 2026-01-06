@@ -242,7 +242,7 @@ type HomePilots {
   sites: [HomePilotsSites]
 }
 
-type HomePartnersPartnerList {
+type HomePartnersPartners {
   name: String
   logo: String
 }
@@ -251,7 +251,7 @@ type HomePartners {
   heading: String
   subheading: String
   description: String
-  partnerList: [HomePartnersPartnerList]
+  partners: [HomePartnersPartners]
 }
 
 type Home implements Node & Document {
@@ -318,7 +318,7 @@ input HomePilotsFilter {
   sites: HomePilotsSitesFilter
 }
 
-input HomePartnersPartnerListFilter {
+input HomePartnersPartnersFilter {
   name: StringFilter
   logo: ImageFilter
 }
@@ -327,7 +327,7 @@ input HomePartnersFilter {
   heading: StringFilter
   subheading: StringFilter
   description: StringFilter
-  partnerList: HomePartnersPartnerListFilter
+  partners: HomePartnersPartnersFilter
 }
 
 input RichTextFilter {
@@ -610,7 +610,7 @@ input HomePilotsMutation {
   sites: [HomePilotsSitesMutation]
 }
 
-input HomePartnersPartnerListMutation {
+input HomePartnersPartnersMutation {
   name: String
   logo: String
 }
@@ -619,7 +619,7 @@ input HomePartnersMutation {
   heading: String
   subheading: String
   description: String
-  partnerList: [HomePartnersPartnerListMutation]
+  partners: [HomePartnersPartnersMutation]
 }
 
 input HomeMutation {

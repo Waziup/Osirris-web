@@ -24,41 +24,34 @@ export default function HeroSlider({ hero }: { hero: HeroData }) {
     images?.filter((img) => img && img.trim().length > 0).map(getImageUrl) || [];
 
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen w-full overflow-hidden flex items-center justify-center"
-    >
-      {/* FULLSCREEN CAROUSEL */}
-      {validImages.length > 0 && (
-        <Carousel className="absolute inset-0 w-full min-h-screen">
-          <CarouselContent className="w-full min-h-screen">
-            {validImages.map((image, index) => (
-              <CarouselItem
-                key={index}
-                className="relative w-full min-h-screen"
+    <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
+      {/* Carousel */}
+      <Carousel className="absolute inset-0 w-full h-full">
+        <CarouselContent className="w-full h-full">
+          {imagesToDisplay.map((image, index) => (
+            <CarouselItem key={index} className="w-full h-full">
+              <div 
+                className="w-full h-full bg-cover bg-center bg-no-repeat"
+                style={{
+                  backgroundImage: `url('${image}')`,
+                }}
+                onError={() => {
+                  console.error(`Failed to load image: ${image}`);
+                }}
               >
-                <img
-                  src={image}
-                  alt={`Hero slide ${index + 1}`}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  loading={index === 0 ? "eager" : "lazy"}
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
-      )}
+                {/* Fallback color if image fails */}
+                <div className="w-full h-full bg-gradient-to-br from-emerald-500 to-blue-600" />
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
 
-      {/* FALLBACK BACKGROUND IF NO IMAGES */}
-      {validImages.length === 0 && (
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500 to-blue-600" />
-      )}
+      {/* Overlay gradient */}
+      <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/90 via-emerald-500/85 to-blue-600/85"></div>
 
-      {/* OVERLAY */}
-      <div className="absolute inset-0 bg-black/45" />
-
-      {/* CONTENT */}
-      <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+      {/* Content */}
+      <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
         <div className="mb-6 inline-block">
           <span className="bg-white/20 backdrop-blur-md text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-full border border-white/30">
             EU Horizon 2020 Project

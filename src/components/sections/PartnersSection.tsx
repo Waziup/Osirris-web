@@ -11,25 +11,25 @@ interface PartnersData {
   heading?: string;
   subheading?: string;
   description?: string;
-  partnerList?: { name: string; logo: string }[];
+  partners?: { name: string; logo: string }[];
 }
 
 export default function PartnersSection({ data }: { data: PartnersData }) {
-  const { heading, subheading, description, partnerList } = data || {};
+  const { heading, subheading, description, partners } = data || {};
 
   const defaultPartners = [
-    { name: "Research Institute A", logo: "" },
-    { name: "Agricultural Org B", logo: "" },
-    { name: "Tech Partner C", logo: "" },
-    { name: "University D", logo: "" },
-    { name: "Farm Network E", logo: "" },
-    { name: "IoT Provider F", logo: "" },
-    { name: "Sustainability G", logo: "" },
-    { name: "Innovation Hub H", logo: "" },
+    { name: "Research Institute A", logo: "https://images.unsplash.com/photo-1611532736579-6b16e2b50449?w=200&h=200&fit=crop" },
+    { name: "Agricultural Org B", logo: "https://images.unsplash.com/photo-1611532736579-6b16e2b50449?w=200&h=200&fit=crop" },
+    { name: "Tech Partner C", logo: "https://images.unsplash.com/photo-1611532736579-6b16e2b50449?w=200&h=200&fit=crop" },
+    { name: "University D", logo: "https://images.unsplash.com/photo-1611532736579-6b16e2b50449?w=200&h=200&fit=crop" },
+    { name: "Farm Network E", logo: "https://images.unsplash.com/photo-1611532736579-6b16e2b50449?w=200&h=200&fit=crop" },
+    { name: "IoT Provider F", logo: "https://images.unsplash.com/photo-1611532736579-6b16e2b50449?w=200&h=200&fit=crop" },
+    { name: "Sustainability G", logo: "https://images.unsplash.com/photo-1611532736579-6b16e2b50449?w=200&h=200&fit=crop" },
+    { name: "Innovation Hub H", logo: "https://images.unsplash.com/photo-1611532736579-6b16e2b50449?w=200&h=200&fit=crop" },
   ];
 
   const partnersToDisplay =
-    partnerList && partnerList.length > 0 ? partnerList : defaultPartners;
+    partners && partners.length > 0 ? partners : defaultPartners;
 
   return (
     <section

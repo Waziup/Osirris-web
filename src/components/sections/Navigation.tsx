@@ -1,14 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Leaf } from "lucide-react";
+import Image from "next/image";
 
 interface NavigationProps {
   heroHeading: string;
   navLinks: { label: string; href: string }[];
+  logo?: string;
 }
 
-export default function Navigation({ heroHeading, navLinks }: NavigationProps) {
+export default function Navigation({ heroHeading, navLinks, logo }: NavigationProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -36,9 +37,21 @@ export default function Navigation({ heroHeading, navLinks }: NavigationProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-20">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-              <Leaf className="text-white w-6 h-6 sm:w-7 sm:h-7" />
-            </div>
+            {logo ? (
+              <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl overflow-hidden shadow-lg flex-shrink-0">
+                <Image
+                  src={logo}
+                  alt="Logo"
+                  fill
+                  style={{ objectFit: "cover" }}
+                  priority
+                />
+              </div>
+            ) : (
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                <span className="text-white font-bold text-lg">O</span>
+              </div>
+            )}
             <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
               {heroHeading}
             </span>

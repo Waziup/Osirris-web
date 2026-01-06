@@ -1,5 +1,6 @@
 {
   "header": {
+    "logo": "https://images.unsplash.com/photo-1611532736579-6b16e2b50449?w=200&h=200&fit=crop",
     "navLinks": [
       {
         "label": "Home",
@@ -32,6 +33,7 @@
     ]
   },
   "footer": {
+    "logo": "https://images.unsplash.com/photo-1611532736579-6b16e2b50449?w=200&h=200&fit=crop",
     "copyright": "© 2026 Osirris Project. All rights reserved.",
     "socialLinks": [
       {
@@ -44,7 +46,7 @@
       }
     ],
     "funding": {
-      "text": "This project has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 123456.",
+      "text": "This project has received funding from the European Union's Horizon 2020 research and innovation programme under grant agreement No 123456.",
       "logo": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg"
     }
   }

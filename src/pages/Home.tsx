@@ -26,11 +26,17 @@ interface TinaData {
 
 interface GlobalData {
   header: {
+    logo?: string;
     navLinks: { label: string; href: string }[];
   };
   footer: {
+    logo?: string;
     copyright: string;
     socialLinks: { platform: string; url: string }[];
+    funding?: {
+      text: string;
+      logo: string;
+    };
   };
 }
 
@@ -45,7 +51,7 @@ export default function Home({ tinaData, globalData }: HomeProps) {
 
   return (
     <div className="bg-gray-50 text-gray-900">
-      <Navigation heroHeading={hero.heading} navLinks={header.navLinks} />
+      <Navigation heroHeading={hero.heading} navLinks={header.navLinks} logo={header.logo} />
 
       <HeroSlider hero={{ heading: hero.heading, subheading: hero.subheading, images: hero.images, body: body }} />
 

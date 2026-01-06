@@ -40,6 +40,12 @@ export default defineConfig({
             label: "Header / Navigation",
             fields: [
               {
+                type: "image",
+                name: "logo",
+                label: "Logo Image",
+                description: "Upload the logo to be displayed in the navigation bar",
+              },
+              {
                 type: "object",
                 name: "navLinks",
                 label: "Navigation Links",
@@ -69,6 +75,12 @@ export default defineConfig({
             name: "footer",
             label: "Footer",
             fields: [
+              {
+                type: "image",
+                name: "logo",
+                label: "Logo Image",
+                description: "Upload the logo to be displayed in the footer",
+              },
               {
                 type: "string",
                 name: "copyright",

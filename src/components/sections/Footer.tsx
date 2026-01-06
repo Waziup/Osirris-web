@@ -1,9 +1,9 @@
-import { Leaf } from "lucide-react";
 import Image from "next/image";
 
 interface FooterProps {
   heroHeading: string;
   data: {
+    logo?: string;
     copyright: string;
     socialLinks: { platform: string; url: string }[];
     funding?: {
@@ -14,7 +14,7 @@ interface FooterProps {
 }
 
 export default function Footer({ heroHeading, data }: FooterProps) {
-  const { copyright, socialLinks, funding } = data;
+  const { logo, copyright, socialLinks, funding } = data;
 
   return (
     <footer className="bg-slate-900 text-slate-200 py-16 border-t border-slate-800">
@@ -23,9 +23,20 @@ export default function Footer({ heroHeading, data }: FooterProps) {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-900/20">
-                <Leaf className="text-white w-6 h-6" />
-              </div>
+              {logo ? (
+                <div className="relative w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-emerald-900/20 flex-shrink-0">
+                  <Image
+                    src={logo}
+                    alt="Logo"
+                    fill
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
+              ) : (
+                <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-900/20">
+                  <span className="text-white font-bold text-lg">O</span>
+                </div>
+              )}
               <span className="text-xl font-bold bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
                 {heroHeading}
               </span>
@@ -96,7 +107,7 @@ export default function Footer({ heroHeading, data }: FooterProps) {
                 <h3 className="text-white font-semibold mb-2">EU Horizon 2020</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">
                   {funding?.text ||
-                    "This project has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 123456."}
+                    "This project has received funding from the European Union's Horizon 2020 research and innovation programme under grant agreement No 123456."}
                 </p>
               </div>
             </div>

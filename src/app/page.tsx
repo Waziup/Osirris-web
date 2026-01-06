@@ -22,11 +22,14 @@ export default async function Page() {
   // Default Global Data
   let globalData = {
     header: {
+      logo: undefined as string | undefined,
       navLinks: [] as { label: string; href: string }[],
     },
     footer: {
+      logo: undefined as string | undefined,
       copyright: "© 2026 Osirris Project",
       socialLinks: [] as { platform: string; url: string }[],
+      funding: undefined as { text: string; logo: string } | undefined,
     },
   };
 
@@ -59,8 +62,16 @@ export default async function Page() {
       const parsedGlobalData = JSON.parse(globalFileContents);
       
       globalData = {
-        header: parsedGlobalData.header || globalData.header,
-        footer: parsedGlobalData.footer || globalData.footer,
+        header: {
+          logo: parsedGlobalData.header?.logo,
+          navLinks: parsedGlobalData.header?.navLinks || globalData.header.navLinks,
+        },
+        footer: {
+          logo: parsedGlobalData.footer?.logo,
+          copyright: parsedGlobalData.footer?.copyright || globalData.footer.copyright,
+          socialLinks: parsedGlobalData.footer?.socialLinks || globalData.footer.socialLinks,
+          funding: parsedGlobalData.footer?.funding,
+        },
       };
     }
   } catch (e) {

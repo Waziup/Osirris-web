@@ -7,27 +7,55 @@ import Image from "next/image";
 export default function HeroSlider({ hero }: { hero: { heading: string; subheading: string; images: string[]; body: string } }) {
   const { heading, subheading, images, body } = hero;
 
+  // Helper function to convert relative paths to absolute URLs
+  const getImageUrl = (imagePath: string): string => {
+    if (!imagePath) return "";
+    
+    // If it's already a full URL, return as is
+    if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
+      return imagePath;
+    }
+    
+    // If it's a relative path starting with /, it's a local file
+    if (imagePath.startsWith("/")) {
+      // For local files, we'll use them directly
+      // Next.js will serve them from the public folder
+      return imagePath;
+    }
+    
+    // If it doesn't start with /, add it
+    return "/" + imagePath;
+  };
+
+  // Filter out empty image paths
+  const validImages = images && images.length > 0 
+    ? images.filter((img) => img && img.trim().length > 0).map(getImageUrl)
+    : [];
+
   return (
     <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
       <Carousel className="absolute inset-0 w-full h-full">
         <CarouselContent className="w-full h-full">
-          {images && images.length > 0 ? (
-            images.map((image, index) => (
+          {validImages && validImages.length > 0 ? (
+            validImages.map((image, index) => (
               <CarouselItem key={index} className="w-full h-full">
-                <div className="w-full h-full">
+                <div className="w-full h-full relative">
                   <Image
                     src={image}
                     alt={`Slide ${index + 1}`}
                     fill
                     style={{ objectFit: "cover" }}
                     priority={index === 0}
+                    onError={(e) => {
+                      console.error(`Failed to load image: ${image}`);
+                    }}
                   />
                 </div>
               </CarouselItem>
             ))
           ) : (
             <CarouselItem className="w-full h-full">
-              <div className="w-full h-full">
+              <div className="w-full h-full relative">
                 <Image
                   src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1920&h=1080&fit=crop"
                   alt="Smart Agriculture (Placeholder)"

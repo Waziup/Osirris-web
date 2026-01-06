@@ -5,7 +5,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
-import Image from "next/image";
 
 interface PartnersData {
   heading?: string;
@@ -69,16 +68,16 @@ export default function PartnersSection({ data }: { data: PartnersData }) {
                   >
                     <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-40 w-full flex items-center justify-center hover:shadow-lg transition-all group">
                       {partner.logo ? (
-                        <div className="relative w-28 h-28 flex items-center justify-center">
-                          <Image
+                        <div className="w-28 h-28 flex items-center justify-center overflow-hidden">
+                          <img
                             src={partner.logo}
                             alt={partner.name}
-                            width={112}
-                            height={112}
-                            style={{ objectFit: "contain" }}
-                            className="filter grayscale group-hover:grayscale-0 transition-all duration-300"
+                            className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
                             onError={(e) => {
                               console.error(`Failed to load partner logo: ${partner.logo}`);
+                              // Fallback to text
+                              const img = e.target as HTMLImageElement;
+                              img.style.display = 'none';
                             }}
                           />
                         </div>

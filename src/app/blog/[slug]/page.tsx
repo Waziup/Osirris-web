@@ -12,8 +12,8 @@ export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params;
   let post: any = null;
   let globalData: any = {
-    header: { navLinks: [] },
-    footer: { copyright: "", socialLinks: [] },
+    header: { logo: undefined, navLinks: [] },
+    footer: { logo: undefined, copyright: "", socialLinks: [] },
   };
 
   const filename = `${slug}.mdx`;
@@ -59,18 +59,43 @@ export default async function BlogPostPage({ params }: PageProps) {
     try {
        const globalPath = path.join(process.cwd(), "content/global/index.json");
        if (fs.existsSync(globalPath)) {
-         globalData = JSON.parse(fs.readFileSync(globalPath, "utf8"));
+         const fileData = JSON.parse(fs.readFileSync(globalPath, "utf8"));
+         globalData = {
+           header: {
+             logo: fileData.header?.logo,
+             navLinks: fileData.header?.navLinks || [],
+           },
+           footer: {
+             logo: fileData.footer?.logo,
+             copyright: fileData.footer?.copyright || "",
+             socialLinks: fileData.footer?.socialLinks || [],
+             funding: fileData.footer?.funding,
+           },
+         };
        }
     } catch (e) {
        console.error("Error reading global settings file:", e);
     }
   }
 
+  // Ensure post has all required fields
   if (!post) {
     return <div className="text-center py-20">Post not found</div>;
   }
 
-  return <BlogPost post={post} globalData={globalData} />;
+  // Add default values for missing fields
+  const safePost = {
+    title: post.title || "Untitled",
+    image: post.image || "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200&h=800&fit=crop",
+    category: post.category || "General",
+    date: post.date || new Date().toISOString(),
+    readTime: post.readTime || "5 min read",
+    author: post.author || "Osirris Team",
+    authorRole: post.authorRole || "Contributor",
+    body: post.body || { type: "root", children: [] },
+  };
+
+  return <BlogPost post={safePost} globalData={globalData} />;
 }
 
 export async function generateStaticParams() {

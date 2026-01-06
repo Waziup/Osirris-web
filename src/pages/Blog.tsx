@@ -22,9 +22,11 @@ interface BlogPost {
 
 interface GlobalData {
   header: {
+    logo?: string;
     navLinks: { label: string; href: string }[];
   };
   footer: {
+    logo?: string;
     copyright: string;
     socialLinks: { platform: string; url: string }[];
     funding?: { text: string; logo: string };
@@ -36,27 +38,30 @@ interface BlogProps {
   globalData: GlobalData;
 }
 
-export default function Blog({ posts, globalData }: BlogProps) {
+export default function Blog({ posts = [], globalData = { header: { navLinks: [] }, footer: { copyright: "", socialLinks: [] } } }: BlogProps) {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Ensure posts is an array
+  const safePosts = Array.isArray(posts) ? posts : [];
+
   // Get unique categories
-  const categories = ["All", ...Array.from(new Set(posts.map((post) => post.category)))];
+  const categories = ["All", ...Array.from(new Set(safePosts.map((post) => post.category)))];
 
   // Filter posts
-  const filteredPosts = posts.filter((post) => {
+  const filteredPosts = safePosts.filter((post) => {
     const matchesCategory = selectedCategory === "All" || post.category === selectedCategory;
     const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
-  const featuredPost = filteredPosts.find((post) => post.featured);
-  const regularPosts = filteredPosts.filter((post) => post.id !== featuredPost?.id);
+  const featuredPost = filteredPosts && filteredPosts.length > 0 ? filteredPosts.find((post) => post.featured) : undefined;
+  const regularPosts = featuredPost ? filteredPosts.filter((post) => post.id !== featuredPost?.id) : filteredPosts;
 
   return (
     <div className="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
-      <Navigation heroHeading="OSIRRIS" navLinks={globalData.header.navLinks} />
+      <Navigation heroHeading="OSIRRIS" navLinks={globalData?.header?.navLinks || []} logo={globalData?.header?.logo} />
 
       {/* Hero Section */}
       <section className="relative pt-32 sm:pt-40 pb-16 sm:pb-20 bg-gradient-to-br from-emerald-50 to-blue-50 overflow-hidden mt-16">
@@ -274,7 +279,7 @@ export default function Blog({ posts, globalData }: BlogProps) {
         </div>
       </section>
 
-      <Footer heroHeading="OSIRRIS" data={globalData.footer} />
+      <Footer heroHeading="OSIRRIS" data={globalData?.footer ? { logo: globalData.footer.logo, copyright: globalData.footer.copyright || "", socialLinks: globalData.footer.socialLinks || [], funding: globalData.footer.funding } : { copyright: "", socialLinks: [] }} />
     </div>
   );
 }

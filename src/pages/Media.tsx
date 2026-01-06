@@ -36,12 +36,14 @@ interface Publication {
 }
 
 interface GlobalData {
-  header: {
-    navLinks: { label: string; href: string }[];
+  header?: {
+    logo?: string;
+    navLinks?: { label: string; href: string }[];
   };
-  footer: {
-    copyright: string;
-    socialLinks: { platform: string; url: string }[];
+  footer?: {
+    logo?: string;
+    copyright?: string;
+    socialLinks?: { platform: string; url: string }[];
     funding?: { text: string; logo: string };
   };
 }
@@ -52,11 +54,15 @@ interface MediaProps {
   globalData: GlobalData;
 }
 
-export default function Media({ mediaItems, publications, globalData }: MediaProps) {
+export default function Media({ mediaItems = [], publications = [], globalData }: MediaProps) {
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
   
-  const photos = mediaItems.filter((item) => item.type === "photo");
-  const videos = mediaItems.filter((item) => item.type === "video");
+  // Ensure arrays are valid
+  const safeMediaItems = Array.isArray(mediaItems) ? mediaItems : [];
+  const safePublications = Array.isArray(publications) ? publications : [];
+  
+  const photos = safeMediaItems.filter((item) => item?.type === "photo");
+  const videos = safeMediaItems.filter((item) => item?.type === "video");
 
   const openLightbox = (index: number) => {
     setSelectedPhotoIndex(index);
@@ -91,7 +97,7 @@ export default function Media({ mediaItems, publications, globalData }: MediaPro
 
   return (
     <div className="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
-      <Navigation heroHeading="OSIRRIS" navLinks={globalData.header.navLinks} />
+      <Navigation heroHeading="OSIRRIS" navLinks={globalData?.header?.navLinks || []} logo={globalData?.header?.logo} />
 
       {/* Lightbox Modal */}
       {selectedPhotoIndex !== null && (
@@ -348,7 +354,7 @@ export default function Media({ mediaItems, publications, globalData }: MediaPro
         </div>
       </section>
 
-      <Footer heroHeading="OSIRRIS" data={globalData.footer} />
+      <Footer heroHeading="OSIRRIS" data={globalData?.footer ? { logo: globalData.footer.logo, copyright: globalData.footer.copyright || "", socialLinks: globalData.footer.socialLinks || [], funding: globalData.footer.funding } : { copyright: "", socialLinks: [] }} />
     </div>
   );
 }

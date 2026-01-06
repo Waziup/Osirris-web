@@ -46,12 +46,22 @@ interface HomeProps {
 }
 
 export default function Home({ tinaData, globalData }: HomeProps) {
-  const { title, hero, technology, application, pilots, partners, body } = tinaData;
-  const { header, footer } = globalData;
+  // Provide defaults for missing data
+  const safeData = {
+    title: tinaData?.title || "Home",
+    hero: tinaData?.hero || { heading: "Welcome", subheading: "", images: [] },
+    technology: tinaData?.technology || {},
+    application: tinaData?.application || {},
+    pilots: tinaData?.pilots || {},
+    partners: tinaData?.partners || {},
+    body: tinaData?.body || "",
+  };
+  const { title, hero, technology, application, pilots, partners, body } = safeData;
+  const { header, footer } = globalData || { header: { navLinks: [] }, footer: { copyright: "", socialLinks: [] } };
 
   return (
     <div className="bg-gray-50 text-gray-900">
-      <Navigation heroHeading={hero.heading} navLinks={header.navLinks} logo={header.logo} />
+      <Navigation heroHeading={hero?.heading || "OSIRRIS"} navLinks={header?.navLinks || []} logo={header?.logo} />
 
       <HeroSlider hero={{ heading: hero.heading, subheading: hero.subheading, images: hero.images, body: body }} />
 

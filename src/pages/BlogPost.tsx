@@ -17,16 +17,27 @@ interface BlogPostProps {
     authorRole: string;
     body: any;
   };
-  globalData: {
-    header: { navLinks: { label: string; href: string }[] };
-    footer: { copyright: string; socialLinks: { platform: string; url: string }[]; funding?: { text: string; logo: string } };
+  globalData?: {
+    header?: { logo?: string; navLinks?: { label: string; href: string }[] };
+    footer?: { logo?: string; copyright?: string; socialLinks?: { platform: string; url: string }[]; funding?: { text: string; logo: string } };
   };
 }
 
-export default function BlogPost({ post, globalData }: BlogPostProps) {
+export default function BlogPost({ post, globalData = { header: { navLinks: [] }, footer: { copyright: "", socialLinks: [] } } }: BlogPostProps) {
+  // Ensure post has all required fields
+  const safePost = {
+    title: post?.title || "Untitled",
+    image: post?.image || "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200&h=800&fit=crop",
+    category: post?.category || "General",
+    date: post?.date || new Date().toISOString(),
+    readTime: post?.readTime || "5 min read",
+    author: post?.author || "Osirris Team",
+    authorRole: post?.authorRole || "Contributor",
+    body: post?.body || { type: "root", children: [] },
+  };
   return (
     <div className="bg-white text-gray-900 min-h-screen flex flex-col">
-      <Navigation heroHeading="OSIRRIS" navLinks={globalData.header.navLinks} />
+      <Navigation heroHeading="OSIRRIS" navLinks={globalData?.header?.navLinks || []} logo={globalData?.header?.logo} />
 
       <article className="flex-grow pt-24 sm:pt-32 pb-16 sm:pb-24">
         {/* Header */}
@@ -41,29 +52,29 @@ export default function BlogPost({ post, globalData }: BlogPostProps) {
           
           <div className="flex flex-wrap justify-center items-center gap-3 mb-6">
             <span className="bg-emerald-100 text-emerald-700 text-sm font-bold px-4 py-1.5 rounded-full">
-              {post.category}
+              {safePost.category}
             </span>
             <span className="text-gray-500 flex items-center text-sm">
               <Calendar className="w-4 h-4 mr-2" />
-              {new Date(post.date).toLocaleDateString()}
+              {new Date(safePost.date).toLocaleDateString()}
             </span>
             <span className="text-gray-500 flex items-center text-sm">
               <Clock className="w-4 h-4 mr-2" />
-              {post.readTime}
+              {safePost.readTime}
             </span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 mb-8 leading-tight">
-            {post.title}
+            {safePost.title}
           </h1>
 
           <div className="flex items-center justify-center space-x-4">
             <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-md">
-              {post.author.charAt(0)}
+              {safePost.author.charAt(0)}
             </div>
             <div className="text-left">
-              <p className="font-bold text-gray-900">{post.author}</p>
-              <p className="text-sm text-gray-500">{post.authorRole}</p>
+              <p className="font-bold text-gray-900">{safePost.author}</p>
+              <p className="text-sm text-gray-500">{safePost.authorRole}</p>
             </div>
           </div>
         </div>
@@ -72,8 +83,8 @@ export default function BlogPost({ post, globalData }: BlogPostProps) {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16">
           <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden shadow-2xl">
             <Image
-              src={post.image}
-              alt={post.title}
+              src={safePost.image}
+              alt={safePost.title}
               fill
               style={{ objectFit: "cover" }}
               priority
@@ -83,11 +94,11 @@ export default function BlogPost({ post, globalData }: BlogPostProps) {
 
         {/* Content */}
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-lg prose-emerald hover:prose-a:text-emerald-600">
-          <TinaMarkdown content={post.body} />
+          <TinaMarkdown content={safePost.body} />
         </div>
       </article>
 
-      <Footer heroHeading="OSIRRIS" data={globalData.footer} />
+      <Footer heroHeading="OSIRRIS" data={globalData?.footer ? { logo: globalData.footer.logo, copyright: globalData.footer.copyright || "", socialLinks: globalData.footer.socialLinks || [], funding: globalData.footer.funding } : { copyright: "", socialLinks: [] }} />
     </div>
   );
 }

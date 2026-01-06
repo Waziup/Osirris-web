@@ -22,12 +22,8 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
-  webpack: (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-    };
-    return config;
-  },
+  // Turbopack configuration for Next.js 16
+  turbopack: {},
 };
 
 export default nextConfig;

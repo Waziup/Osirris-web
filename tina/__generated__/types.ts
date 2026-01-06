@@ -82,8 +82,14 @@ export type Query = {
   collections: Array<Collection>;
   node: Node;
   document: DocumentNode;
-  page: Page;
-  pageConnection: PageConnection;
+  home: Home;
+  homeConnection: HomeConnection;
+  blog: Blog;
+  blogConnection: BlogConnection;
+  media: Media;
+  mediaConnection: MediaConnection;
+  publications: Publications;
+  publicationsConnection: PublicationsConnection;
 };
 
 
@@ -108,22 +114,70 @@ export type QueryDocumentArgs = {
 };
 
 
-export type QueryPageArgs = {
+export type QueryHomeArgs = {
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-export type QueryPageConnectionArgs = {
+export type QueryHomeConnectionArgs = {
   before?: InputMaybe<Scalars['String']['input']>;
   after?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Float']['input']>;
   last?: InputMaybe<Scalars['Float']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<PageFilter>;
+  filter?: InputMaybe<HomeFilter>;
+};
+
+
+export type QueryBlogArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryBlogConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<BlogFilter>;
+};
+
+
+export type QueryMediaArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryMediaConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<MediaFilter>;
+};
+
+
+export type QueryPublicationsArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryPublicationsConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<PublicationsFilter>;
 };
 
 export type DocumentFilter = {
-  page?: InputMaybe<PageFilter>;
+  home?: InputMaybe<HomeFilter>;
+  blog?: InputMaybe<BlogFilter>;
+  media?: InputMaybe<MediaFilter>;
+  publications?: InputMaybe<PublicationsFilter>;
 };
 
 export type DocumentConnectionEdges = {
@@ -163,19 +217,19 @@ export type CollectionDocumentsArgs = {
   folder?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentNode = Page | Folder;
+export type DocumentNode = Home | Blog | Media | Publications | Folder;
 
-export type PageHero = {
-  __typename?: 'PageHero';
-  heading?: Maybe<Scalars['String']['output']>;
+export type HomeHero = {
+  __typename?: 'HomeHero';
+  heading: Scalars['String']['output'];
   subheading?: Maybe<Scalars['String']['output']>;
   images?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
 };
 
-export type Page = Node & Document & {
-  __typename?: 'Page';
+export type Home = Node & Document & {
+  __typename?: 'Home';
   title: Scalars['String']['output'];
-  hero?: Maybe<PageHero>;
+  hero?: Maybe<HomeHero>;
   body?: Maybe<Scalars['JSON']['output']>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
@@ -196,7 +250,7 @@ export type ImageFilter = {
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type PageHeroFilter = {
+export type HomeHeroFilter = {
   heading?: InputMaybe<StringFilter>;
   subheading?: InputMaybe<StringFilter>;
   images?: InputMaybe<ImageFilter>;
@@ -208,23 +262,167 @@ export type RichTextFilter = {
   exists?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type PageFilter = {
+export type HomeFilter = {
   title?: InputMaybe<StringFilter>;
-  hero?: InputMaybe<PageHeroFilter>;
+  hero?: InputMaybe<HomeHeroFilter>;
   body?: InputMaybe<RichTextFilter>;
 };
 
-export type PageConnectionEdges = {
-  __typename?: 'PageConnectionEdges';
+export type HomeConnectionEdges = {
+  __typename?: 'HomeConnectionEdges';
   cursor: Scalars['String']['output'];
-  node?: Maybe<Page>;
+  node?: Maybe<Home>;
 };
 
-export type PageConnection = Connection & {
-  __typename?: 'PageConnection';
+export type HomeConnection = Connection & {
+  __typename?: 'HomeConnection';
   pageInfo: PageInfo;
   totalCount: Scalars['Float']['output'];
-  edges?: Maybe<Array<Maybe<PageConnectionEdges>>>;
+  edges?: Maybe<Array<Maybe<HomeConnectionEdges>>>;
+};
+
+export type Blog = Node & Document & {
+  __typename?: 'Blog';
+  title: Scalars['String']['output'];
+  excerpt: Scalars['String']['output'];
+  image: Scalars['String']['output'];
+  category: Scalars['String']['output'];
+  date: Scalars['String']['output'];
+  readTime?: Maybe<Scalars['String']['output']>;
+  author: Scalars['String']['output'];
+  authorRole?: Maybe<Scalars['String']['output']>;
+  featured?: Maybe<Scalars['Boolean']['output']>;
+  body?: Maybe<Scalars['JSON']['output']>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type DatetimeFilter = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type BooleanFilter = {
+  eq?: InputMaybe<Scalars['Boolean']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type BlogFilter = {
+  title?: InputMaybe<StringFilter>;
+  excerpt?: InputMaybe<StringFilter>;
+  image?: InputMaybe<ImageFilter>;
+  category?: InputMaybe<StringFilter>;
+  date?: InputMaybe<DatetimeFilter>;
+  readTime?: InputMaybe<StringFilter>;
+  author?: InputMaybe<StringFilter>;
+  authorRole?: InputMaybe<StringFilter>;
+  featured?: InputMaybe<BooleanFilter>;
+  body?: InputMaybe<RichTextFilter>;
+};
+
+export type BlogConnectionEdges = {
+  __typename?: 'BlogConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<Blog>;
+};
+
+export type BlogConnection = Connection & {
+  __typename?: 'BlogConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<BlogConnectionEdges>>>;
+};
+
+export type Media = Node & Document & {
+  __typename?: 'Media';
+  title: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  image: Scalars['String']['output'];
+  videoUrl?: Maybe<Scalars['String']['output']>;
+  category: Scalars['String']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  date?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type MediaFilter = {
+  title?: InputMaybe<StringFilter>;
+  type?: InputMaybe<StringFilter>;
+  image?: InputMaybe<ImageFilter>;
+  videoUrl?: InputMaybe<StringFilter>;
+  category?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  date?: InputMaybe<DatetimeFilter>;
+};
+
+export type MediaConnectionEdges = {
+  __typename?: 'MediaConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<Media>;
+};
+
+export type MediaConnection = Connection & {
+  __typename?: 'MediaConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<MediaConnectionEdges>>>;
+};
+
+export type Publications = Node & Document & {
+  __typename?: 'Publications';
+  title: Scalars['String']['output'];
+  journal: Scalars['String']['output'];
+  year: Scalars['String']['output'];
+  fileSize?: Maybe<Scalars['String']['output']>;
+  downloads?: Maybe<Scalars['Float']['output']>;
+  category: Scalars['String']['output'];
+  color?: Maybe<Scalars['String']['output']>;
+  pdfUrl?: Maybe<Scalars['String']['output']>;
+  body?: Maybe<Scalars['JSON']['output']>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type NumberFilter = {
+  lt?: InputMaybe<Scalars['Float']['input']>;
+  lte?: InputMaybe<Scalars['Float']['input']>;
+  gte?: InputMaybe<Scalars['Float']['input']>;
+  gt?: InputMaybe<Scalars['Float']['input']>;
+  eq?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+};
+
+export type PublicationsFilter = {
+  title?: InputMaybe<StringFilter>;
+  journal?: InputMaybe<StringFilter>;
+  year?: InputMaybe<StringFilter>;
+  fileSize?: InputMaybe<StringFilter>;
+  downloads?: InputMaybe<NumberFilter>;
+  category?: InputMaybe<StringFilter>;
+  color?: InputMaybe<StringFilter>;
+  pdfUrl?: InputMaybe<StringFilter>;
+  body?: InputMaybe<RichTextFilter>;
+};
+
+export type PublicationsConnectionEdges = {
+  __typename?: 'PublicationsConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<Publications>;
+};
+
+export type PublicationsConnection = Connection & {
+  __typename?: 'PublicationsConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<PublicationsConnectionEdges>>>;
 };
 
 export type Mutation = {
@@ -234,8 +432,14 @@ export type Mutation = {
   deleteDocument: DocumentNode;
   createDocument: DocumentNode;
   createFolder: DocumentNode;
-  updatePage: Page;
-  createPage: Page;
+  updateHome: Home;
+  createHome: Home;
+  updateBlog: Blog;
+  createBlog: Blog;
+  updateMedia: Media;
+  createMedia: Media;
+  updatePublications: Publications;
+  createPublications: Publications;
 };
 
 
@@ -272,61 +476,201 @@ export type MutationCreateFolderArgs = {
 };
 
 
-export type MutationUpdatePageArgs = {
+export type MutationUpdateHomeArgs = {
   relativePath: Scalars['String']['input'];
-  params: PageMutation;
+  params: HomeMutation;
 };
 
 
-export type MutationCreatePageArgs = {
+export type MutationCreateHomeArgs = {
   relativePath: Scalars['String']['input'];
-  params: PageMutation;
+  params: HomeMutation;
+};
+
+
+export type MutationUpdateBlogArgs = {
+  relativePath: Scalars['String']['input'];
+  params: BlogMutation;
+};
+
+
+export type MutationCreateBlogArgs = {
+  relativePath: Scalars['String']['input'];
+  params: BlogMutation;
+};
+
+
+export type MutationUpdateMediaArgs = {
+  relativePath: Scalars['String']['input'];
+  params: MediaMutation;
+};
+
+
+export type MutationCreateMediaArgs = {
+  relativePath: Scalars['String']['input'];
+  params: MediaMutation;
+};
+
+
+export type MutationUpdatePublicationsArgs = {
+  relativePath: Scalars['String']['input'];
+  params: PublicationsMutation;
+};
+
+
+export type MutationCreatePublicationsArgs = {
+  relativePath: Scalars['String']['input'];
+  params: PublicationsMutation;
 };
 
 export type DocumentUpdateMutation = {
-  page?: InputMaybe<PageMutation>;
+  home?: InputMaybe<HomeMutation>;
+  blog?: InputMaybe<BlogMutation>;
+  media?: InputMaybe<MediaMutation>;
+  publications?: InputMaybe<PublicationsMutation>;
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type DocumentMutation = {
-  page?: InputMaybe<PageMutation>;
+  home?: InputMaybe<HomeMutation>;
+  blog?: InputMaybe<BlogMutation>;
+  media?: InputMaybe<MediaMutation>;
+  publications?: InputMaybe<PublicationsMutation>;
 };
 
-export type PageHeroMutation = {
+export type HomeHeroMutation = {
   heading?: InputMaybe<Scalars['String']['input']>;
   subheading?: InputMaybe<Scalars['String']['input']>;
   images?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type PageMutation = {
+export type HomeMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
-  hero?: InputMaybe<PageHeroMutation>;
+  hero?: InputMaybe<HomeHeroMutation>;
   body?: InputMaybe<Scalars['JSON']['input']>;
 };
 
-export type PagePartsFragment = { __typename: 'Page', title: string, body?: any | null, hero?: { __typename: 'PageHero', heading?: string | null, subheading?: string | null, images?: Array<string | null> | null } | null };
+export type BlogMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  excerpt?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  category?: InputMaybe<Scalars['String']['input']>;
+  date?: InputMaybe<Scalars['String']['input']>;
+  readTime?: InputMaybe<Scalars['String']['input']>;
+  author?: InputMaybe<Scalars['String']['input']>;
+  authorRole?: InputMaybe<Scalars['String']['input']>;
+  featured?: InputMaybe<Scalars['Boolean']['input']>;
+  body?: InputMaybe<Scalars['JSON']['input']>;
+};
 
-export type PageQueryVariables = Exact<{
+export type MediaMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  videoUrl?: InputMaybe<Scalars['String']['input']>;
+  category?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  date?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PublicationsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  journal?: InputMaybe<Scalars['String']['input']>;
+  year?: InputMaybe<Scalars['String']['input']>;
+  fileSize?: InputMaybe<Scalars['String']['input']>;
+  downloads?: InputMaybe<Scalars['Float']['input']>;
+  category?: InputMaybe<Scalars['String']['input']>;
+  color?: InputMaybe<Scalars['String']['input']>;
+  pdfUrl?: InputMaybe<Scalars['String']['input']>;
+  body?: InputMaybe<Scalars['JSON']['input']>;
+};
+
+export type HomePartsFragment = { __typename: 'Home', title: string, body?: any | null, hero?: { __typename: 'HomeHero', heading: string, subheading?: string | null, images?: Array<string | null> | null } | null };
+
+export type BlogPartsFragment = { __typename: 'Blog', title: string, excerpt: string, image: string, category: string, date: string, readTime?: string | null, author: string, authorRole?: string | null, featured?: boolean | null, body?: any | null };
+
+export type MediaPartsFragment = { __typename: 'Media', title: string, type: string, image: string, videoUrl?: string | null, category: string, description?: string | null, date?: string | null };
+
+export type PublicationsPartsFragment = { __typename: 'Publications', title: string, journal: string, year: string, fileSize?: string | null, downloads?: number | null, category: string, color?: string | null, pdfUrl?: string | null, body?: any | null };
+
+export type HomeQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type PageQuery = { __typename?: 'Query', page: { __typename: 'Page', id: string, title: string, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero?: { __typename: 'PageHero', heading?: string | null, subheading?: string | null, images?: Array<string | null> | null } | null } };
+export type HomeQuery = { __typename?: 'Query', home: { __typename: 'Home', id: string, title: string, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero?: { __typename: 'HomeHero', heading: string, subheading?: string | null, images?: Array<string | null> | null } | null } };
 
-export type PageConnectionQueryVariables = Exact<{
+export type HomeConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
   after?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Float']['input']>;
   last?: InputMaybe<Scalars['Float']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<PageFilter>;
+  filter?: InputMaybe<HomeFilter>;
 }>;
 
 
-export type PageConnectionQuery = { __typename?: 'Query', pageConnection: { __typename?: 'PageConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PageConnectionEdges', cursor: string, node?: { __typename: 'Page', id: string, title: string, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero?: { __typename: 'PageHero', heading?: string | null, subheading?: string | null, images?: Array<string | null> | null } | null } | null } | null> | null } };
+export type HomeConnectionQuery = { __typename?: 'Query', homeConnection: { __typename?: 'HomeConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HomeConnectionEdges', cursor: string, node?: { __typename: 'Home', id: string, title: string, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero?: { __typename: 'HomeHero', heading: string, subheading?: string | null, images?: Array<string | null> | null } | null } | null } | null> | null } };
 
-export const PagePartsFragmentDoc = gql`
-    fragment PageParts on Page {
+export type BlogQueryVariables = Exact<{
+  relativePath: Scalars['String']['input'];
+}>;
+
+
+export type BlogQuery = { __typename?: 'Query', blog: { __typename: 'Blog', id: string, title: string, excerpt: string, image: string, category: string, date: string, readTime?: string | null, author: string, authorRole?: string | null, featured?: boolean | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+
+export type BlogConnectionQueryVariables = Exact<{
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<BlogFilter>;
+}>;
+
+
+export type BlogConnectionQuery = { __typename?: 'Query', blogConnection: { __typename?: 'BlogConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'BlogConnectionEdges', cursor: string, node?: { __typename: 'Blog', id: string, title: string, excerpt: string, image: string, category: string, date: string, readTime?: string | null, author: string, authorRole?: string | null, featured?: boolean | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+
+export type MediaQueryVariables = Exact<{
+  relativePath: Scalars['String']['input'];
+}>;
+
+
+export type MediaQuery = { __typename?: 'Query', media: { __typename: 'Media', id: string, title: string, type: string, image: string, videoUrl?: string | null, category: string, description?: string | null, date?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+
+export type MediaConnectionQueryVariables = Exact<{
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<MediaFilter>;
+}>;
+
+
+export type MediaConnectionQuery = { __typename?: 'Query', mediaConnection: { __typename?: 'MediaConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'MediaConnectionEdges', cursor: string, node?: { __typename: 'Media', id: string, title: string, type: string, image: string, videoUrl?: string | null, category: string, description?: string | null, date?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+
+export type PublicationsQueryVariables = Exact<{
+  relativePath: Scalars['String']['input'];
+}>;
+
+
+export type PublicationsQuery = { __typename?: 'Query', publications: { __typename: 'Publications', id: string, title: string, journal: string, year: string, fileSize?: string | null, downloads?: number | null, category: string, color?: string | null, pdfUrl?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+
+export type PublicationsConnectionQueryVariables = Exact<{
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<PublicationsFilter>;
+}>;
+
+
+export type PublicationsConnectionQuery = { __typename?: 'Query', publicationsConnection: { __typename?: 'PublicationsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PublicationsConnectionEdges', cursor: string, node?: { __typename: 'Publications', id: string, title: string, journal: string, year: string, fileSize?: string | null, downloads?: number | null, category: string, color?: string | null, pdfUrl?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+
+export const HomePartsFragmentDoc = gql`
+    fragment HomeParts on Home {
   __typename
   title
   hero {
@@ -338,9 +682,50 @@ export const PagePartsFragmentDoc = gql`
   body
 }
     `;
-export const PageDocument = gql`
-    query page($relativePath: String!) {
-  page(relativePath: $relativePath) {
+export const BlogPartsFragmentDoc = gql`
+    fragment BlogParts on Blog {
+  __typename
+  title
+  excerpt
+  image
+  category
+  date
+  readTime
+  author
+  authorRole
+  featured
+  body
+}
+    `;
+export const MediaPartsFragmentDoc = gql`
+    fragment MediaParts on Media {
+  __typename
+  title
+  type
+  image
+  videoUrl
+  category
+  description
+  date
+}
+    `;
+export const PublicationsPartsFragmentDoc = gql`
+    fragment PublicationsParts on Publications {
+  __typename
+  title
+  journal
+  year
+  fileSize
+  downloads
+  category
+  color
+  pdfUrl
+  body
+}
+    `;
+export const HomeDocument = gql`
+    query home($relativePath: String!) {
+  home(relativePath: $relativePath) {
     ... on Document {
       _sys {
         filename
@@ -353,13 +738,13 @@ export const PageDocument = gql`
       }
       id
     }
-    ...PageParts
+    ...HomeParts
   }
 }
-    ${PagePartsFragmentDoc}`;
-export const PageConnectionDocument = gql`
-    query pageConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageFilter) {
-  pageConnection(
+    ${HomePartsFragmentDoc}`;
+export const HomeConnectionDocument = gql`
+    query homeConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: HomeFilter) {
+  homeConnection(
     before: $before
     after: $after
     first: $first
@@ -389,20 +774,209 @@ export const PageConnectionDocument = gql`
           }
           id
         }
-        ...PageParts
+        ...HomeParts
       }
     }
   }
 }
-    ${PagePartsFragmentDoc}`;
+    ${HomePartsFragmentDoc}`;
+export const BlogDocument = gql`
+    query blog($relativePath: String!) {
+  blog(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...BlogParts
+  }
+}
+    ${BlogPartsFragmentDoc}`;
+export const BlogConnectionDocument = gql`
+    query blogConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: BlogFilter) {
+  blogConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...BlogParts
+      }
+    }
+  }
+}
+    ${BlogPartsFragmentDoc}`;
+export const MediaDocument = gql`
+    query media($relativePath: String!) {
+  media(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...MediaParts
+  }
+}
+    ${MediaPartsFragmentDoc}`;
+export const MediaConnectionDocument = gql`
+    query mediaConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: MediaFilter) {
+  mediaConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...MediaParts
+      }
+    }
+  }
+}
+    ${MediaPartsFragmentDoc}`;
+export const PublicationsDocument = gql`
+    query publications($relativePath: String!) {
+  publications(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...PublicationsParts
+  }
+}
+    ${PublicationsPartsFragmentDoc}`;
+export const PublicationsConnectionDocument = gql`
+    query publicationsConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PublicationsFilter) {
+  publicationsConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...PublicationsParts
+      }
+    }
+  }
+}
+    ${PublicationsPartsFragmentDoc}`;
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
   export function getSdk<C>(requester: Requester<C>) {
     return {
-      page(variables: PageQueryVariables, options?: C): Promise<{data: PageQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageQueryVariables, query: string}> {
-        return requester<{data: PageQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageQueryVariables, query: string}, PageQueryVariables>(PageDocument, variables, options);
+      home(variables: HomeQueryVariables, options?: C): Promise<{data: HomeQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HomeQueryVariables, query: string}> {
+        return requester<{data: HomeQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HomeQueryVariables, query: string}, HomeQueryVariables>(HomeDocument, variables, options);
       },
-    pageConnection(variables?: PageConnectionQueryVariables, options?: C): Promise<{data: PageConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageConnectionQueryVariables, query: string}> {
-        return requester<{data: PageConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageConnectionQueryVariables, query: string}, PageConnectionQueryVariables>(PageConnectionDocument, variables, options);
+    homeConnection(variables?: HomeConnectionQueryVariables, options?: C): Promise<{data: HomeConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HomeConnectionQueryVariables, query: string}> {
+        return requester<{data: HomeConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HomeConnectionQueryVariables, query: string}, HomeConnectionQueryVariables>(HomeConnectionDocument, variables, options);
+      },
+    blog(variables: BlogQueryVariables, options?: C): Promise<{data: BlogQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: BlogQueryVariables, query: string}> {
+        return requester<{data: BlogQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: BlogQueryVariables, query: string}, BlogQueryVariables>(BlogDocument, variables, options);
+      },
+    blogConnection(variables?: BlogConnectionQueryVariables, options?: C): Promise<{data: BlogConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: BlogConnectionQueryVariables, query: string}> {
+        return requester<{data: BlogConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: BlogConnectionQueryVariables, query: string}, BlogConnectionQueryVariables>(BlogConnectionDocument, variables, options);
+      },
+    media(variables: MediaQueryVariables, options?: C): Promise<{data: MediaQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: MediaQueryVariables, query: string}> {
+        return requester<{data: MediaQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: MediaQueryVariables, query: string}, MediaQueryVariables>(MediaDocument, variables, options);
+      },
+    mediaConnection(variables?: MediaConnectionQueryVariables, options?: C): Promise<{data: MediaConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: MediaConnectionQueryVariables, query: string}> {
+        return requester<{data: MediaConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: MediaConnectionQueryVariables, query: string}, MediaConnectionQueryVariables>(MediaConnectionDocument, variables, options);
+      },
+    publications(variables: PublicationsQueryVariables, options?: C): Promise<{data: PublicationsQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PublicationsQueryVariables, query: string}> {
+        return requester<{data: PublicationsQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PublicationsQueryVariables, query: string}, PublicationsQueryVariables>(PublicationsDocument, variables, options);
+      },
+    publicationsConnection(variables?: PublicationsConnectionQueryVariables, options?: C): Promise<{data: PublicationsConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PublicationsConnectionQueryVariables, query: string}> {
+        return requester<{data: PublicationsConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PublicationsConnectionQueryVariables, query: string}, PublicationsConnectionQueryVariables>(PublicationsConnectionDocument, variables, options);
       }
     };
   }

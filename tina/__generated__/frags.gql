@@ -1,4 +1,4 @@
-fragment PageParts on Page {
+fragment HomeParts on Home {
   __typename
   title
   hero {
@@ -7,5 +7,43 @@ fragment PageParts on Page {
     subheading
     images
   }
+  body
+}
+
+fragment BlogParts on Blog {
+  __typename
+  title
+  excerpt
+  image
+  category
+  date
+  readTime
+  author
+  authorRole
+  featured
+  body
+}
+
+fragment MediaParts on Media {
+  __typename
+  title
+  type
+  image
+  videoUrl
+  category
+  description
+  date
+}
+
+fragment PublicationsParts on Publications {
+  __typename
+  title
+  journal
+  year
+  fileSize
+  downloads
+  category
+  color
+  pdfUrl
   body
 }

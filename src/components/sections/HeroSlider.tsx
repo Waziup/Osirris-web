@@ -23,32 +23,36 @@ export default function HeroSlider({ hero }: { hero: HeroData }) {
   const validImages =
     images?.filter((img) => img && img.trim().length > 0).map(getImageUrl) || [];
 
+  // Use placeholder if no images
+  const imagesToDisplay = validImages.length > 0 ? validImages : [
+    "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1920&h=1080&fit=crop"
+  ];
+
   return (
-    <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden bg-gray-900">
       {/* Carousel */}
       <Carousel className="absolute inset-0 w-full h-full">
         <CarouselContent className="w-full h-full">
           {imagesToDisplay.map((image, index) => (
-            <CarouselItem key={index} className="w-full h-full">
-              <div 
-                className="w-full h-full bg-cover bg-center bg-no-repeat"
-                style={{
-                  backgroundImage: `url('${image}')`,
-                }}
-                onError={() => {
-                  console.error(`Failed to load image: ${image}`);
-                }}
-              >
-                {/* Fallback color if image fails */}
-                <div className="w-full h-full bg-gradient-to-br from-emerald-500 to-blue-600" />
+            <CarouselItem key={index} className="w-full h-full p-0">
+              <div className="w-full h-full relative">
+                <img
+                  src={image}
+                  alt={`Hero slide ${index + 1}`}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    console.error(`Failed to load image: ${image}`);
+                    (e.target as HTMLImageElement).style.display = 'none';
+                  }}
+                />
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
       </Carousel>
 
-      {/* Overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/90 via-emerald-500/85 to-blue-600/85"></div>
+      {/* Overlay gradient - semi-transparent for better image visibility */}
+      <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/70 via-emerald-500/65 to-blue-600/70"></div>
 
       {/* Content */}
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">

@@ -1,7 +1,8 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
-import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
+import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
+import { useState, useEffect } from "react";
 
 interface HeroData {
   heading: string;
@@ -12,6 +13,9 @@ interface HeroData {
 
 export default function HeroSlider({ hero }: { hero: HeroData }) {
   const { heading, subheading, body, images } = hero;
+  const [api, setApi] = useState<any>(null);
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
 
   const getImageUrl = (imagePath: string): string => {
     if (!imagePath) return "";
@@ -28,10 +32,41 @@ export default function HeroSlider({ hero }: { hero: HeroData }) {
     "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1920&h=1080&fit=crop"
   ];
 
+  // Auto-play carousel
+  useEffect(() => {
+    if (!api) return;
+
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap() + 1);
+
+    const onSelect = () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    };
+
+    api.on("select", onSelect);
+
+    // Auto-play: change slide every 5 seconds
+    const interval = setInterval(() => {
+      api.scrollNext();
+    }, 5000);
+
+    return () => {
+      api.off("select", onSelect);
+      clearInterval(interval);
+    };
+  }, [api]);
+
   return (
     <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden bg-gray-900">
       {/* Carousel */}
-      <Carousel className="absolute inset-0 w-full h-full">
+      <Carousel 
+        className="absolute inset-0 w-full h-full"
+        setApi={setApi}
+        opts={{
+          loop: true,
+          align: "start",
+        }}
+      >
         <CarouselContent className="w-full h-full">
           {imagesToDisplay.map((image, index) => (
             <CarouselItem key={index} className="w-full h-full p-0">
@@ -49,6 +84,10 @@ export default function HeroSlider({ hero }: { hero: HeroData }) {
             </CarouselItem>
           ))}
         </CarouselContent>
+
+        {/* Navigation arrows */}
+        <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/30 hover:bg-white/50 text-white border-0 rounded-full w-12 h-12 flex items-center justify-center" />
+        <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/30 hover:bg-white/50 text-white border-0 rounded-full w-12 h-12 flex items-center justify-center" />
       </Carousel>
 
       {/* Overlay gradient - semi-transparent for better image visibility */}
@@ -84,8 +123,22 @@ export default function HeroSlider({ hero }: { hero: HeroData }) {
         </a>
       </div>
 
+      {/* Slide indicators */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        {imagesToDisplay.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => api?.scrollTo(index)}
+            className={`w-2 h-2 rounded-full transition-all ${
+              index === current - 1 ? "bg-white w-8" : "bg-white/50"
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+
       {/* SCROLL INDICATOR */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce text-white/80 z-10">
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 animate-bounce text-white/80 z-10">
         <ChevronDown className="w-8 h-8" />
       </div>
     </section>

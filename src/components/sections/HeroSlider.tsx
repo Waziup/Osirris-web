@@ -3,9 +3,11 @@
 import { ChevronDown } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 export default function HeroSlider({ hero }: { hero: { heading: string; subheading: string; images: string[]; body: string } }) {
   const { heading, subheading, images, body } = hero;
+  const [debugInfo, setDebugInfo] = useState<string>("");
 
   // Helper function to convert relative paths to absolute URLs
   const getImageUrl = (imagePath: string): string => {
@@ -27,10 +29,17 @@ export default function HeroSlider({ hero }: { hero: { heading: string; subheadi
     return "/" + imagePath;
   };
 
-  // Filter out empty image paths
+  // Filter out empty image paths and log for debugging
   const validImages = images && images.length > 0
     ? images.filter((img) => img && img.trim().length > 0).map(getImageUrl)
     : [];
+
+  useEffect(() => {
+    // Log for debugging
+    console.log("HeroSlider - Raw images:", images);
+    console.log("HeroSlider - Valid images:", validImages);
+    setDebugInfo(`Images: ${validImages.length}, Raw: ${images?.length || 0}`);
+  }, [images, validImages]);
 
   return (
     <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -44,10 +53,15 @@ export default function HeroSlider({ hero }: { hero: { heading: string; subheadi
                     src={image}
                     alt={`Slide ${index + 1}`}
                     fill
+                    sizes="100vw"
                     style={{ objectFit: "cover" }}
                     priority={index === 0}
+                    quality={85}
                     onError={(e) => {
-                      console.error(`Failed to load image: ${image}`);
+                      console.error(`Failed to load image: ${image}`, e);
+                    }}
+                    onLoad={() => {
+                      console.log(`Successfully loaded image: ${image}`);
                     }}
                   />
                 </div>
@@ -60,8 +74,10 @@ export default function HeroSlider({ hero }: { hero: { heading: string; subheadi
                   src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1920&h=1080&fit=crop"
                   alt="Smart Agriculture (Placeholder)"
                   fill
+                  sizes="100vw"
                   style={{ objectFit: "cover" }}
                   priority
+                  quality={85}
                 />
               </div>
             </CarouselItem>
@@ -69,7 +85,7 @@ export default function HeroSlider({ hero }: { hero: { heading: string; subheadi
         </CarouselContent>
       </Carousel>
 
-      <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/40 via-emerald-500/30 to-blue-600/40"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/90 via-emerald-500/85 to-blue-600/85"></div>
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
         <div className="mb-6 inline-block">
           <span className="bg-white/20 backdrop-blur-md text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-full border border-white/30">
@@ -79,30 +95,23 @@ export default function HeroSlider({ hero }: { hero: { heading: string; subheadi
         <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 sm:mb-8 tracking-tight drop-shadow-2xl">
           {heading}
         </h1>
-        <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mb-6 sm:mb-8 font-light drop-shadow-lg">
+        <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-12 drop-shadow-lg leading-relaxed">
           {subheading}
         </p>
-        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 mb-10 sm:mb-12 max-w-3xl mx-auto leading-relaxed drop-shadow-md font-light">
-          {body}
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
-          <a
-            href="#tensiometers"
-            className="w-full sm:w-auto bg-white text-emerald-600 px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-bold hover:bg-emerald-50 transition-all shadow-2xl hover:shadow-emerald-500/50 hover:scale-105 text-base sm:text-lg"
-          >
-            Discover Technology
-          </a>
-          <a
-            href="#pilots"
-            className="w-full sm:w-auto bg-white/10 backdrop-blur-md border-2 border-white text-white px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-bold hover:bg-white/20 transition-all shadow-2xl hover:scale-105 text-base sm:text-lg"
-          >
-            View Pilots
-          </a>
+        <a
+          href="#tensiometers"
+          className="inline-flex items-center gap-2 bg-white text-emerald-600 font-bold px-8 py-4 rounded-full hover:bg-emerald-50 transition-all transform hover:scale-105 shadow-xl"
+        >
+          Explore More <ChevronDown className="w-5 h-5" />
+        </a>
+      </div>
+
+      {/* Debug info - only show in development */}
+      {process.env.NODE_ENV === 'development' && (
+        <div className="absolute bottom-4 left-4 bg-black/70 text-white text-xs p-2 rounded">
+          {debugInfo}
         </div>
-      </div>
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <ChevronDown className="text-white w-8 h-8 opacity-75" />
-      </div>
+      )}
     </section>
   );
 }

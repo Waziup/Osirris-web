@@ -2,6 +2,7 @@ fragment GlobalParts on Global {
   __typename
   header {
     __typename
+    logo
     navLinks {
       __typename
       label
@@ -10,6 +11,7 @@ fragment GlobalParts on Global {
   }
   footer {
     __typename
+    logo
     copyright
     socialLinks {
       __typename

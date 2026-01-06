@@ -105,6 +105,7 @@ type GlobalHeaderNavLinks {
 }
 
 type GlobalHeader {
+  logo: String
   navLinks: [GlobalHeaderNavLinks]
 }
 
@@ -119,6 +120,7 @@ type GlobalFooterFunding {
 }
 
 type GlobalFooter {
+  logo: String
   copyright: String
   socialLinks: [GlobalFooterSocialLinks]
   funding: GlobalFooterFunding
@@ -130,6 +132,13 @@ type Global implements Node & Document {
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
+}
+
+input ImageFilter {
+  startsWith: String
+  eq: String
+  exists: Boolean
+  in: [String]
 }
 
 input StringFilter {
@@ -145,6 +154,7 @@ input GlobalHeaderNavLinksFilter {
 }
 
 input GlobalHeaderFilter {
+  logo: ImageFilter
   navLinks: GlobalHeaderNavLinksFilter
 }
 
@@ -153,19 +163,13 @@ input GlobalFooterSocialLinksFilter {
   url: StringFilter
 }
 
-input ImageFilter {
-  startsWith: String
-  eq: String
-  exists: Boolean
-  in: [String]
-}
-
 input GlobalFooterFundingFilter {
   text: StringFilter
   logo: ImageFilter
 }
 
 input GlobalFooterFilter {
+  logo: ImageFilter
   copyright: StringFilter
   socialLinks: GlobalFooterSocialLinksFilter
   funding: GlobalFooterFundingFilter
@@ -529,6 +533,7 @@ input GlobalHeaderNavLinksMutation {
 }
 
 input GlobalHeaderMutation {
+  logo: String
   navLinks: [GlobalHeaderNavLinksMutation]
 }
 
@@ -543,6 +548,7 @@ input GlobalFooterFundingMutation {
 }
 
 input GlobalFooterMutation {
+  logo: String
   copyright: String
   socialLinks: [GlobalFooterSocialLinksMutation]
   funding: GlobalFooterFundingMutation

@@ -245,6 +245,7 @@ export type GlobalHeaderNavLinks = {
 
 export type GlobalHeader = {
   __typename?: 'GlobalHeader';
+  logo?: Maybe<Scalars['String']['output']>;
   navLinks?: Maybe<Array<Maybe<GlobalHeaderNavLinks>>>;
 };
 
@@ -262,6 +263,7 @@ export type GlobalFooterFunding = {
 
 export type GlobalFooter = {
   __typename?: 'GlobalFooter';
+  logo?: Maybe<Scalars['String']['output']>;
   copyright?: Maybe<Scalars['String']['output']>;
   socialLinks?: Maybe<Array<Maybe<GlobalFooterSocialLinks>>>;
   funding?: Maybe<GlobalFooterFunding>;
@@ -274,6 +276,13 @@ export type Global = Node & Document & {
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
+};
+
+export type ImageFilter = {
+  startsWith?: InputMaybe<Scalars['String']['input']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type StringFilter = {
@@ -289,6 +298,7 @@ export type GlobalHeaderNavLinksFilter = {
 };
 
 export type GlobalHeaderFilter = {
+  logo?: InputMaybe<ImageFilter>;
   navLinks?: InputMaybe<GlobalHeaderNavLinksFilter>;
 };
 
@@ -297,19 +307,13 @@ export type GlobalFooterSocialLinksFilter = {
   url?: InputMaybe<StringFilter>;
 };
 
-export type ImageFilter = {
-  startsWith?: InputMaybe<Scalars['String']['input']>;
-  eq?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
 export type GlobalFooterFundingFilter = {
   text?: InputMaybe<StringFilter>;
   logo?: InputMaybe<ImageFilter>;
 };
 
 export type GlobalFooterFilter = {
+  logo?: InputMaybe<ImageFilter>;
   copyright?: InputMaybe<StringFilter>;
   socialLinks?: InputMaybe<GlobalFooterSocialLinksFilter>;
   funding?: InputMaybe<GlobalFooterFundingFilter>;
@@ -790,6 +794,7 @@ export type GlobalHeaderNavLinksMutation = {
 };
 
 export type GlobalHeaderMutation = {
+  logo?: InputMaybe<Scalars['String']['input']>;
   navLinks?: InputMaybe<Array<InputMaybe<GlobalHeaderNavLinksMutation>>>;
 };
 
@@ -804,6 +809,7 @@ export type GlobalFooterFundingMutation = {
 };
 
 export type GlobalFooterMutation = {
+  logo?: InputMaybe<Scalars['String']['input']>;
   copyright?: InputMaybe<Scalars['String']['input']>;
   socialLinks?: InputMaybe<Array<InputMaybe<GlobalFooterSocialLinksMutation>>>;
   funding?: InputMaybe<GlobalFooterFundingMutation>;
@@ -922,7 +928,7 @@ export type PublicationsMutation = {
   body?: InputMaybe<Scalars['JSON']['input']>;
 };
 
-export type GlobalPartsFragment = { __typename: 'Global', header?: { __typename: 'GlobalHeader', navLinks?: Array<{ __typename: 'GlobalHeaderNavLinks', label?: string | null, href?: string | null } | null> | null } | null, footer?: { __typename: 'GlobalFooter', copyright?: string | null, socialLinks?: Array<{ __typename: 'GlobalFooterSocialLinks', platform?: string | null, url?: string | null } | null> | null, funding?: { __typename: 'GlobalFooterFunding', text?: string | null, logo?: string | null } | null } | null };
+export type GlobalPartsFragment = { __typename: 'Global', header?: { __typename: 'GlobalHeader', logo?: string | null, navLinks?: Array<{ __typename: 'GlobalHeaderNavLinks', label?: string | null, href?: string | null } | null> | null } | null, footer?: { __typename: 'GlobalFooter', logo?: string | null, copyright?: string | null, socialLinks?: Array<{ __typename: 'GlobalFooterSocialLinks', platform?: string | null, url?: string | null } | null> | null, funding?: { __typename: 'GlobalFooterFunding', text?: string | null, logo?: string | null } | null } | null };
 
 export type HomePartsFragment = { __typename: 'Home', title: string, body?: any | null, hero?: { __typename: 'HomeHero', heading: string, subheading?: string | null, images?: Array<string | null> | null } | null, technology?: { __typename: 'HomeTechnology', heading?: string | null, subheading?: string | null, description?: string | null, image?: string | null, gallery?: Array<string | null> | null, features?: Array<{ __typename: 'HomeTechnologyFeatures', title?: string | null, icon?: string | null, description?: string | null, detailedDescription?: string | null } | null> | null } | null, application?: { __typename: 'HomeApplication', heading?: string | null, subheading?: string | null, description?: string | null, features?: Array<{ __typename: 'HomeApplicationFeatures', title?: string | null, image?: string | null, description?: string | null, detailedDescription?: string | null } | null> | null } | null, pilots?: { __typename: 'HomePilots', heading?: string | null, subheading?: string | null, description?: string | null, sites?: Array<{ __typename: 'HomePilotsSites', name?: string | null, image?: string | null, description?: string | null, crop?: string | null, status?: string | null } | null> | null } | null, partners?: { __typename: 'HomePartners', heading?: string | null, subheading?: string | null, description?: string | null, partnerList?: Array<{ __typename: 'HomePartnersPartnerList', name?: string | null, logo?: string | null } | null> | null } | null };
 
@@ -937,7 +943,7 @@ export type GlobalQueryVariables = Exact<{
 }>;
 
 
-export type GlobalQuery = { __typename?: 'Query', global: { __typename: 'Global', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, header?: { __typename: 'GlobalHeader', navLinks?: Array<{ __typename: 'GlobalHeaderNavLinks', label?: string | null, href?: string | null } | null> | null } | null, footer?: { __typename: 'GlobalFooter', copyright?: string | null, socialLinks?: Array<{ __typename: 'GlobalFooterSocialLinks', platform?: string | null, url?: string | null } | null> | null, funding?: { __typename: 'GlobalFooterFunding', text?: string | null, logo?: string | null } | null } | null } };
+export type GlobalQuery = { __typename?: 'Query', global: { __typename: 'Global', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, header?: { __typename: 'GlobalHeader', logo?: string | null, navLinks?: Array<{ __typename: 'GlobalHeaderNavLinks', label?: string | null, href?: string | null } | null> | null } | null, footer?: { __typename: 'GlobalFooter', logo?: string | null, copyright?: string | null, socialLinks?: Array<{ __typename: 'GlobalFooterSocialLinks', platform?: string | null, url?: string | null } | null> | null, funding?: { __typename: 'GlobalFooterFunding', text?: string | null, logo?: string | null } | null } | null } };
 
 export type GlobalConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -949,7 +955,7 @@ export type GlobalConnectionQueryVariables = Exact<{
 }>;
 
 
-export type GlobalConnectionQuery = { __typename?: 'Query', globalConnection: { __typename?: 'GlobalConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'GlobalConnectionEdges', cursor: string, node?: { __typename: 'Global', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, header?: { __typename: 'GlobalHeader', navLinks?: Array<{ __typename: 'GlobalHeaderNavLinks', label?: string | null, href?: string | null } | null> | null } | null, footer?: { __typename: 'GlobalFooter', copyright?: string | null, socialLinks?: Array<{ __typename: 'GlobalFooterSocialLinks', platform?: string | null, url?: string | null } | null> | null, funding?: { __typename: 'GlobalFooterFunding', text?: string | null, logo?: string | null } | null } | null } | null } | null> | null } };
+export type GlobalConnectionQuery = { __typename?: 'Query', globalConnection: { __typename?: 'GlobalConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'GlobalConnectionEdges', cursor: string, node?: { __typename: 'Global', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, header?: { __typename: 'GlobalHeader', logo?: string | null, navLinks?: Array<{ __typename: 'GlobalHeaderNavLinks', label?: string | null, href?: string | null } | null> | null } | null, footer?: { __typename: 'GlobalFooter', logo?: string | null, copyright?: string | null, socialLinks?: Array<{ __typename: 'GlobalFooterSocialLinks', platform?: string | null, url?: string | null } | null> | null, funding?: { __typename: 'GlobalFooterFunding', text?: string | null, logo?: string | null } | null } | null } | null } | null> | null } };
 
 export type HomeQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -1032,6 +1038,7 @@ export const GlobalPartsFragmentDoc = gql`
   __typename
   header {
     __typename
+    logo
     navLinks {
       __typename
       label
@@ -1040,6 +1047,7 @@ export const GlobalPartsFragmentDoc = gql`
   }
   footer {
     __typename
+    logo
     copyright
     socialLinks {
       __typename

@@ -8,7 +8,7 @@ export default function HeroSlider({ hero }: { hero: { heading: string; subheadi
   const { heading, subheading, images, body } = hero;
 
   return (
-    <section id="hero" className="relative h-[600px] sm:h-[700px] lg:h-[800px] flex items-center justify-center mt-16 sm:mt-20 overflow-hidden">
+    <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
       <Carousel className="absolute inset-0 w-full h-full">
         <CarouselContent className="w-full h-full">
           {images && images.length > 0 ? (

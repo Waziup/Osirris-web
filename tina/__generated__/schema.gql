@@ -54,6 +54,8 @@ type Query {
   collections: [Collection!]!
   node(id: String): Node!
   document(collection: String, relativePath: String): DocumentNode!
+  global(relativePath: String): Global!
+  globalConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: GlobalFilter): GlobalConnection!
   home(relativePath: String): Home!
   homeConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: HomeFilter): HomeConnection!
   blog(relativePath: String): Blog!
@@ -65,6 +67,7 @@ type Query {
 }
 
 input DocumentFilter {
+  global: GlobalFilter
   home: HomeFilter
   blog: BlogFilter
   media: MediaFilter
@@ -94,18 +97,36 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Home | Blog | Media | Publications | Folder
+union DocumentNode = Global | Home | Blog | Media | Publications | Folder
 
-type HomeHero {
-  heading: String!
-  subheading: String
-  images: [String]
+type GlobalHeaderNavLinks {
+  label: String
+  href: String
 }
 
-type Home implements Node & Document {
-  title: String!
-  hero: HomeHero
-  body: JSON
+type GlobalHeader {
+  navLinks: [GlobalHeaderNavLinks]
+}
+
+type GlobalFooterSocialLinks {
+  platform: String
+  url: String
+}
+
+type GlobalFooterFunding {
+  text: String
+  logo: String
+}
+
+type GlobalFooter {
+  copyright: String
+  socialLinks: [GlobalFooterSocialLinks]
+  funding: GlobalFooterFunding
+}
+
+type Global implements Node & Document {
+  header: GlobalHeader
+  footer: GlobalFooter
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -118,6 +139,20 @@ input StringFilter {
   in: [String]
 }
 
+input GlobalHeaderNavLinksFilter {
+  label: StringFilter
+  href: StringFilter
+}
+
+input GlobalHeaderFilter {
+  navLinks: GlobalHeaderNavLinksFilter
+}
+
+input GlobalFooterSocialLinksFilter {
+  platform: StringFilter
+  url: StringFilter
+}
+
 input ImageFilter {
   startsWith: String
   eq: String
@@ -125,10 +160,170 @@ input ImageFilter {
   in: [String]
 }
 
+input GlobalFooterFundingFilter {
+  text: StringFilter
+  logo: ImageFilter
+}
+
+input GlobalFooterFilter {
+  copyright: StringFilter
+  socialLinks: GlobalFooterSocialLinksFilter
+  funding: GlobalFooterFundingFilter
+}
+
+input GlobalFilter {
+  header: GlobalHeaderFilter
+  footer: GlobalFooterFilter
+}
+
+type GlobalConnectionEdges {
+  cursor: String!
+  node: Global
+}
+
+type GlobalConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [GlobalConnectionEdges]
+}
+
+type HomeHero {
+  heading: String!
+  subheading: String
+  images: [String]
+}
+
+type HomeTechnologyFeatures {
+  title: String
+  icon: String
+  description: String
+  detailedDescription: String
+}
+
+type HomeTechnology {
+  heading: String
+  subheading: String
+  description: String
+  image: String
+  gallery: [String]
+  features: [HomeTechnologyFeatures]
+}
+
+type HomeApplicationFeatures {
+  title: String
+  image: String
+  description: String
+  detailedDescription: String
+}
+
+type HomeApplication {
+  heading: String
+  subheading: String
+  description: String
+  features: [HomeApplicationFeatures]
+}
+
+type HomePilotsSites {
+  name: String
+  image: String
+  description: String
+  crop: String
+  status: String
+}
+
+type HomePilots {
+  heading: String
+  subheading: String
+  description: String
+  sites: [HomePilotsSites]
+}
+
+type HomePartnersPartnerList {
+  name: String
+  logo: String
+}
+
+type HomePartners {
+  heading: String
+  subheading: String
+  description: String
+  partnerList: [HomePartnersPartnerList]
+}
+
+type Home implements Node & Document {
+  title: String!
+  hero: HomeHero
+  technology: HomeTechnology
+  application: HomeApplication
+  pilots: HomePilots
+  partners: HomePartners
+  body: JSON
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
 input HomeHeroFilter {
   heading: StringFilter
   subheading: StringFilter
   images: ImageFilter
+}
+
+input HomeTechnologyFeaturesFilter {
+  title: StringFilter
+  icon: StringFilter
+  description: StringFilter
+  detailedDescription: StringFilter
+}
+
+input HomeTechnologyFilter {
+  heading: StringFilter
+  subheading: StringFilter
+  description: StringFilter
+  image: ImageFilter
+  gallery: ImageFilter
+  features: HomeTechnologyFeaturesFilter
+}
+
+input HomeApplicationFeaturesFilter {
+  title: StringFilter
+  image: ImageFilter
+  description: StringFilter
+  detailedDescription: StringFilter
+}
+
+input HomeApplicationFilter {
+  heading: StringFilter
+  subheading: StringFilter
+  description: StringFilter
+  features: HomeApplicationFeaturesFilter
+}
+
+input HomePilotsSitesFilter {
+  name: StringFilter
+  image: ImageFilter
+  description: StringFilter
+  crop: StringFilter
+  status: StringFilter
+}
+
+input HomePilotsFilter {
+  heading: StringFilter
+  subheading: StringFilter
+  description: StringFilter
+  sites: HomePilotsSitesFilter
+}
+
+input HomePartnersPartnerListFilter {
+  name: StringFilter
+  logo: ImageFilter
+}
+
+input HomePartnersFilter {
+  heading: StringFilter
+  subheading: StringFilter
+  description: StringFilter
+  partnerList: HomePartnersPartnerListFilter
 }
 
 input RichTextFilter {
@@ -140,6 +335,10 @@ input RichTextFilter {
 input HomeFilter {
   title: StringFilter
   hero: HomeHeroFilter
+  technology: HomeTechnologyFilter
+  application: HomeApplicationFilter
+  pilots: HomePilotsFilter
+  partners: HomePartnersFilter
   body: RichTextFilter
 }
 
@@ -295,6 +494,8 @@ type Mutation {
   deleteDocument(collection: String, relativePath: String!): DocumentNode!
   createDocument(collection: String, relativePath: String!, params: DocumentMutation!): DocumentNode!
   createFolder(collection: String, relativePath: String!): DocumentNode!
+  updateGlobal(relativePath: String!, params: GlobalMutation!): Global!
+  createGlobal(relativePath: String!, params: GlobalMutation!): Global!
   updateHome(relativePath: String!, params: HomeMutation!): Home!
   createHome(relativePath: String!, params: HomeMutation!): Home!
   updateBlog(relativePath: String!, params: BlogMutation!): Blog!
@@ -306,6 +507,7 @@ type Mutation {
 }
 
 input DocumentUpdateMutation {
+  global: GlobalMutation
   home: HomeMutation
   blog: BlogMutation
   media: MediaMutation
@@ -314,10 +516,41 @@ input DocumentUpdateMutation {
 }
 
 input DocumentMutation {
+  global: GlobalMutation
   home: HomeMutation
   blog: BlogMutation
   media: MediaMutation
   publications: PublicationsMutation
+}
+
+input GlobalHeaderNavLinksMutation {
+  label: String
+  href: String
+}
+
+input GlobalHeaderMutation {
+  navLinks: [GlobalHeaderNavLinksMutation]
+}
+
+input GlobalFooterSocialLinksMutation {
+  platform: String
+  url: String
+}
+
+input GlobalFooterFundingMutation {
+  text: String
+  logo: String
+}
+
+input GlobalFooterMutation {
+  copyright: String
+  socialLinks: [GlobalFooterSocialLinksMutation]
+  funding: GlobalFooterFundingMutation
+}
+
+input GlobalMutation {
+  header: GlobalHeaderMutation
+  footer: GlobalFooterMutation
 }
 
 input HomeHeroMutation {
@@ -326,9 +559,70 @@ input HomeHeroMutation {
   images: [String]
 }
 
+input HomeTechnologyFeaturesMutation {
+  title: String
+  icon: String
+  description: String
+  detailedDescription: String
+}
+
+input HomeTechnologyMutation {
+  heading: String
+  subheading: String
+  description: String
+  image: String
+  gallery: [String]
+  features: [HomeTechnologyFeaturesMutation]
+}
+
+input HomeApplicationFeaturesMutation {
+  title: String
+  image: String
+  description: String
+  detailedDescription: String
+}
+
+input HomeApplicationMutation {
+  heading: String
+  subheading: String
+  description: String
+  features: [HomeApplicationFeaturesMutation]
+}
+
+input HomePilotsSitesMutation {
+  name: String
+  image: String
+  description: String
+  crop: String
+  status: String
+}
+
+input HomePilotsMutation {
+  heading: String
+  subheading: String
+  description: String
+  sites: [HomePilotsSitesMutation]
+}
+
+input HomePartnersPartnerListMutation {
+  name: String
+  logo: String
+}
+
+input HomePartnersMutation {
+  heading: String
+  subheading: String
+  description: String
+  partnerList: [HomePartnersPartnerListMutation]
+}
+
 input HomeMutation {
   title: String
   hero: HomeHeroMutation
+  technology: HomeTechnologyMutation
+  application: HomeApplicationMutation
+  pilots: HomePilotsMutation
+  partners: HomePartnersMutation
   body: JSON
 }
 

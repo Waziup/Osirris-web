@@ -1,3 +1,29 @@
+fragment GlobalParts on Global {
+  __typename
+  header {
+    __typename
+    navLinks {
+      __typename
+      label
+      href
+    }
+  }
+  footer {
+    __typename
+    copyright
+    socialLinks {
+      __typename
+      platform
+      url
+    }
+    funding {
+      __typename
+      text
+      logo
+    }
+  }
+}
+
 fragment HomeParts on Home {
   __typename
   title
@@ -6,6 +32,59 @@ fragment HomeParts on Home {
     heading
     subheading
     images
+  }
+  technology {
+    __typename
+    heading
+    subheading
+    description
+    image
+    gallery
+    features {
+      __typename
+      title
+      icon
+      description
+      detailedDescription
+    }
+  }
+  application {
+    __typename
+    heading
+    subheading
+    description
+    features {
+      __typename
+      title
+      image
+      description
+      detailedDescription
+    }
+  }
+  pilots {
+    __typename
+    heading
+    subheading
+    description
+    sites {
+      __typename
+      name
+      image
+      description
+      crop
+      status
+    }
+  }
+  partners {
+    __typename
+    heading
+    subheading
+    description
+    partnerList {
+      __typename
+      name
+      logo
+    }
   }
   body
 }

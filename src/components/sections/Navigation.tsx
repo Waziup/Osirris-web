@@ -1,17 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Leaf } from "lucide-react";
 
-export default function Navigation({ heroHeading }: { heroHeading: string }) {
+interface NavigationProps {
+  heroHeading: string;
+  navLinks: { label: string; href: string }[];
+}
+
+export default function Navigation({ heroHeading, navLinks }: NavigationProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Check initial state
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md shadow-md z-50 transition-all duration-300">
+    <nav
+      className={`fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md shadow-md z-50 transition-all duration-300 transform ${
+        isScrolled ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-20">
           <div className="flex items-center space-x-3">
@@ -23,27 +44,15 @@ export default function Navigation({ heroHeading }: { heroHeading: string }) {
             </span>
           </div>
           <div className="hidden md:flex space-x-8 lg:space-x-10">
-            <a href="#hero" className="text-sm lg:text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors">
-              Home
-            </a>
-            <a href="#tensiometers" className="text-sm lg:text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors">
-              Technology
-            </a>
-            <a href="#application" className="text-sm lg:text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors">
-              Application
-            </a>
-            <a href="#pilots" className="text-sm lg:text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors">
-              Pilots
-            </a>
-            <a href="#partners" className="text-sm lg:text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors">
-              Partners
-            </a>
-            <a href="/media" className="text-sm lg:text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors">
-              Media
-            </a>
-            <a href="/blog" className="text-sm lg:text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors">
-              Blog
-            </a>
+            {navLinks && navLinks.map((link, index) => (
+              <a
+                key={index}
+                href={link.href}
+                className="text-sm lg:text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
           <button className="md:hidden text-gray-700 hover:text-emerald-600 transition-colors" onClick={toggleMobileMenu}>
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -56,27 +65,15 @@ export default function Navigation({ heroHeading }: { heroHeading: string }) {
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-200 shadow-lg">
           <div className="px-4 py-4 space-y-3">
-            <a href="#hero" className="block py-2 text-gray-700 hover:text-emerald-600 font-medium transition-colors">
-              Home
-            </a>
-            <a href="#tensiometers" className="block py-2 text-gray-700 hover:text-emerald-600 font-medium transition-colors">
-              Technology
-            </a>
-            <a href="#application" className="block py-2 text-gray-700 hover:text-emerald-600 font-medium transition-colors">
-              Application
-            </a>
-            <a href="#pilots" className="block py-2 text-gray-700 hover:text-emerald-600 font-medium transition-colors">
-              Pilots
-            </a>
-            <a href="#partners" className="block py-2 text-gray-700 hover:text-emerald-600 font-medium transition-colors">
-              Partners
-            </a>
-            <a href="/media" className="block py-2 text-gray-700 hover:text-emerald-600 font-medium transition-colors">
-              Media
-            </a>
-            <a href="/blog" className="block py-2 text-gray-700 hover:text-emerald-600 font-medium transition-colors">
-              Blog
-            </a>
+            {navLinks && navLinks.map((link, index) => (
+              <a
+                key={index}
+                href={link.href}
+                className="block py-2 text-gray-700 hover:text-emerald-600 font-medium transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
         </div>
       )}

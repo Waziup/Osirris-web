@@ -20,6 +20,102 @@ export default defineConfig({
   },
   schema: {
     collections: [
+      // Global Settings Collection
+      {
+        name: "global",
+        label: "Global Settings",
+        path: "content/global",
+        format: "json",
+        ui: {
+          global: true,
+          allowedActions: {
+            create: false,
+            delete: false,
+          },
+        },
+        fields: [
+          {
+            type: "object",
+            name: "header",
+            label: "Header / Navigation",
+            fields: [
+              {
+                type: "object",
+                name: "navLinks",
+                label: "Navigation Links",
+                list: true,
+                ui: {
+                  itemProps: (item) => {
+                    return { label: item?.label };
+                  },
+                },
+                fields: [
+                  {
+                    type: "string",
+                    name: "label",
+                    label: "Label",
+                  },
+                  {
+                    type: "string",
+                    name: "href",
+                    label: "Link (href)",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "footer",
+            label: "Footer",
+            fields: [
+              {
+                type: "string",
+                name: "copyright",
+                label: "Copyright Text",
+              },
+              {
+                type: "object",
+                name: "socialLinks",
+                label: "Social Media Links",
+                list: true,
+                fields: [
+                  {
+                    type: "string",
+                    name: "platform",
+                    label: "Platform Name",
+                  },
+                  {
+                    type: "string",
+                    name: "url",
+                    label: "URL",
+                  },
+                ],
+              },
+              {
+                type: "object",
+                name: "funding",
+                label: "EU Funding Acknowledgment",
+                fields: [
+                  {
+                    type: "string",
+                    name: "text",
+                    label: "Funding Text",
+                    ui: {
+                      component: "textarea",
+                    },
+                  },
+                  {
+                    type: "image",
+                    name: "logo",
+                    label: "EU Flag Logo",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
       // Home Page Collection
       {
         name: "home",
@@ -45,12 +141,14 @@ export default defineConfig({
                 type: "string",
                 name: "heading",
                 label: "Heading",
+                description: "The main headline displayed on the hero slider.",
                 required: true,
               },
               {
                 type: "string",
                 name: "subheading",
                 label: "Subheading",
+                description: "A brief description or tagline below the headline.",
                 ui: {
                   component: "textarea",
                 },
@@ -59,7 +157,255 @@ export default defineConfig({
                 type: "image",
                 name: "images",
                 label: "Slider Images",
+                description: "Add, remove, or reorder images for the full-screen hero slider.",
                 list: true,
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "technology",
+            label: "Technology Section",
+            fields: [
+              {
+                type: "string",
+                name: "heading",
+                label: "Heading",
+              },
+              {
+                type: "string",
+                name: "subheading",
+                label: "Subheading/Tagline",
+              },
+              {
+                type: "string",
+                name: "description",
+                label: "Description",
+                ui: {
+                  component: "textarea",
+                },
+              },
+              {
+                type: "image",
+                name: "image",
+                label: "Main Product Image",
+              },
+              {
+                type: "image",
+                name: "gallery",
+                label: "Product Gallery",
+                list: true,
+              },
+              {
+                type: "object",
+                name: "features",
+                label: "Features / Specs",
+                list: true,
+                ui: {
+                  itemProps: (item) => {
+                    return { label: item?.title };
+                  },
+                },
+                fields: [
+                  {
+                    type: "string",
+                    name: "title",
+                    label: "Feature Title",
+                  },
+                  {
+                    type: "string",
+                    name: "icon",
+                    label: "Icon Name (e.g., wifi, battery, activity)",
+                  },
+                  {
+                    type: "string",
+                    name: "description",
+                    label: "Short Description",
+                  },
+                  {
+                    type: "string",
+                    name: "detailedDescription",
+                    label: "Detailed Spec/Description",
+                    ui: {
+                      component: "textarea",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "application",
+            label: "Application Section",
+            fields: [
+              {
+                type: "string",
+                name: "heading",
+                label: "Heading",
+              },
+              {
+                type: "string",
+                name: "subheading",
+                label: "Subheading/Tagline",
+              },
+              {
+                type: "string",
+                name: "description",
+                label: "Description",
+                ui: {
+                  component: "textarea",
+                },
+              },
+              {
+                type: "object",
+                name: "features",
+                label: "Features / Applications",
+                list: true,
+                ui: {
+                  itemProps: (item) => {
+                    return { label: item?.title };
+                  },
+                },
+                fields: [
+                  {
+                    type: "string",
+                    name: "title",
+                    label: "Title",
+                  },
+                  {
+                    type: "image",
+                    name: "image",
+                    label: "Image",
+                  },
+                  {
+                    type: "string",
+                    name: "description",
+                    label: "Short Description",
+                  },
+                  {
+                    type: "string",
+                    name: "detailedDescription",
+                    label: "Detailed Description",
+                    ui: {
+                      component: "textarea",
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "pilots",
+            label: "Pilots Section",
+            fields: [
+              {
+                type: "string",
+                name: "heading",
+                label: "Heading",
+              },
+              {
+                type: "string",
+                name: "subheading",
+                label: "Subheading/Tagline",
+              },
+              {
+                type: "string",
+                name: "description",
+                label: "Description",
+                ui: {
+                  component: "textarea",
+                },
+              },
+              {
+                type: "object",
+                name: "sites",
+                label: "Pilot Sites",
+                list: true,
+                ui: {
+                  itemProps: (item) => {
+                    return { label: item?.name };
+                  },
+                },
+                fields: [
+                  {
+                    type: "string",
+                    name: "name",
+                    label: "Country/Name",
+                  },
+                  {
+                    type: "image",
+                    name: "image",
+                    label: "Site Image",
+                  },
+                  {
+                    type: "string",
+                    name: "description",
+                    label: "Description",
+                    ui: {
+                      component: "textarea",
+                    },
+                  },
+                  {
+                    type: "string",
+                    name: "crop",
+                    label: "Crop Type",
+                  },
+                  {
+                    type: "string",
+                    name: "status",
+                    label: "Status",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "partners",
+            label: "Partners Section",
+            fields: [
+              {
+                type: "string",
+                name: "heading",
+                label: "Heading",
+              },
+              {
+                type: "string",
+                name: "subheading",
+                label: "Subheading/Tagline",
+              },
+              {
+                type: "string",
+                name: "description",
+                label: "Description",
+                ui: {
+                  component: "textarea",
+                },
+              },
+              {
+                type: "object",
+                name: "partnerList",
+                label: "Partners",
+                list: true,
+                ui: {
+                  itemProps: (item) => {
+                    return { label: item?.name };
+                  },
+                },
+                fields: [
+                  {
+                    type: "string",
+                    name: "name",
+                    label: "Partner Name",
+                  },
+                  {
+                    type: "image",
+                    name: "logo",
+                    label: "Partner Logo",
+                  },
+                ],
               },
             ],
           },

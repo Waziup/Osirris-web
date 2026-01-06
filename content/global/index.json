@@ -1,0 +1,51 @@
+{
+  "header": {
+    "navLinks": [
+      {
+        "label": "Home",
+        "href": "#hero"
+      },
+      {
+        "label": "Technology",
+        "href": "#tensiometers"
+      },
+      {
+        "label": "Application",
+        "href": "#application"
+      },
+      {
+        "label": "Pilots",
+        "href": "#pilots"
+      },
+      {
+        "label": "Partners",
+        "href": "#partners"
+      },
+      {
+        "label": "Media",
+        "href": "/media"
+      },
+      {
+        "label": "Blog",
+        "href": "/blog"
+      }
+    ]
+  },
+  "footer": {
+    "copyright": "© 2026 Osirris Project. All rights reserved.",
+    "socialLinks": [
+      {
+        "platform": "Twitter",
+        "url": "https://twitter.com"
+      },
+      {
+        "platform": "LinkedIn",
+        "url": "https://linkedin.com"
+      }
+    ],
+    "funding": {
+      "text": "This project has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 123456.",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg"
+    }
+  }
+}

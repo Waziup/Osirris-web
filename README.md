@@ -1,332 +1,101 @@
-# Osirris Web - Complete Setup
+# Osirris Web
 
-A modern Next.js website for the Osirris project with TinaCMS content management, featuring Home, Blog, and Media pages.
+A modern, high-performance website for the Osirris project, built with Next.js and TinaCMS.
 
-## Features
+## Project Overview
 
-- ✅ **Next.js 16** with App Router
-- ✅ **React 19** with TypeScript
-- ✅ **Tailwind CSS 4** for styling
-- ✅ **TinaCMS** for content management
-- ✅ **MDX** for rich content
-- ✅ **Responsive Design** with mobile-first approach
-- ✅ **Blog System** with categories and featured posts
-- ✅ **Media Gallery** for photos and videos
-- ✅ **Publications Management** for research papers
+This project is a Next.js application designed to showcase the Osirris smart irrigation technology. It features a fully editable content management system (TinaCMS) that allows for easy updates to all sections of the site, including the homepage, navigation, footer, and blog.
 
-## Quick Start
+### Key Features
+- **Next.js 15+**: High-performance React framework.
+- **TinaCMS**: Git-backed headless CMS for real-time content editing.
+- **Tailwind CSS**: Utility-first CSS framework for rapid UI development.
+- **Shadcn UI**: Reusable and accessible UI components.
+- **Responsive Design**: Fully optimized for mobile, tablet, and desktop.
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher recommended)
+- npm or yarn
 
 ### Installation
 
-```bash
-# Install dependencies
-pnpm install
-```
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository-url>
+    cd Osirris-web
+    ```
 
-### Development
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
 
-```bash
-# Start development server
-pnpm dev
-```
+## Running the Project
 
-Visit:
-- **Home**: http://localhost:3000
-- **Blog**: http://localhost:3000/blog
-- **Media**: http://localhost:3000/media
-
-### Production Build
+To start the development server with TinaCMS integration:
 
 ```bash
-# Build for production
-pnpm build
-
-# Start production server
-pnpm start
+npm run tina:dev
+# or
+yarn tina:dev
 ```
 
-## Pages
+This command concurrently runs:
+1.  The Next.js development server at `http://localhost:3000`
+2.  The TinaCMS GraphQL server and watcher.
 
-### Home Page (`/`)
-The landing page featuring:
-- Hero slider with images
-- Technology overview
-- Application showcase
-- Pilot projects
-- Partners section
+Open [http://localhost:3000](http://localhost:3000) to view the site in your browser.
 
-### Blog Page (`/blog`)
-A full-featured blog with:
-- Featured posts
-- Category filtering
-- Search functionality
-- Author information
-- Read time estimates
+## Editing Content with TinaCMS
 
-### Media Page (`/media`)
-Gallery and publications featuring:
-- Photo and video gallery
-- Category filtering
-- Research publications
-- Download tracking
+The website is integrated with TinaCMS, allowing you to edit content directly from the frontend.
 
-## Content Management with TinaCMS
+### Accessing the CMS
 
-All content is managed through MDX files in the `content/` directory:
+1.  Start the project using `npm run tina:dev`.
+2.  Navigate to **[http://localhost:3000/admin/index.html](http://localhost:3000/admin/index.html)** in your browser.
+3.  You will enter the TinaCMS dashboard.
 
-```
-content/
-├── pages/          # Home page content
-├── blog/           # Blog posts
-├── media/          # Media items (photos/videos)
-└── publications/   # Research papers
-```
+### What You Can Edit
 
-### Quick Content Editing
+-   **Home Page:**
+    -   **Hero Slider:** Add/remove images, change headings and subheadings.
+    -   **Technology Section:** Update product specs, main image, and gallery images.
+    -   **Application Section:** Manage feature cards, descriptions, and images.
+    -   **Pilot Sites:** Add new pilot sites with photos, descriptions, and status.
+    -   **Partners:** Manage partner logos and names via a slider.
 
-**Edit existing content**: Simply modify MDX files in the respective `content/` directories
+-   **Global Settings:**
+    -   **Navigation:** Add or remove menu links.
+    -   **Footer:** Update copyright text, social media links, and the EU funding acknowledgment (text and logo).
 
-**Add a blog post**: Create a new `.mdx` file in `content/blog/`
+-   **Blog & Media:**
+    -   Create and edit blog posts and media items.
 
-**Add media**: Create a new `.mdx` file in `content/media/`
+## Building for Production
 
-**Add publication**: Create a new `.mdx` file in `content/publications/`
-
-### Sample Blog Post
-
-Create `content/blog/my-post.mdx`:
-
-```yaml
----
-title: "My Blog Post"
-excerpt: "A brief description"
-image: "https://example.com/image.jpg"
-category: "Technology"
-date: "2024-12-15T00:00:00.000Z"
-readTime: "5 min read"
-author: "Your Name"
-authorRole: "Developer"
-featured: false
----
-
-Your content here in Markdown format...
-```
-
-For complete TinaCMS documentation, see **[TINACMS_SETUP.md](./TINACMS_SETUP.md)**
-
-## Project Structure
-
-```
-Osirris-web/
-├── src/
-│   ├── app/                 # Next.js App Router
-│   │   ├── page.tsx        # Home page route
-│   │   ├── blog/           # Blog routes
-│   │   │   └── page.tsx
-│   │   └── media/          # Media routes
-│   │       └── page.tsx
-│   ├── components/
-│   │   ├── sections/       # Page sections
-│   │   └── ui/             # UI components (Radix)
-│   ├── pages/              # Page components
-│   │   ├── Home.tsx        # Home page component
-│   │   ├── Blog.tsx        # Blog page component
-│   │   └── Media.tsx       # Media page component
-│   ├── hooks/              # Custom React hooks
-│   ├── lib/                # Utility functions
-│   └── const.ts            # App constants
-├── content/                # Content files (MDX)
-│   ├── pages/             # Home page content
-│   ├── blog/              # Blog posts
-│   ├── media/             # Media items
-│   └── publications/      # Research papers
-├── tina/                   # TinaCMS configuration
-│   └── config.ts
-├── public/                 # Static assets
-│   └── uploads/           # User-uploaded images
-└── package.json
-```
-
-## Technologies
-
-### Core
-- **Next.js 16.0.4** - React framework with App Router
-- **React 19.2.0** - UI library
-- **TypeScript 5.x** - Type safety
-
-### Styling
-- **Tailwind CSS 4.x** - Utility-first CSS framework
-- **Radix UI** - Accessible component primitives
-- **Lucide React** - Beautiful icon library
-
-### Content Management
-- **TinaCMS 2.x** - Git-backed CMS
-- **MDX** - Markdown with JSX support
-- **gray-matter** - Frontmatter parsing
-
-### UI Components
-- **react-hook-form** - Form validation
-- **embla-carousel** - Carousel component
-- **sonner** - Toast notifications
-- **cmdk** - Command menu
-
-## Available Scripts
+To build the application for production deployment:
 
 ```bash
-# Development
-pnpm dev              # Start development server
-pnpm tina:dev         # Start with TinaCMS admin interface
-
-# Production
-pnpm build            # Build for production
-pnpm tina:build       # Build with TinaCMS
-pnpm start            # Start production server
-
-# Code Quality
-pnpm lint             # Run ESLint
+npm run build
+# or
+yarn build
 ```
 
-## Environment Variables
-
-Create `.env.local` from `.env.example`:
-
-```bash
-# Optional: For TinaCMS Cloud visual editor
-NEXT_PUBLIC_TINA_CLIENT_ID=your_client_id
-TINA_TOKEN=your_token
-
-# Leave empty for local file-based editing (works without TinaCloud)
-```
-
-## Documentation
-
-- **[README.md](./README.md)** - This file (overview and quick start)
-- **[TINACMS_SETUP.md](./TINACMS_SETUP.md)** - Complete TinaCMS guide and content management
-- **[CLEANUP_SUMMARY.md](./CLEANUP_SUMMARY.md)** - Details of all fixes applied to the project
-- **[WORK_COMPLETED.md](./WORK_COMPLETED.md)** - Summary of work completed
+This command generates the static pages and optimized assets.
 
 ## Deployment
 
-### Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Import project in [Vercel](https://vercel.com)
-3. Set environment variables (if using TinaCloud)
-4. Deploy automatically
-
-### Other Platforms
-
-Compatible with any Next.js hosting:
-- **Netlify** - Add build command: `pnpm build`
-- **AWS Amplify** - Full support for Next.js
-- **Digital Ocean** - App Platform
-- **Self-hosted** - Use `pnpm build && pnpm start`
-
-## Troubleshooting
-
-### Development Server Issues
-```bash
-# Clear cache and reinstall
-rm -rf .next node_modules
-pnpm install
-pnpm dev
-```
-
-### Content Not Appearing
-- Verify MDX file frontmatter syntax is correct
-- Ensure all required fields are present
-- Check browser console for errors
-- Restart development server
-
-### Build Errors
-- Validate all MDX frontmatter
-- Run TypeScript check: `pnpm build`
-- Review error messages carefully
-- Check that dates are in ISO format
-
-### TypeScript Errors
-- Ensure all components have proper type annotations
-- Check imports are correct
-- Run `pnpm build` to see all errors
-
-## Adding New Features
-
-### Adding a New Page
-
-1. Create page component in `src/pages/NewPage.tsx`
-2. Create route in `src/app/newpage/page.tsx`
-3. Import and render your component
-4. Add navigation link in Navigation component
-
-### Adding New Content Types
-
-1. Update `tina/config.ts` with new collection
-2. Create content directory: `content/newtype/`
-3. Create sample content file
-4. Update relevant page component to display content
-
-## Best Practices
-
-### Content Files
-- Use descriptive filenames (kebab-case)
-- Include all required frontmatter fields
-- Use ISO date format: `2024-12-15T00:00:00.000Z`
-- Optimize images before uploading
-
-### Code
-- Follow TypeScript best practices
-- Use "use client" directive for client components
-- Keep components small and focused
-- Use proper semantic HTML
-
-### Performance
-- Optimize images (use Next.js Image component)
-- Lazy load heavy components
-- Minimize client-side JavaScript
-- Use static generation where possible
-
-## Support & Resources
-
-### Documentation
-- [Next.js Documentation](https://nextjs.org/docs)
-- [TinaCMS Documentation](https://tina.io/docs)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [Radix UI Documentation](https://www.radix-ui.com/docs)
-
-### Getting Help
-1. Check project documentation files
-2. Review error messages carefully
-3. Check browser console for client-side errors
-4. Review Next.js and TinaCMS documentation
-
-## Project Status
-
-✅ **Fully Functional**
-- Home page with hero slider
-- Blog system with filtering
-- Media gallery with publications
-- TinaCMS content management configured
-- All dependencies installed
-- TypeScript properly configured
-- Responsive design implemented
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/my-feature`
-3. Make your changes
-4. Test thoroughly: `pnpm dev` and `pnpm build`
-5. Commit changes: `git commit -m "Add my feature"`
-6. Push to branch: `git push origin feature/my-feature`
-7. Submit a pull request
+This project is configured for easy deployment on [Vercel](https://vercel.com).
+1.  Push your code to a Git repository (GitHub, GitLab, Bitbucket).
+2.  Import the project into Vercel.
+3.  Vercel will detect Next.js and automatically configure the build settings.
+4.  Add your environment variables (if any) in the Vercel project settings.
 
 ## License
 
-This project is part of the OSIRRIS initiative for sustainable Mediterranean agriculture.
-
----
-
-**Last Updated**: December 2024  
-**Status**: Production Ready ✅  
-**Pages**: Home, Blog, Media  
-**CMS**: TinaCMS Configured
+[Your License Here]

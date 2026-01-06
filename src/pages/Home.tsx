@@ -17,31 +17,47 @@ interface HeroData {
 interface TinaData {
   title: string;
   hero: HeroData;
+  technology: any;
+  application: any;
+  pilots: any;
+  partners: any;
   body: string;
+}
+
+interface GlobalData {
+  header: {
+    navLinks: { label: string; href: string }[];
+  };
+  footer: {
+    copyright: string;
+    socialLinks: { platform: string; url: string }[];
+  };
 }
 
 interface HomeProps {
   tinaData: TinaData;
+  globalData: GlobalData;
 }
 
-export default function Home({ tinaData }: HomeProps) {
-  const { title, hero, body } = tinaData;
+export default function Home({ tinaData, globalData }: HomeProps) {
+  const { title, hero, technology, application, pilots, partners, body } = tinaData;
+  const { header, footer } = globalData;
 
   return (
     <div className="bg-gray-50 text-gray-900">
-      <Navigation heroHeading={hero.heading} />
+      <Navigation heroHeading={hero.heading} navLinks={header.navLinks} />
 
       <HeroSlider hero={{ heading: hero.heading, subheading: hero.subheading, images: hero.images, body: body }} />
 
-      <TechnologySection />
+      <TechnologySection data={technology} />
 
-      <ApplicationSection />
+      <ApplicationSection data={application} />
 
-      <PilotsSection />
+      <PilotsSection data={pilots} />
 
-      <PartnersSection />
+      <PartnersSection data={partners} />
 
-      <Footer heroHeading={hero.heading} />
+      <Footer heroHeading={hero.heading} data={footer} />
     </div>
   );
 }

@@ -1,14 +1,26 @@
 "use client";
 
 import { useState } from "react";
-import { Download, FileText, Play, Leaf, Filter } from "lucide-react";
+import { Download, FileText, Play, X, ChevronLeft, ChevronRight } from "lucide-react";
+import Navigation from "../components/sections/Navigation";
+import Footer from "../components/sections/Footer";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../components/ui/carousel";
+import Image from "next/image";
 
 interface MediaItem {
   id: string;
   title: string;
-  type: "photo" | "video";
+  type: string;
   image: string;
   category: string;
+  videoUrl?: string;
+  description?: string;
 }
 
 interface Publication {
@@ -16,123 +28,53 @@ interface Publication {
   title: string;
   journal: string;
   year: string;
-  fileSize: string;
-  downloads: number;
+  fileSize?: string;
+  downloads?: number;
   category: string;
-  color: string;
+  color?: string;
+  pdfUrl?: string;
 }
 
-const mediaItems: MediaItem[] = [
-  {
-    id: "1",
-    title: "Field Testing in Tunisia",
-    type: "photo",
-    image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=600&fit=crop",
-    category: "Field Testing",
-  },
-  {
-    id: "2",
-    title: "Sensor Installation Process",
-    type: "photo",
-    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=600&fit=crop",
-    category: "Installation",
-  },
-  {
-    id: "3",
-    title: "Smart Tensiometer Close-up",
-    type: "photo",
-    image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=600&fit=crop",
-    category: "Equipment",
-  },
-  {
-    id: "4",
-    title: "Vineyard Irrigation System",
-    type: "photo",
-    image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=600&fit=crop",
-    category: "Application",
-  },
-  {
-    id: "5",
-    title: "OSIRRIS System Overview",
-    type: "video",
-    image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=600&fit=crop",
-    category: "Demo",
-  },
-  {
-    id: "6",
-    title: "AI Algorithm Explanation",
-    type: "video",
-    image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=600&fit=crop",
-    category: "Education",
-  },
-];
+interface GlobalData {
+  header: {
+    navLinks: { label: string; href: string }[];
+  };
+  footer: {
+    copyright: string;
+    socialLinks: { platform: string; url: string }[];
+    funding?: { text: string; logo: string };
+  };
+}
 
-const publications: Publication[] = [
-  {
-    id: "1",
-    title: "Edge AI for Precision Irrigation",
-    journal: "Journal of Agricultural Technology, Vol. 45, Issue 3",
-    year: "2024",
-    fileSize: "2.4 MB",
-    downloads: 342,
-    category: "AI & ML",
-    color: "blue",
-  },
-  {
-    id: "2",
-    title: "LoRaWAN Network Performance",
-    journal: "IEEE IoT Conference Proceedings 2024",
-    year: "2024",
-    fileSize: "1.8 MB",
-    downloads: 287,
-    category: "IoT",
-    color: "emerald",
-  },
-  {
-    id: "3",
-    title: "Water Conservation in Mediterranean Agriculture",
-    journal: "Agricultural Water Management Journal",
-    year: "2023",
-    fileSize: "3.1 MB",
-    downloads: 521,
-    category: "Sustainability",
-    color: "purple",
-  },
-  {
-    id: "4",
-    title: "Solar-Powered IoT Sensors for Smart Farming",
-    journal: "Renewable Energy Systems Review",
-    year: "2023",
-    fileSize: "2.7 MB",
-    downloads: 198,
-    category: "Green Tech",
-    color: "amber",
-  },
-  {
-    id: "5",
-    title: "Real-time Soil Moisture Monitoring Systems",
-    journal: "Sensors and Actuators Journal",
-    year: "2023",
-    fileSize: "2.2 MB",
-    downloads: 412,
-    category: "Sensors",
-    color: "cyan",
-  },
-];
+interface MediaProps {
+  mediaItems: any[];
+  publications: any[];
+  globalData: GlobalData;
+}
 
-export default function Media() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mediaFilter, setMediaFilter] = useState<"all" | "photos" | "videos">("all");
-  const [filteredMediaType, setFilteredMediaType] = useState<"photo" | "video" | "all">("all");
+export default function Media({ mediaItems, publications, globalData }: MediaProps) {
+  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
+  
+  const photos = mediaItems.filter((item) => item.type === "photo");
+  const videos = mediaItems.filter((item) => item.type === "video");
 
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
+  const openLightbox = (index: number) => {
+    setSelectedPhotoIndex(index);
   };
 
-  const filteredMedia =
-    mediaFilter === "all"
-      ? mediaItems
-      : mediaItems.filter((item) => (mediaFilter === "photos" ? item.type === "photo" : item.type === "video"));
+  const closeLightbox = () => {
+    setSelectedPhotoIndex(null);
+  };
+
+  const navigateLightbox = (direction: "prev" | "next") => {
+    if (selectedPhotoIndex === null) return;
+    
+    if (direction === "prev") {
+      setSelectedPhotoIndex(selectedPhotoIndex === 0 ? photos.length - 1 : selectedPhotoIndex - 1);
+    } else {
+      setSelectedPhotoIndex(selectedPhotoIndex === photos.length - 1 ? 0 : selectedPhotoIndex + 1);
+    }
+  };
 
   const getColorClasses = (color: string) => {
     const colorMap: Record<string, { bg: string; text: string; icon: string }> = {
@@ -141,90 +83,75 @@ export default function Media() {
       purple: { bg: "bg-purple-100", text: "text-purple-700", icon: "text-purple-600" },
       amber: { bg: "bg-amber-100", text: "text-amber-700", icon: "text-amber-600" },
       cyan: { bg: "bg-cyan-100", text: "text-cyan-700", icon: "text-cyan-600" },
+      orange: { bg: "bg-orange-100", text: "text-orange-700", icon: "text-orange-600" },
+      green: { bg: "bg-green-100", text: "text-green-700", icon: "text-green-600" },
     };
     return colorMap[color] || colorMap.blue;
   };
 
   return (
-    <div className="bg-gray-50 text-gray-900">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md shadow-md z-50 transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16 sm:h-20">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                <Leaf className="text-white w-6 h-6 sm:w-7 sm:h-7" />
-              </div>
-              <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
-                OSIRRIS
-              </span>
+    <div className="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+      <Navigation heroHeading="OSIRRIS" navLinks={globalData.header.navLinks} />
+
+      {/* Lightbox Modal */}
+      {selectedPhotoIndex !== null && (
+        <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4">
+          <button 
+            onClick={closeLightbox}
+            className="absolute top-6 right-6 text-white/80 hover:text-white transition-colors z-50 p-2 bg-black/20 rounded-full"
+          >
+            <X className="w-8 h-8" />
+          </button>
+
+          <button
+            onClick={(e) => { e.stopPropagation(); navigateLightbox("prev"); }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white transition-colors p-3 bg-black/20 hover:bg-black/40 rounded-full z-50"
+          >
+            <ChevronLeft className="w-8 h-8" />
+          </button>
+
+          <button
+            onClick={(e) => { e.stopPropagation(); navigateLightbox("next"); }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white transition-colors p-3 bg-black/20 hover:bg-black/40 rounded-full z-50"
+          >
+            <ChevronRight className="w-8 h-8" />
+          </button>
+
+          <div 
+            className="relative w-full h-full max-w-6xl max-h-[90vh] flex flex-col items-center justify-center"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking image area
+          >
+            <div className="relative w-full h-full">
+              <Image
+                src={photos[selectedPhotoIndex].image}
+                alt={photos[selectedPhotoIndex].title}
+                fill
+                style={{ objectFit: "contain" }}
+                className="select-none"
+              />
             </div>
-            <div className="hidden md:flex space-x-8 lg:space-x-10">
-              <a href="/" className="text-sm lg:text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors">
-                Home
-              </a>
-              <a href="/#tensiometers" className="text-sm lg:text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors">
-                Technology
-              </a>
-              <a href="/#application" className="text-sm lg:text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors">
-                Application
-              </a>
-              <a href="/#pilots" className="text-sm lg:text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors">
-                Pilots
-              </a>
-              <a href="/#partners" className="text-sm lg:text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors">
-                Partners
-              </a>
-              <a href="/media" className="text-sm lg:text-base font-medium text-emerald-600 border-b-2 border-emerald-600 transition-colors">
-                Media
-              </a>
-              <a href="/blog" className="text-sm lg:text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors">
-                Blog
-              </a>
+            <div className="absolute bottom-8 left-0 right-0 text-center">
+              <h3 className="text-white text-xl font-bold drop-shadow-md">
+                {photos[selectedPhotoIndex].title}
+              </h3>
+              <p className="text-gray-300 text-sm mt-2 max-w-2xl mx-auto drop-shadow-md">
+                 {/* @ts-ignore */}
+                 {photos[selectedPhotoIndex].description?.children ? "View details" : photos[selectedPhotoIndex].description}
+              </p>
             </div>
-            <button className="md:hidden text-gray-700 hover:text-emerald-600 transition-colors" onClick={toggleMobileMenu}>
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
           </div>
+          
+          {/* Close on backdrop click */}
+          <div className="absolute inset-0 -z-10" onClick={closeLightbox}></div>
         </div>
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-t border-gray-200 shadow-lg">
-            <div className="px-4 py-4 space-y-3">
-              <a href="/" className="block py-2 text-gray-700 hover:text-emerald-600 font-medium transition-colors">
-                Home
-              </a>
-              <a href="/#tensiometers" className="block py-2 text-gray-700 hover:text-emerald-600 font-medium transition-colors">
-                Technology
-              </a>
-              <a href="/#application" className="block py-2 text-gray-700 hover:text-emerald-600 font-medium transition-colors">
-                Application
-              </a>
-              <a href="/#pilots" className="block py-2 text-gray-700 hover:text-emerald-600 font-medium transition-colors">
-                Pilots
-              </a>
-              <a href="/#partners" className="block py-2 text-gray-700 hover:text-emerald-600 font-medium transition-colors">
-                Partners
-              </a>
-              <a href="/media" className="block py-2 text-emerald-600 font-bold transition-colors">
-                Media
-              </a>
-              <a href="/blog" className="block py-2 text-gray-700 hover:text-emerald-600 font-medium transition-colors">
-                Blog
-              </a>
-            </div>
-          </div>
-        )}
-      </nav>
+      )}
 
       {/* Hero Section */}
-      <section className="relative pt-32 sm:pt-40 pb-16 sm:pb-20 bg-gradient-to-br from-emerald-50 to-blue-50 overflow-hidden">
+      <section className="relative pt-32 sm:pt-40 pb-16 sm:pb-20 bg-gradient-to-br from-emerald-50 to-blue-50 overflow-hidden mt-16">
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-12">
+          <div className="text-center">
             <div className="inline-block mb-6">
               <span className="bg-emerald-100 text-emerald-700 text-xs sm:text-sm font-bold px-4 py-2 rounded-full">
                 Visual Documentation
@@ -237,186 +164,191 @@ export default function Media() {
               Explore photos and videos documenting our journey in precision agriculture and IoT innovation
             </p>
           </div>
-
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <button
-              onClick={() => setMediaFilter("all")}
-              className={`px-6 py-3 rounded-xl font-semibold transition-all shadow-lg ${
-                mediaFilter === "all"
-                  ? "bg-emerald-600 text-white"
-                  : "bg-white text-gray-700 border-2 border-gray-200 hover:bg-gray-50"
-              }`}
-            >
-              All Media
-            </button>
-            <button
-              onClick={() => setMediaFilter("photos")}
-              className={`px-6 py-3 rounded-xl font-semibold transition-all shadow-lg ${
-                mediaFilter === "photos"
-                  ? "bg-emerald-600 text-white"
-                  : "bg-white text-gray-700 border-2 border-gray-200 hover:bg-gray-50"
-              }`}
-            >
-              Photos
-            </button>
-            <button
-              onClick={() => setMediaFilter("videos")}
-              className={`px-6 py-3 rounded-xl font-semibold transition-all shadow-lg ${
-                mediaFilter === "videos"
-                  ? "bg-emerald-600 text-white"
-                  : "bg-white text-gray-700 border-2 border-gray-200 hover:bg-gray-50"
-              }`}
-            >
-              Videos
-            </button>
-          </div>
         </div>
       </section>
 
-      {/* Media Gallery */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-12">Photo & Video Gallery</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredMedia.map((item) => (
-              <div
-                key={item.id}
-                className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 group cursor-pointer"
+      {/* Photo Gallery Carousel */}
+      {photos.length > 0 && (
+        <section className="py-16 sm:py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between mb-8 px-4">
+              <h2 className="text-3xl font-bold text-gray-900">Photo Gallery</h2>
+              <span className="text-gray-500 text-sm font-medium">{photos.length} Photos</span>
+            </div>
+            
+            <div className="relative px-8 sm:px-12">
+              <Carousel
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+                className="w-full"
               >
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                  <div>
-                    <h3 className="text-white font-bold text-lg mb-2">{item.title}</h3>
-                    <span className="inline-block bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full">
-                      {item.category}
-                    </span>
-                  </div>
-                  {item.type === "video" && (
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                      <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center">
-                        <Play className="w-8 h-8 text-white fill-white" />
+                <CarouselContent className="-ml-4">
+                  {photos.map((item, index) => (
+                    <CarouselItem key={item.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                      <div 
+                        className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all h-[400px] group bg-gray-100 cursor-zoom-in"
+                        onClick={() => openLightbox(index)}
+                      >
+                        <Image
+                          src={item.image}
+                          alt={item.title}
+                          fill
+                          style={{ objectFit: "cover" }}
+                          className="group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                          <span className="bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full w-fit mb-2">
+                            {item.category}
+                          </span>
+                          <h3 className="text-white font-bold text-xl">{item.title}</h3>
+                          {item.description && (
+                             <p className="text-gray-200 text-sm mt-2 line-clamp-2">
+                               {/* @ts-ignore */}
+                               {item.description.children ? "View details" : item.description}
+                             </p>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="-left-4 lg:-left-12 border-gray-200" />
+                <CarouselNext className="-right-4 lg:-right-12 border-gray-200" />
+              </Carousel>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* Video Gallery Carousel */}
+      {videos.length > 0 && (
+        <section className="py-16 sm:py-20 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between mb-8 px-4">
+              <h2 className="text-3xl font-bold text-gray-900">Video Gallery</h2>
+              <span className="text-gray-500 text-sm font-medium">{videos.length} Videos</span>
+            </div>
+
+            <div className="relative px-8 sm:px-12">
+              <Carousel
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+                className="w-full"
+              >
+                <CarouselContent className="-ml-4">
+                  {videos.map((item) => (
+                    <CarouselItem key={item.id} className="pl-4 md:basis-1/2 lg:basis-1/2">
+                      <div 
+                        className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all h-[350px] group bg-black cursor-pointer"
+                        onClick={() => item.videoUrl && window.open(item.videoUrl, "_blank")}
+                      >
+                        <Image
+                          src={item.image}
+                          alt={item.title}
+                          fill
+                          style={{ objectFit: "cover" }}
+                          className="opacity-80 group-hover:opacity-60 transition-opacity duration-300"
+                        />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 border-2 border-white/50">
+                            <Play className="w-8 h-8 text-white fill-white ml-1" />
+                          </div>
+                        </div>
+                        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+                          <h3 className="text-white font-bold text-xl mb-1">{item.title}</h3>
+                          <p className="text-gray-300 text-sm">{item.category}</p>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="-left-4 lg:-left-12 border-gray-200" />
+                <CarouselNext className="-right-4 lg:-right-12 border-gray-200" />
+              </Carousel>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Publications Section */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-gray-50">
+      <section className="py-16 sm:py-20 lg:py-24 bg-white border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center mb-8">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mr-4 shadow-lg">
-              <FileText className="text-white w-6 h-6" />
+          <div className="flex items-center mb-12">
+            <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-2xl flex items-center justify-center mr-5 shadow-lg shadow-blue-500/20">
+              <FileText className="text-white w-7 h-7" />
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Scientific Publications</h2>
+            <div>
+               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Scientific Publications</h2>
+               <p className="text-gray-500 mt-1">Research papers, reports, and technical documents</p>
+            </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {publications.map((pub) => {
-              const colors = getColorClasses(pub.color);
-              return (
-                <div
-                  key={pub.id}
-                  className="bg-white border-2 border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-all hover:-translate-y-1"
-                >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className={`w-14 h-14 ${colors.bg} rounded-xl flex items-center justify-center`}>
-                      <FileText className={`${colors.icon} w-7 h-7`} />
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {publications.length > 0 ? (
+                publications.map((pub) => {
+                const colors = getColorClasses(pub.color || "blue");
+                return (
+                    <div
+                    key={pub.id}
+                    className="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-xl transition-all hover:-translate-y-1 flex flex-col h-full group"
+                    >
+                    <div className="flex items-start justify-between mb-6">
+                        <div className={`w-14 h-14 ${colors.bg} rounded-xl flex items-center justify-center`}>
+                        <FileText className={`${colors.icon} w-7 h-7`} />
+                        </div>
+                        <span className={`${colors.bg} ${colors.text} text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide`}>
+                        {pub.category || "Research"}
+                        </span>
                     </div>
-                    <span className={`${colors.bg} ${colors.text} text-xs font-bold px-3 py-1 rounded-full`}>
-                      {pub.year}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{pub.title}</h3>
-                  <p className="text-sm text-gray-600 mb-4">{pub.journal}</p>
-                  <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
-                    <span>
-                      <FileText className="w-3 h-3 inline mr-1" />
-                      {pub.fileSize}
-                    </span>
-                    <span>
-                      <Download className="w-3 h-3 inline mr-1" />
-                      {pub.downloads} downloads
-                    </span>
-                  </div>
-                  <button className={`block w-full ${colors.bg} ${colors.text} text-center py-3 rounded-xl font-semibold hover:shadow-lg transition-all`}>
-                    <Download className="w-4 h-4 inline mr-2" />
-                    Download PDF
-                  </button>
+                    
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 leading-snug flex-grow group-hover:text-blue-700 transition-colors">
+                        {pub.title}
+                    </h3>
+                    
+                    <div className="space-y-2 mb-6 text-sm text-gray-600">
+                         <p className="font-medium">{pub.journal}</p>
+                         <p>Year: {pub.year}</p>
+                    </div>
+
+                    <div className="flex items-center justify-between text-xs text-gray-500 mb-6 pt-6 border-t border-gray-100">
+                        <span className="flex items-center">
+                        <FileText className="w-3 h-3 mr-1" />
+                        {pub.fileSize || "PDF"}
+                        </span>
+                        {pub.downloads !== undefined && (
+                             <span className="flex items-center">
+                                <Download className="w-3 h-3 mr-1" />
+                                {pub.downloads} downloads
+                            </span>
+                        )}
+                    </div>
+                    
+                    <a 
+                        href={pub.pdfUrl || "#"} 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`block w-full ${colors.bg} ${colors.text} text-center py-3 rounded-xl font-bold hover:brightness-95 transition-all mt-auto flex items-center justify-center`}
+                    >
+                        <Download className="w-4 h-4 mr-2" />
+                        Download / View PDF
+                    </a>
+                    </div>
+                );
+                })
+            ) : (
+                <div className="col-span-full text-center py-20 text-gray-500">
+                    No publications available yet.
                 </div>
-              );
-            })}
+            )}
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 sm:py-16 lg:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <Leaf className="w-6 h-6 text-emerald-500" />
-                <span className="text-xl font-bold">OSIRRIS</span>
-              </div>
-              <p className="text-gray-400 text-sm">
-                Revolutionizing agricultural water management through IoT and AI innovation.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>
-                  <a href="/" className="hover:text-emerald-500 transition-colors">
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <a href="/blog" className="hover:text-emerald-500 transition-colors">
-                    Blog
-                  </a>
-                </li>
-                <li>
-                  <a href="/media" className="hover:text-emerald-500 transition-colors">
-                    Media
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Resources</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>
-                  <a href="/#tensiometers" className="hover:text-emerald-500 transition-colors">
-                    Technology
-                  </a>
-                </li>
-                <li>
-                  <a href="/#pilots" className="hover:text-emerald-500 transition-colors">
-                    Pilots
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Contact</h4>
-              <p className="text-sm text-gray-400">
-                For inquiries about OSIRRIS technology and partnerships, please reach out to our team.
-              </p>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
-            <p>&copy; 2024 OSIRRIS Project. All rights reserved. EU Horizon 2020 Initiative.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer heroHeading="OSIRRIS" data={globalData.footer} />
     </div>
   );
 }

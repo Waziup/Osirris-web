@@ -620,10 +620,10 @@ var config_default = defineConfig({
             options: ["blue", "green", "purple", "orange"]
           },
           {
-            type: "string",
+            type: "image",
             name: "pdfUrl",
-            label: "PDF URL",
-            description: "Link to the PDF file"
+            label: "PDF File",
+            description: "Upload PDF file or provide external URL"
           },
           {
             type: "rich-text",

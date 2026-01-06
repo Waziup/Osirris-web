@@ -642,7 +642,7 @@ export type PublicationsFilter = {
   downloads?: InputMaybe<NumberFilter>;
   category?: InputMaybe<StringFilter>;
   color?: InputMaybe<StringFilter>;
-  pdfUrl?: InputMaybe<StringFilter>;
+  pdfUrl?: InputMaybe<ImageFilter>;
   body?: InputMaybe<RichTextFilter>;
 };
 

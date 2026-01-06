@@ -477,7 +477,7 @@ input PublicationsFilter {
   downloads: NumberFilter
   category: StringFilter
   color: StringFilter
-  pdfUrl: StringFilter
+  pdfUrl: ImageFilter
   body: RichTextFilter
 }
 

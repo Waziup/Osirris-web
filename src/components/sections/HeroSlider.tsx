@@ -91,7 +91,7 @@ export default function HeroSlider({ hero }: { hero: HeroData }) {
       </Carousel>
 
       {/* Overlay gradient - semi-transparent for better image visibility */}
-      <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/70 via-emerald-500/65 to-blue-600/70"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-emerald-20/10 via-emerald-100/65 to-blue-200/10"></div>
 
       {/* Content */}
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">

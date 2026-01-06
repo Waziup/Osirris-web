@@ -52,43 +52,49 @@ export default function PartnersSection({ data }: { data: PartnersData }) {
           </p>
         </div>
 
-        <div className="relative px-12">
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-4">
-              {partnersToDisplay.map((partner, index) => (
-                <CarouselItem
-                  key={index}
-                  className="pl-4 basis-1/2 md:basis-1/3 lg:basis-1/5"
-                >
-                  <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 h-40 flex items-center justify-center hover:shadow-md transition-all group">
-                    {partner.logo ? (
-                      <div className="relative w-full h-full">
-                        <Image
-                          src={partner.logo}
-                          alt={partner.name}
-                          fill
-                          style={{ objectFit: "contain" }}
-                          className="filter grayscale group-hover:grayscale-0 transition-all duration-300"
-                        />
-                      </div>
-                    ) : (
-                      <span className="font-semibold text-gray-500 group-hover:text-emerald-600 transition-colors text-center">
-                        {partner.name}
-                      </span>
-                    )}
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden md:flex -left-12 border-gray-200 text-gray-500 hover:text-emerald-600" />
-            <CarouselNext className="hidden md:flex -right-12 border-gray-200 text-gray-500 hover:text-emerald-600" />
-          </Carousel>
+        <div className="flex justify-center">
+          <div className="w-full max-w-6xl px-8">
+            <Carousel
+              opts={{
+                align: "center",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-4">
+                {partnersToDisplay.map((partner, index) => (
+                  <CarouselItem
+                    key={index}
+                    className="pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4 flex justify-center"
+                  >
+                    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-40 w-full flex items-center justify-center hover:shadow-lg transition-all group">
+                      {partner.logo ? (
+                        <div className="relative w-28 h-28 flex items-center justify-center">
+                          <Image
+                            src={partner.logo}
+                            alt={partner.name}
+                            width={112}
+                            height={112}
+                            style={{ objectFit: "contain" }}
+                            className="filter grayscale group-hover:grayscale-0 transition-all duration-300"
+                            onError={(e) => {
+                              console.error(`Failed to load partner logo: ${partner.logo}`);
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <span className="font-semibold text-gray-500 group-hover:text-emerald-600 transition-colors text-center px-2">
+                          {partner.name}
+                        </span>
+                      )}
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex -left-12 border-gray-200 text-gray-500 hover:text-emerald-600" />
+              <CarouselNext className="hidden md:flex -right-12 border-gray-200 text-gray-500 hover:text-emerald-600" />
+            </Carousel>
+          </div>
         </div>
       </div>
     </section>

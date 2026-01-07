@@ -2,7 +2,7 @@
 
 import { Calendar, Clock, ArrowLeft, User, Leaf } from "lucide-react";
 import Image from "next/image";
-import { TinaMarkdown } from "tinacms/dist/rich-text";
+import ReactMarkdown from "react-markdown";
 import Navigation from "../components/sections/Navigation";
 import Footer from "../components/sections/Footer";
 
@@ -15,7 +15,7 @@ interface BlogPostProps {
     readTime: string;
     author: string;
     authorRole: string;
-    body: any;
+    body: string;
   };
   globalData?: {
     header?: { logo?: string; navLinks?: { label: string; href: string }[] };
@@ -33,7 +33,7 @@ export default function BlogPost({ post, globalData = { header: { navLinks: [] }
     readTime: post?.readTime || "5 min read",
     author: post?.author || "Osirris Team",
     authorRole: post?.authorRole || "Contributor",
-    body: post?.body || { type: "root", children: [] },
+    body: post?.body || "",
   };
   return (
     <div className="bg-white text-gray-900 min-h-screen flex flex-col">
@@ -94,7 +94,7 @@ export default function BlogPost({ post, globalData = { header: { navLinks: [] }
 
         {/* Content */}
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-lg prose-emerald hover:prose-a:text-emerald-600">
-          <TinaMarkdown content={safePost.body} />
+          <ReactMarkdown>{safePost.body}</ReactMarkdown>
         </div>
       </article>
 

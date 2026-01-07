@@ -32,7 +32,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         author: data.author || "Osirris Team",
         authorRole: data.authorRole || "Contributor",
         ...data, // Overwrite defaults with actual data
-        body: { type: "root", children: [{ type: "p", children: [{ type: "text", text: content || "No content available." }] }] },
+        body: content || "No content available.",
       };
     }
   } catch (e) {
@@ -75,7 +75,7 @@ export default async function BlogPostPage({ params }: PageProps) {
     readTime: post.readTime || "5 min read",
     author: post.author || "Osirris Team",
     authorRole: post.authorRole || "Contributor",
-    body: post.body || { type: "root", children: [] },
+    body: post.body || "",
   };
 
   return <BlogPost post={safePost} globalData={globalData} />;

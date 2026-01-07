@@ -176,6 +176,61 @@ export default defineConfig({
           },
           {
             type: "object",
+            name: "about",
+            label: "About Section",
+            fields: [
+              {
+                type: "string",
+                name: "heading",
+                label: "Heading",
+              },
+              {
+                type: "string",
+                name: "subheading",
+                label: "Subheading",
+              },
+              {
+                type: "string",
+                name: "description",
+                label: "Description",
+                ui: {
+                  component: "textarea",
+                },
+              },
+              {
+                type: "string",
+                name: "objectives",
+                label: "Objectives",
+                list: true,
+              },
+              {
+                type: "object",
+                name: "focusAreas",
+                label: "Key Focus Areas",
+                list: true,
+                ui: {
+                  itemProps: (item) => {
+                    return { label: item?.title };
+                  },
+                },
+                fields: [
+                  {
+                    type: "string",
+                    name: "title",
+                    label: "Title",
+                  },
+                  {
+                    type: "string",
+                    name: "icon",
+                    label: "Icon (Emoji)",
+                    description: "e.g. 🌾, 🤖, 📡, 👥",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: "object",
             name: "technology",
             label: "Technology Section",
             fields: [

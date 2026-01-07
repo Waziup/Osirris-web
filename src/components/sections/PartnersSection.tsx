@@ -41,7 +41,7 @@ export default function PartnersSection({ data }: { data: PartnersData }) {
           )}
 
           {description && (
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed text-center">
               {description}
             </p>
           )}
@@ -55,7 +55,7 @@ export default function PartnersSection({ data }: { data: PartnersData }) {
                 opts={{ align: "center", loop: true }}
                 className="w-full"
               >
-                <CarouselContent className="-ml-4">
+                <CarouselContent className="-ml-4 items-center justify-center">
                   {partners.map((partner, index) => (
                     <CarouselItem
                       key={index}

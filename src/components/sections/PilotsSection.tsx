@@ -76,11 +76,11 @@ export default function PilotsSection({ data }: { data: PilotData }) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="flex flex-wrap justify-center gap-8">
           {pilotsToDisplay.map((pilot, index) => (
             <div
               key={index}
-              className="group bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 flex flex-col h-full"
+              className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] min-w-[280px] max-w-sm group bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 flex flex-col"
             >
               {/* Image Container */}
               <div className="relative h-48 w-full overflow-hidden">
@@ -109,8 +109,8 @@ export default function PilotsSection({ data }: { data: PilotData }) {
               </div>
 
               {/* Content Container */}
-              <div className="p-6 flex flex-col flex-grow">
-                <div className="flex items-center mb-2 text-gray-500 text-sm font-medium">
+              <div className="p-6 flex flex-col flex-grow text-center">
+                <div className="flex items-center justify-center mb-2 text-gray-500 text-sm font-medium">
                   <MapPin className="w-4 h-4 mr-1 text-emerald-600" />
                   {pilot.name}
                 </div>
@@ -124,7 +124,7 @@ export default function PilotsSection({ data }: { data: PilotData }) {
                     "Field testing site focused on optimizing irrigation strategies for local climate conditions."}
                 </p>
 
-                <div className="pt-4 border-t border-gray-100 flex items-center text-sm text-gray-500">
+                <div className="pt-4 border-t border-gray-100 flex items-center justify-center text-sm text-gray-500">
                   <Sprout className="w-4 h-4 mr-2 text-emerald-500" />
                   <span>Crop Monitoring</span>
                 </div>

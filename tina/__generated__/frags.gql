@@ -35,6 +35,18 @@ fragment HomeParts on Home {
     subheading
     images
   }
+  about {
+    __typename
+    heading
+    subheading
+    description
+    objectives
+    focusAreas {
+      __typename
+      title
+      icon
+    }
+  }
   technology {
     __typename
     heading

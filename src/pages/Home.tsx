@@ -73,6 +73,7 @@ export default function Home({ tinaData, globalData }: HomeProps) {
         subheading={about?.subheading}
         description={about?.description}
         objectives={about?.objectives}
+        focusAreas={about?.focusAreas}
         content={about?.content}
       />
 

@@ -200,6 +200,19 @@ type HomeHero {
   images: [String]
 }
 
+type HomeAboutFocusAreas {
+  title: String
+  icon: String
+}
+
+type HomeAbout {
+  heading: String
+  subheading: String
+  description: String
+  objectives: [String]
+  focusAreas: [HomeAboutFocusAreas]
+}
+
 type HomeTechnologyFeatures {
   title: String
   icon: String
@@ -260,6 +273,7 @@ type HomePartners {
 type Home implements Node & Document {
   title: String!
   hero: HomeHero
+  about: HomeAbout
   technology: HomeTechnology
   application: HomeApplication
   pilots: HomePilots
@@ -274,6 +288,19 @@ input HomeHeroFilter {
   heading: StringFilter
   subheading: StringFilter
   images: ImageFilter
+}
+
+input HomeAboutFocusAreasFilter {
+  title: StringFilter
+  icon: StringFilter
+}
+
+input HomeAboutFilter {
+  heading: StringFilter
+  subheading: StringFilter
+  description: StringFilter
+  objectives: StringFilter
+  focusAreas: HomeAboutFocusAreasFilter
 }
 
 input HomeTechnologyFeaturesFilter {
@@ -342,6 +369,7 @@ input RichTextFilter {
 input HomeFilter {
   title: StringFilter
   hero: HomeHeroFilter
+  about: HomeAboutFilter
   technology: HomeTechnologyFilter
   application: HomeApplicationFilter
   pilots: HomePilotsFilter
@@ -610,6 +638,19 @@ input HomeHeroMutation {
   images: [String]
 }
 
+input HomeAboutFocusAreasMutation {
+  title: String
+  icon: String
+}
+
+input HomeAboutMutation {
+  heading: String
+  subheading: String
+  description: String
+  objectives: [String]
+  focusAreas: [HomeAboutFocusAreasMutation]
+}
+
 input HomeTechnologyFeaturesMutation {
   title: String
   icon: String
@@ -670,6 +711,7 @@ input HomePartnersMutation {
 input HomeMutation {
   title: String
   hero: HomeHeroMutation
+  about: HomeAboutMutation
   technology: HomeTechnologyMutation
   application: HomeApplicationMutation
   pilots: HomePilotsMutation

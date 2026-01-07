@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   reactStrictMode: true,
   // Optimize for Vercel serverless function size limits
   experimental: {

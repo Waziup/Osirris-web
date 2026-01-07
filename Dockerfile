@@ -1,64 +1,83 @@
-# Multi-stage build for Next.js application
+# =========================
 # Stage 1: Dependencies
+# =========================
 FROM node:20-alpine AS deps
 WORKDIR /app
 
-# Copy package files
-COPY package.json pnpm-lock.yaml ./
+# System deps (needed for sharp / imagemagick / binaries)
+RUN apk add --no-cache \
+    libc6-compat \
+    imagemagick
 
-# Install pnpm
-RUN npm install -g pnpm
+# Enable pnpm via corepack (recommended)
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+# Copy dependency files
+COPY package.json pnpm-lock.yaml ./
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
 
+
+# =========================
 # Stage 2: Builder
+# =========================
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Copy package files
-COPY package.json pnpm-lock.yaml ./
+# System deps again (build stage)
+RUN apk add --no-cache \
+    libc6-compat \
+    imagemagick
 
-# Install pnpm
-RUN npm install -g pnpm
+# Enable pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# Install dependencies
-RUN pnpm install --frozen-lockfile
+# Copy node_modules from deps stage
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/package.json ./package.json
+COPY --from=deps /app/pnpm-lock.yaml ./pnpm-lock.yaml
 
 # Copy source code
 COPY . .
 
-# Build the application
+# Build Next.js (this is where optimize-images runs)
 RUN pnpm run build
 
+
+# =========================
 # Stage 3: Production runtime
+# =========================
 FROM node:20-alpine AS runner
 WORKDIR /app
 
-# Set environment to production
 ENV NODE_ENV=production
 
-# Create app user for security
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+# Runtime system deps (needed if image processing happens at runtime)
+RUN apk add --no-cache \
+    libc6-compat \
+    imagemagick
 
-# Copy built application from builder
+# Create non-root user
+RUN addgroup --system --gid 1001 nodejs \
+ && adduser --system --uid 1001 nextjs
+
+# Copy standalone output
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
-# Create uploads directory for local media storage
-RUN mkdir -p /app/public/uploads && chown -R nextjs:nodejs /app
+# Ensure uploads folder exists and is writable
+RUN mkdir -p /app/public/uploads \
+ && chown -R nextjs:nodejs /app
 
-# Switch to nextjs user
 USER nextjs
 
-# Expose port
 EXPOSE 3000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:3000', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"
+# Healthcheck
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3000', r => { if (r.statusCode !== 200) process.exit(1) })"
 
-# Start the application
+# Start Next.js standalone server
 CMD ["node", "server.js"]

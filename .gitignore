@@ -40,9 +40,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# uploads - managed by Tina CMS, not committed to repo
-/public/uploads/
-*.webp
-*.mp4
-*.mov
-*.avi
+# uploads - included in Docker image for self-hosted deployment
+# Uncomment the lines below if deploying to Vercel instead
+# /public/uploads/
+# *.webp
+# *.mp4
+# *.mov
+# *.avi

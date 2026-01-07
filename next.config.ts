@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   // Optimize for Vercel serverless function size limits
   experimental: {
+    serverComponentsExternalPackages: ['tinacms'],
     optimizePackageImports: [
       '@radix-ui/react-accordion',
       '@radix-ui/react-alert-dialog',

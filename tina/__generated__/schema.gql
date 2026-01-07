@@ -58,6 +58,8 @@ type Query {
   globalConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: GlobalFilter): GlobalConnection!
   home(relativePath: String): Home!
   homeConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: HomeFilter): HomeConnection!
+  mediaPage(relativePath: String): MediaPage!
+  mediaPageConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: MediaPageFilter): MediaPageConnection!
   blog(relativePath: String): Blog!
   blogConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: BlogFilter): BlogConnection!
   media(relativePath: String): Media!
@@ -69,6 +71,7 @@ type Query {
 input DocumentFilter {
   global: GlobalFilter
   home: HomeFilter
+  mediaPage: MediaPageFilter
   blog: BlogFilter
   media: MediaFilter
   publications: PublicationsFilter
@@ -97,7 +100,7 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Global | Home | Blog | Media | Publications | Folder
+union DocumentNode = Global | Home | MediaPage | Blog | Media | Publications | Folder
 
 type GlobalHeaderNavLinks {
   label: String
@@ -357,6 +360,44 @@ type HomeConnection implements Connection {
   edges: [HomeConnectionEdges]
 }
 
+type MediaPageGallery {
+  title: String
+  image: String
+  category: String
+  description: String
+}
+
+type MediaPage implements Node & Document {
+  title: String!
+  gallery: [MediaPageGallery]
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input MediaPageGalleryFilter {
+  title: StringFilter
+  image: ImageFilter
+  category: StringFilter
+  description: StringFilter
+}
+
+input MediaPageFilter {
+  title: StringFilter
+  gallery: MediaPageGalleryFilter
+}
+
+type MediaPageConnectionEdges {
+  cursor: String!
+  node: MediaPage
+}
+
+type MediaPageConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [MediaPageConnectionEdges]
+}
+
 type Blog implements Node & Document {
   title: String!
   excerpt: String!
@@ -502,6 +543,8 @@ type Mutation {
   createGlobal(relativePath: String!, params: GlobalMutation!): Global!
   updateHome(relativePath: String!, params: HomeMutation!): Home!
   createHome(relativePath: String!, params: HomeMutation!): Home!
+  updateMediaPage(relativePath: String!, params: MediaPageMutation!): MediaPage!
+  createMediaPage(relativePath: String!, params: MediaPageMutation!): MediaPage!
   updateBlog(relativePath: String!, params: BlogMutation!): Blog!
   createBlog(relativePath: String!, params: BlogMutation!): Blog!
   updateMedia(relativePath: String!, params: MediaMutation!): Media!
@@ -513,6 +556,7 @@ type Mutation {
 input DocumentUpdateMutation {
   global: GlobalMutation
   home: HomeMutation
+  mediaPage: MediaPageMutation
   blog: BlogMutation
   media: MediaMutation
   publications: PublicationsMutation
@@ -522,6 +566,7 @@ input DocumentUpdateMutation {
 input DocumentMutation {
   global: GlobalMutation
   home: HomeMutation
+  mediaPage: MediaPageMutation
   blog: BlogMutation
   media: MediaMutation
   publications: PublicationsMutation
@@ -630,6 +675,18 @@ input HomeMutation {
   pilots: HomePilotsMutation
   partners: HomePartnersMutation
   body: JSON
+}
+
+input MediaPageGalleryMutation {
+  title: String
+  image: String
+  category: String
+  description: String
+}
+
+input MediaPageMutation {
+  title: String
+  gallery: [MediaPageGalleryMutation]
 }
 
 input BlogMutation {

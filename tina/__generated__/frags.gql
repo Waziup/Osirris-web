@@ -91,6 +91,18 @@ fragment HomeParts on Home {
   body
 }
 
+fragment MediaPageParts on MediaPage {
+  __typename
+  title
+  gallery {
+    __typename
+    title
+    image
+    category
+    description
+  }
+}
+
 fragment BlogParts on Blog {
   __typename
   title

@@ -426,6 +426,75 @@ var config_default = defineConfig({
           }
         ]
       },
+      // Media Page Configuration
+      {
+        name: "mediaPage",
+        label: "Media Page",
+        path: "content/pages",
+        format: "mdx",
+        match: {
+          include: "media"
+        },
+        ui: {
+          allowedActions: {
+            create: false,
+            delete: false
+          }
+        },
+        fields: [
+          {
+            type: "string",
+            name: "title",
+            label: "Page Title",
+            required: true
+          },
+          {
+            type: "object",
+            name: "gallery",
+            label: "Photo Gallery",
+            list: true,
+            ui: {
+              itemProps: (item) => ({ label: item?.title || "New Photo" }),
+              defaultItem: {
+                category: "Events"
+              }
+            },
+            fields: [
+              {
+                type: "string",
+                name: "title",
+                label: "Title"
+              },
+              {
+                type: "image",
+                name: "image",
+                label: "Image"
+              },
+              {
+                type: "string",
+                name: "category",
+                label: "Category",
+                options: [
+                  "Field Testing",
+                  "Installation",
+                  "Equipment",
+                  "Application",
+                  "Team",
+                  "Events"
+                ]
+              },
+              {
+                type: "string",
+                name: "description",
+                label: "Description",
+                ui: {
+                  component: "textarea"
+                }
+              }
+            ]
+          }
+        ]
+      },
       // Blog Posts Collection
       {
         name: "blog",

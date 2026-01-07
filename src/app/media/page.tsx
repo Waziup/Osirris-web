@@ -53,9 +53,55 @@ export default async function MediaPage() {
     console.error("Error fetching media from Tina, falling back to FS:", error);
   }
 
+  // Fetch Media Page singleton for the gallery list
+  try {
+    // @ts-ignore - mediaPage query might not be generated yet
+    const mediaPageResponse = await client.queries.mediaPage({ relativePath: "media.mdx" });
+    const galleryItems = mediaPageResponse?.data?.mediaPage?.gallery || [];
+
+    if (galleryItems.length > 0) {
+      const mappedGalleryItems = galleryItems.map((item: any, index: number) => ({
+        id: `gallery-${index}`,
+        title: item?.title || "Untitled",
+        type: "photo",
+        image: item?.image,
+        category: item?.category || "General",
+        description: item?.description,
+        date: new Date().toISOString(),
+      })).filter((item: any) => item.image);
+      
+      mediaItems = [...mappedGalleryItems, ...mediaItems];
+    }
+  } catch (error) {
+    console.log("Could not fetch media page gallery (collection might be new):", error);
+  }
+
   // Fallback if Tina returns empty (e.g. server indexing lag)
   if (mediaItems.length === 0) {
     mediaItems = readContentDir("content/media");
+
+    // Also try to read the gallery from media.mdx
+    try {
+      const mediaPagePath = path.join(process.cwd(), "content/pages/media.mdx");
+      if (fs.existsSync(mediaPagePath)) {
+        const fileContent = fs.readFileSync(mediaPagePath, "utf8");
+        const { data } = matter(fileContent);
+        if (data.gallery && Array.isArray(data.gallery)) {
+          const mappedGalleryItems = data.gallery.map((item: any, index: number) => ({
+            id: `gallery-fs-${index}`,
+            title: item?.title || "Untitled",
+            type: "photo",
+            image: item?.image,
+            category: item?.category || "General",
+            description: item?.description,
+            date: new Date().toISOString(),
+          })).filter((item: any) => item.image);
+          mediaItems = [...mappedGalleryItems, ...mediaItems];
+        }
+      }
+    } catch (e) {
+      console.error("Error reading media.mdx fallback:", e);
+    }
   }
 
   try {

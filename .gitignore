@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# uploads - managed by Tina CMS, not committed to repo
+/public/uploads/
+*.webp
+*.mp4
+*.mov
+*.avi

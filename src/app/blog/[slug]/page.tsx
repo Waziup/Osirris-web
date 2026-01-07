@@ -1,5 +1,4 @@
 import BlogPost from "@/pages/BlogPost";
-import { client } from "../../../../tina/__generated__/client";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -18,64 +17,48 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   const filename = `${slug}.mdx`;
 
-  // Fetch Post
+  // Fetch Post from filesystem
   try {
-    const postResponse = await client.queries.blog({ relativePath: filename });
-    post = {
-      ...postResponse.data.blog,
-      body: postResponse.data.blog.body,
-    };
-  } catch (error) {
-    console.error(`Error fetching post ${slug} from Tina:`, error);
-    // Fallback
-    try {
-      const filePath = path.join(process.cwd(), "content/blog", filename);
-      if (fs.existsSync(filePath)) {
-        const fileContent = fs.readFileSync(filePath, "utf8");
-        const { data, content } = matter(fileContent);
-        post = {
-          title: data.title || "Untitled Post",
-          image: data.image || "/placeholder.jpg",
-          category: data.category || "General",
-          date: data.date || new Date().toISOString(),
-          readTime: data.readTime || "5 min read",
-          author: data.author || "Osirris Team",
-          authorRole: data.authorRole || "Contributor",
-          ...data, // Overwrite defaults with actual data
-          body: { type: "root", children: [{ type: "p", children: [{ type: "text", text: content || "No content available." }] }] },
-        };
-      }
-    } catch (e) {
-      console.error("Error reading post file:", e);
+    const filePath = path.join(process.cwd(), "content/blog", filename);
+    if (fs.existsSync(filePath)) {
+      const fileContent = fs.readFileSync(filePath, "utf8");
+      const { data, content } = matter(fileContent);
+      post = {
+        title: data.title || "Untitled Post",
+        image: data.image || "/placeholder.jpg",
+        category: data.category || "General",
+        date: data.date || new Date().toISOString(),
+        readTime: data.readTime || "5 min read",
+        author: data.author || "Osirris Team",
+        authorRole: data.authorRole || "Contributor",
+        ...data, // Overwrite defaults with actual data
+        body: { type: "root", children: [{ type: "p", children: [{ type: "text", text: content || "No content available." }] }] },
+      };
     }
+  } catch (e) {
+    console.error("Error reading post file:", e);
   }
 
-  // Fetch Global Settings
+  // Read Global Settings from filesystem
   try {
-    const globalResponse = await client.queries.global({ relativePath: "index.json" });
-    globalData = globalResponse?.data?.global || globalData;
-  } catch (error) {
-    console.error("Error fetching global settings:", error);
-    try {
-       const globalPath = path.join(process.cwd(), "content/global/index.json");
-       if (fs.existsSync(globalPath)) {
-         const fileData = JSON.parse(fs.readFileSync(globalPath, "utf8"));
-         globalData = {
-           header: {
-             logo: fileData.header?.logo,
-             navLinks: fileData.header?.navLinks || [],
-           },
-           footer: {
-             logo: fileData.footer?.logo,
-             copyright: fileData.footer?.copyright || "",
-             socialLinks: fileData.footer?.socialLinks || [],
-             funding: fileData.footer?.funding,
-           },
-         };
-       }
-    } catch (e) {
-       console.error("Error reading global settings file:", e);
-    }
+     const globalPath = path.join(process.cwd(), "content/global/index.json");
+     if (fs.existsSync(globalPath)) {
+       const fileData = JSON.parse(fs.readFileSync(globalPath, "utf8"));
+       globalData = {
+         header: {
+           logo: fileData.header?.logo,
+           navLinks: fileData.header?.navLinks || [],
+         },
+         footer: {
+           logo: fileData.footer?.logo,
+           copyright: fileData.footer?.copyright || "",
+           socialLinks: fileData.footer?.socialLinks || [],
+           funding: fileData.footer?.funding,
+         },
+       };
+     }
+  } catch (e) {
+     console.error("Error reading global settings file:", e);
   }
 
   // Ensure post has all required fields
@@ -99,15 +82,8 @@ export default async function BlogPostPage({ params }: PageProps) {
 }
 
 export async function generateStaticParams() {
+  const dirPath = path.join(process.cwd(), "content/blog");
   try {
-    const postsResponse = await client.queries.blogConnection();
-    const edges = postsResponse.data.blogConnection.edges || [];
-    return edges.map((edge) => ({
-      slug: edge?.node?._sys.filename,
-    }));
-  } catch (e) {
-    // Fallback for static params
-    const dirPath = path.join(process.cwd(), "content/blog");
     if (fs.existsSync(dirPath)) {
       const files = fs.readdirSync(dirPath);
       return files
@@ -116,6 +92,8 @@ export async function generateStaticParams() {
           slug: file.replace(".mdx", ""),
         }));
     }
-    return [];
+  } catch (e) {
+    console.error("Error generating static params:", e);
   }
+  return [];
 }

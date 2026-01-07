@@ -1,5 +1,4 @@
 import Blog from "@/pages/Blog";
-import { client } from "../../../tina/__generated__/client";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -42,47 +41,29 @@ export default async function BlogPage() {
     }
   };
 
-  // Fetch Blog Posts
-  try {
-    const postsResponse = await client.queries.blogConnection();
-    posts = postsResponse?.data?.blogConnection?.edges?.map((edge) => ({
-      id: edge?.node?.id,
-      ...edge?.node,
-    })) || [];
-  } catch (error) {
-    console.error("Error fetching blog posts from Tina:", error);
-  }
+  // Read blog posts from filesystem
+  posts = readContentDir("content/blog");
 
-  if (posts.length === 0) {
-    posts = readContentDir("content/blog");
-  }
-
-  // Fetch Global Settings
+  // Read Global Settings from filesystem
   try {
-    const globalResponse = await client.queries.global({ relativePath: "index.json" });
-    globalData = globalResponse?.data?.global || globalData;
-  } catch (error) {
-    console.error("Error fetching global settings:", error);
-    try {
-       const globalPath = path.join(process.cwd(), "content/global/index.json");
-       if (fs.existsSync(globalPath)) {
-         const fileData = JSON.parse(fs.readFileSync(globalPath, "utf8"));
-         globalData = {
-           header: {
-             logo: fileData.header?.logo,
-             navLinks: fileData.header?.navLinks || [],
-           },
-           footer: {
-             logo: fileData.footer?.logo,
-             copyright: fileData.footer?.copyright || "",
-             socialLinks: fileData.footer?.socialLinks || [],
-             funding: fileData.footer?.funding,
-           },
-         };
-       }
-    } catch (e) {
-       console.error("Error reading global settings file:", e);
-    }
+     const globalPath = path.join(process.cwd(), "content/global/index.json");
+     if (fs.existsSync(globalPath)) {
+       const fileData = JSON.parse(fs.readFileSync(globalPath, "utf8"));
+       globalData = {
+         header: {
+           logo: fileData.header?.logo,
+           navLinks: fileData.header?.navLinks || [],
+         },
+         footer: {
+           logo: fileData.footer?.logo,
+           copyright: fileData.footer?.copyright || "",
+           socialLinks: fileData.footer?.socialLinks || [],
+           funding: fileData.footer?.funding,
+         },
+       };
+     }
+  } catch (e) {
+     console.error("Error reading global settings file:", e);
   }
 
   return <Blog posts={posts} globalData={globalData} />;

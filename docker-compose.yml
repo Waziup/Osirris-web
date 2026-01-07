@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: osirris-web
     ports:
-      - "3000:3000"
+      - "5004:5004"
     environment:
       - NODE_ENV=production
       - NEXT_PUBLIC_API_URL=http://localhost:3000
@@ -24,7 +24,7 @@ services:
       retries: 3
       start_period: 40s
     networks:
-      - osirris-network
+      - dockersetup_wp_network
 
   # Optional: Nginx reverse proxy (uncomment to use)
   # nginx:
@@ -42,5 +42,5 @@ services:
   #     - osirris-network
 
 networks:
-  osirris-network:
+  dockersetup_wp_network:
     driver: bridge

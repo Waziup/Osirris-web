@@ -61,6 +61,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@tinacms/app": "^2.3.10",
     "@tinacms/cli": "^1.12.5",
     "@types/node": "^20",
     "@types/react": "^19",

@@ -73,12 +73,25 @@ Download from: https://imagemagick.org/script/download.php#windows
 ### Supported Input Formats
 - JPEG (.jpg, .jpeg)
 - PNG (.png)
-- WebP (.webp)
+- WebP (.webp) - **Also compressed!**
 
 ### Generated Formats
-- **WebP** - Modern format, 30% smaller
-- **AVIF** - Newest format, 50% smaller
-- **Original** - Kept for fallback
+- **WebP** - Modern format, 30% smaller (created from JPEG/PNG)
+- **AVIF** - Newest format, 50% smaller (created from JPEG/PNG)
+- **Original** - Optimized and kept for fallback
+- **WebP (from WebP)** - Re-compressed to reduce size further
+
+### WebP Compression
+
+If you upload a WebP file:
+1. **Original WebP** is re-compressed with quality 80
+2. **Reduction**: Typically 10-20% smaller
+3. **Result**: Smaller file, same quality
+
+**Example:**
+- Uploaded WebP: 500 KB
+- Optimized WebP: 400 KB (20% smaller)
+- AVIF: 250 KB (50% smaller)
 
 ## 🎯 Best Practices
 

@@ -1,13 +1,41 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// This is a placeholder API route for TinaCMS
-// For local development, TinaCMS CLI will handle the GraphQL API
-// This route can be used for custom API logic if needed
+/**
+ * Tina CMS API Route
+ * 
+ * This route is DISABLED in production for security.
+ * Tina CMS only runs locally during development.
+ * 
+ * Production behavior:
+ * - Returns 403 Forbidden
+ * - Tina CMS admin interface is not accessible
+ * - Content is managed locally and deployed via git
+ * 
+ * Development behavior:
+ * - TinaCMS CLI handles the GraphQL API
+ * - Access at http://localhost:3000/admin
+ */
 
 export async function GET(req: NextRequest) {
+  // Disable Tina CMS on production
+  if (process.env.NODE_ENV === "production") {
+    return NextResponse.json(
+      { error: "Tina CMS is disabled on production" },
+      { status: 403 }
+    );
+  }
+
   return NextResponse.json({ message: "TinaCMS API - use tinacms dev command" });
 }
 
 export async function POST(req: NextRequest) {
+  // Disable Tina CMS on production
+  if (process.env.NODE_ENV === "production") {
+    return NextResponse.json(
+      { error: "Tina CMS is disabled on production" },
+      { status: 403 }
+    );
+  }
+
   return NextResponse.json({ message: "TinaCMS API - use tinacms dev command" });
 }

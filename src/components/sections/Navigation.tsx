@@ -107,38 +107,31 @@ export default function Navigation({ heroHeading, navLinks, logo }: NavigationPr
         isScrolled ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 sm:h-20">
-          <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-            {logo ? (
-              <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl overflow-hidden shadow-lg flex-shrink-0">
-                <Image
-                  src={logo}
-                  alt="Logo"
-                  fill
-                  style={{ objectFit: "cover" }}
-                  priority
-                />
-              </div>
-            ) : (
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-lg">O</span>
-              </div>
-            )}
-            <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent">
-              {heroHeading}
-            </span>
-          </Link>
-          <div className="hidden md:flex space-x-8 lg:space-x-10">
-            {navLinks && navLinks.map((link, index) => renderLink(link, index))}
-          </div>
-          <button className="md:hidden text-gray-700 hover:text-emerald-600 transition-colors" onClick={toggleMobileMenu}>
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-      </div>
+<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div className="flex justify-between items-center h-16 sm:h-20">
+    <Link href="/" className="hover:opacity-80 transition-opacity">
+      {logo && (
+        <Image
+          src={logo}
+          alt="Logo"
+          width={250}
+          height={50}
+          priority
+        />
+      )}
+    </Link>
+    <div className="hidden md:flex space-x-8 lg:space-x-10">
+      {navLinks && navLinks.map((link, index) => renderLink(link, index))}
+    </div>
+    <button className="md:hidden text-gray-700 hover:text-emerald-600 transition-colors" onClick={toggleMobileMenu}>
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-200 shadow-lg">

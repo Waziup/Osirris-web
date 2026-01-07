@@ -22,45 +22,38 @@ export default function Footer({ heroHeading, data }: FooterProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand Column */}
           <div className="lg:col-span-1">
-            <div className="flex items-center space-x-3 mb-6">
-              {logo ? (
-                <div className="relative w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-emerald-900/20 flex-shrink-0">
-                  <Image
-                    src={logo}
-                    alt="Logo"
-                    fill
-                    style={{ objectFit: "cover" }}
-                  />
-                </div>
-              ) : (
-                <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-900/20">
-                  <span className="text-white font-bold text-lg">O</span>
-                </div>
+            <div className="lg:col-span-1 flex flex-col">
+              {logo && (
+                <Image
+                  src={logo}
+                  alt="Logo"
+                  width={250}
+                  height={50}
+                  priority
+                  className="grayscale mb-2"
+                />
               )}
-              <span className="text-xl font-bold bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
-                {heroHeading}
-              </span>
-            </div>
-            <p className="text-slate-400 text-sm leading-relaxed mb-6">
-              Revolutionizing agriculture with Edge AI and sustainable irrigation solutions for a water-secure future.
-            </p>
-            <div className="flex space-x-4">
-              {socialLinks &&
-                socialLinks.map((link, index) => (
-                  <a
-                    key={index}
-                    href={link.url}
-                    className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-emerald-600 hover:text-white transition-all duration-300"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={link.platform}
-                  >
-                    {/* Simple first letter icon as fallback, can be replaced with actual icons */}
-                    <span className="text-xs font-bold">{link.platform.charAt(0)}</span>
-                  </a>
-                ))}
+              <p className="text-slate-400 text-sm leading-snug mb-3">
+                Revolutionizing agriculture with Edge AI and sustainable irrigation solutions for a water-secure future.
+              </p>
+              <div className="flex space-x-3">
+                {socialLinks &&
+                  socialLinks.map((link, index) => (
+                    <a
+                      key={index}
+                      href={link.url}
+                      className="w-7 h-7 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-emerald-600 hover:text-white transition-all duration-300"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={link.platform}
+                    >
+                      <span className="text-xs font-bold">{link.platform.charAt(0)}</span>
+                    </a>
+                  ))}
+              </div>
             </div>
           </div>
+
 
           {/* Quick Links Column - Placeholder for now, can be dynamic later */}
           <div className="lg:col-span-1">

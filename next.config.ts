@@ -37,7 +37,14 @@ const nextConfig: NextConfig = {
     ],
   },
   images: {
+    // Enable optimization in production, disable in development for faster builds
     unoptimized: process.env.NODE_ENV === 'development',
+    // Image optimization settings
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Cache optimized images for 1 year (production)
+    minimumCacheTTL: 31536000,
     remotePatterns: [
       {
         protocol: 'https',

@@ -8,7 +8,7 @@ interface FooterProps {
     socialLinks: { platform: string; url: string }[];
     funding?: {
       text: string;
-      logo: string;
+      logo?: string;
     };
   };
 }
@@ -85,22 +85,21 @@ export default function Footer({ heroHeading, data }: FooterProps) {
           {/* Funding Acknowledgment Column */}
           <div className="lg:col-span-2 bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
             <div className="flex flex-col sm:flex-row items-center sm:items-center gap-6 text-center sm:text-left">
-              <div className="relative w-24 h-16 flex-shrink-0 bg-blue-800 rounded-sm overflow-hidden shadow-md">
-                <Image
-                  src={
-                    funding?.logo ||
-                    "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg"
-                  }
-                  alt="EU Flag"
-                  fill
-                  style={{ objectFit: "cover" }}
-                />
-              </div>
+              {funding?.logo && (
+                <div className="relative w-24 h-16 flex-shrink-0 bg-white rounded-sm overflow-hidden shadow-md">
+                  <Image
+                    src={funding.logo}
+                    alt="Funding Agency Logo"
+                    fill
+                    style={{ objectFit: "contain", padding: "4px" }}
+                  />
+                </div>
+              )}
               <div>
-                <h3 className="text-white font-semibold mb-2">EU Horizon 2020</h3>
+                <h3 className="text-white font-semibold mb-2">TUNGER 2+2</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">
                   {funding?.text ||
-                    "This project has received funding from the European Union's Horizon 2020 research and innovation programme under grant agreement No 123456."}
+                    "This project has received funding from the TUNGER 2+2 research and innovation programme. The German project partners are funded by the BMBF and the Tunisian project partners are funded by the Tunisian Ministry of Higher Education and Scientific Research (MoHESR) under the guideline of TUNGER 2+2."}
                 </p>
               </div>
             </div>

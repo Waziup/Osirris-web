@@ -17,12 +17,12 @@ export default function Footer({ heroHeading, data }: FooterProps) {
   const { logo, copyright, socialLinks, funding } = data;
 
   return (
-    <footer className="bg-slate-900 text-slate-200 py-16 border-t border-slate-800">
+    <footer className="bg-slate-900 text-slate-200 py-12 sm:py-16 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
           {/* Brand Column */}
           <div className="lg:col-span-1">
-            <div className="lg:col-span-1 flex flex-col">
+            <div className="lg:col-span-1 flex flex-col items-center lg:items-start text-center lg:text-left">
               {logo && (
                 <Image
                   src={logo}
@@ -33,10 +33,10 @@ export default function Footer({ heroHeading, data }: FooterProps) {
                   className="grayscale mb-2"
                 />
               )}
-              <p className="text-slate-400 text-sm leading-snug mb-3">
+              <p className="text-slate-400 text-sm leading-snug mb-4">
                 Revolutionizing agriculture with Edge AI and sustainable irrigation solutions for a water-secure future.
               </p>
-              <div className="flex space-x-3">
+              <div className="flex space-x-3 justify-center lg:justify-start">
                 {socialLinks &&
                   socialLinks.map((link, index) => (
                     <a
@@ -56,7 +56,7 @@ export default function Footer({ heroHeading, data }: FooterProps) {
 
 
           {/* Quick Links Column - Placeholder for now, can be dynamic later */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 text-center lg:text-left">
             <h3 className="text-white font-semibold mb-6">Quick Links</h3>
             <ul className="space-y-3 text-sm text-slate-400">
               <li>
@@ -84,7 +84,7 @@ export default function Footer({ heroHeading, data }: FooterProps) {
 
           {/* Funding Acknowledgment Column */}
           <div className="lg:col-span-2 bg-slate-800/50 rounded-2xl p-6 border border-slate-700/50">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+            <div className="flex flex-col sm:flex-row items-center sm:items-center gap-6 text-center sm:text-left">
               <div className="relative w-24 h-16 flex-shrink-0 bg-blue-800 rounded-sm overflow-hidden shadow-md">
                 <Image
                   src={
@@ -109,8 +109,8 @@ export default function Footer({ heroHeading, data }: FooterProps) {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-800 text-center md:text-left flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
-          <p>{copyright}</p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
+          <p className="mb-4 md:mb-0">{copyright}</p>
+          <div className="flex space-x-6">
             <a href="#" className="hover:text-emerald-400 transition-colors">
               Privacy Policy
             </a>

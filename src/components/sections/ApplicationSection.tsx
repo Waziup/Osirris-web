@@ -49,16 +49,16 @@ export default function ApplicationSection({ data }: { data: ApplicationData }) 
   return (
     <section
       id="application"
-      className="py-20 sm:py-24 lg:py-32 bg-gradient-to-br from-emerald-50/50 to-blue-50/50"
+      className="py-12 sm:py-24 lg:py-32 bg-gradient-to-br from-emerald-50/50 to-blue-50/50"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-20">
-          <div className="inline-block mb-6">
+        <div className="text-center mb-12 sm:mb-20">
+          <div className="inline-block mb-4 sm:mb-6">
             <span className="bg-blue-100 text-blue-700 text-xs sm:text-sm font-bold px-4 py-2 rounded-full">
               {subheading || "Applications"}
             </span>
           </div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 mb-6">
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-gray-900 mb-4 sm:mb-6">
             {heading || "Intelligent Irrigation Management"}
           </h2>
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -67,16 +67,16 @@ export default function ApplicationSection({ data }: { data: ApplicationData }) 
           </p>
         </div>
 
-        <div className="space-y-24">
+        <div className="space-y-12 sm:space-y-24">
           {featuresToDisplay.map((feature, index) => (
             <div
               key={index}
-              className={`flex flex-col lg:flex-row gap-12 lg:gap-20 items-center ${
+              className={`flex flex-col lg:flex-row gap-8 lg:gap-20 items-center ${
                 index % 2 === 1 ? "lg:flex-row-reverse" : ""
               }`}
             >
               <div className="flex-1 w-full">
-                <div className="relative h-[400px] lg:h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+                <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
                   <Image
                     src={
                       feature.image ||
@@ -93,12 +93,12 @@ export default function ApplicationSection({ data }: { data: ApplicationData }) 
 
               <div className="flex-1 space-y-6">
                 <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
-                    <span className="text-emerald-700 font-bold text-xl">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                    <span className="text-emerald-700 font-bold text-lg sm:text-xl">
                       {index + 1}
                     </span>
                   </div>
-                  <h3 className="text-3xl font-bold text-gray-900">
+                  <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
                     {feature.title}
                   </h3>
                 </div>

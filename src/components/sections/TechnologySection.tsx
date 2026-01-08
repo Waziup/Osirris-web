@@ -98,12 +98,12 @@ export default function TechnologySection({ data }: { data: TechnologyData }) {
     features && features.length > 0 ? features : defaultFeatures;
 
   return (
-    <section id="tensiometers" className="py-20 sm:py-24 lg:py-32 bg-white">
+    <section id="tensiometers" className="py-12 sm:py-24 lg:py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Left Column: Product Image Gallery */}
-          <div className="order-1 lg:order-1 sticky top-24">
-            <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] w-full bg-gradient-to-br from-gray-100 to-gray-50 rounded-3xl overflow-hidden border border-gray-100 shadow-2xl mb-6">
+          <div className="order-1 lg:order-1 lg:sticky lg:top-24">
+            <div className="relative h-[300px] sm:h-[500px] lg:h-[600px] w-full bg-gradient-to-br from-gray-100 to-gray-50 rounded-3xl overflow-hidden border border-gray-100 shadow-2xl mb-6">
               <Image
                 src={activeImage}
                 alt="Smart Tensiometer Product"
@@ -126,7 +126,7 @@ export default function TechnologySection({ data }: { data: TechnologyData }) {
                 <button
                   key={index}
                   onClick={() => setActiveImage(img)}
-                  className={`relative h-20 sm:h-24 w-full rounded-xl overflow-hidden border-2 transition-all duration-300 ${
+                  className={`relative h-16 sm:h-24 w-full rounded-xl overflow-hidden border-2 transition-all duration-300 ${
                     activeImage === img
                       ? "border-emerald-500 shadow-md scale-105"
                       : "border-transparent opacity-70 hover:opacity-100"
@@ -150,7 +150,7 @@ export default function TechnologySection({ data }: { data: TechnologyData }) {
                 {subheading || "IoT Sensors"}
               </span>
             </div>
-            <h2 className="text-4xl sm:text-5xl lg:text-5xl font-black text-gray-900 mb-6 leading-tight">
+            <h2 className="text-3xl sm:text-5xl lg:text-5xl font-black text-gray-900 mb-6 leading-tight">
               {heading || "Next-Gen Smart Tensiometers"}
             </h2>
             <p className="text-lg text-gray-600 mb-12 leading-relaxed">

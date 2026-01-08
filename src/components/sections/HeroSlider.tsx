@@ -57,7 +57,7 @@ export default function HeroSlider({ hero }: { hero: HeroData }) {
   }, [api]);
 
   return (
-    <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden bg-gray-900">
+    <section id="hero" className="relative h-[100dvh] flex items-center justify-center overflow-hidden bg-gray-900">
       {/* Carousel */}
       <Carousel 
         className="absolute inset-0 w-full h-full"
@@ -67,7 +67,7 @@ export default function HeroSlider({ hero }: { hero: HeroData }) {
           align: "start",
         }}
       >
-        <CarouselContent className="w-full h-full">
+        <CarouselContent className="w-full h-full ml-0">
           {imagesToDisplay.map((image, index) => (
             <CarouselItem key={index} className="w-full h-full p-0">
               <div className="w-full h-full relative">
@@ -95,31 +95,31 @@ export default function HeroSlider({ hero }: { hero: HeroData }) {
 
       {/* Content */}
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-        <div className="mb-6 inline-block">
+        <div className="mb-4 sm:mb-6 inline-block">
           <span className="bg-white/20 backdrop-blur-md text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-full border border-white/30">
             EU Horizon 2020 Project
           </span>
         </div>
 
-        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-6 drop-shadow-2xl">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-black text-white mb-4 sm:mb-6 drop-shadow-2xl">
           {heading}
         </h1>
 
-        <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-6 drop-shadow-lg max-w-4xl mx-auto">
+        <p className="text-base sm:text-xl md:text-2xl text-white/90 mb-6 drop-shadow-lg max-w-4xl mx-auto">
           {subheading}
         </p>
 
         {body && (
-          <p className="text-base sm:text-lg text-white/85 mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-lg text-white/85 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed">
             {body}
           </p>
         )}
 
         <a
           href="#tensiometers"
-          className="inline-flex items-center gap-2 bg-white text-emerald-600 font-bold px-8 py-4 rounded-full hover:bg-emerald-50 transition-all transform hover:scale-105 shadow-xl"
+          className="inline-flex items-center gap-2 bg-white text-emerald-600 font-bold px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base rounded-full hover:bg-emerald-50 transition-all transform hover:scale-105 shadow-xl"
         >
-          Explore More <ChevronDown className="w-5 h-5" />
+          Explore More <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5" />
         </a>
       </div>
 

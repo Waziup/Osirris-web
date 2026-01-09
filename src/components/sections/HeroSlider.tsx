@@ -32,30 +32,6 @@ export default function HeroSlider({ hero }: { hero: HeroData }) {
     "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1920&h=1080&fit=crop"
   ];
 
-  // Auto-play carousel
-  useEffect(() => {
-    if (!api) return;
-
-    setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap() + 1);
-
-    const onSelect = () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-    };
-
-    api.on("select", onSelect);
-
-    // Auto-play: change slide every 5 seconds
-    const interval = setInterval(() => {
-      api.scrollNext();
-    }, 5000);
-
-    return () => {
-      api.off("select", onSelect);
-      clearInterval(interval);
-    };
-  }, [api]);
-
   return (
     <section id="hero" className="relative h-[calc(100dvh-4rem)] sm:h-[calc(100dvh-5rem)] mt-16 sm:mt-20 flex items-center justify-center overflow-hidden bg-gray-900">
       {/* Carousel */}

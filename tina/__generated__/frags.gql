@@ -115,20 +115,6 @@ fragment MediaPageParts on MediaPage {
   }
 }
 
-fragment BlogParts on Blog {
-  __typename
-  title
-  excerpt
-  image
-  category
-  date
-  readTime
-  author
-  authorRole
-  featured
-  body
-}
-
 fragment MediaParts on Media {
   __typename
   title

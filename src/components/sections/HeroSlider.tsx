@@ -5,6 +5,8 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { useState, useEffect } from "react";
 
 interface HeroData {
+  displayMode?: "text" | "logo";
+  logo?: string;
   heading: string;
   subheading: string;
   body?: string;
@@ -12,7 +14,7 @@ interface HeroData {
 }
 
 export default function HeroSlider({ hero }: { hero: HeroData }) {
-  const { heading, subheading, body, images } = hero;
+  const { displayMode, logo, heading, subheading, body, images } = hero;
   const [api, setApi] = useState<any>(null);
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -95,15 +97,25 @@ export default function HeroSlider({ hero }: { hero: HeroData }) {
 
       {/* Content */}
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-        <div className="mb-4 sm:mb-6 inline-block">
+        {/* <div className="mb-4 sm:mb-6 inline-block">
           <span className="bg-white/20 backdrop-blur-md text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-full border border-white/30">
-            EU Horizon 2020 Project
+            
           </span>
-        </div>
+        </div> */}
 
-        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-black text-white mb-4 sm:mb-6 drop-shadow-2xl">
-          {heading}
-        </h1>
+        {displayMode === 'logo' && logo ? (
+          <div className="mb-4 sm:mb-6 flex justify-center">
+            <img 
+              src={logo} 
+              alt="Hero Logo" 
+              className="max-h-32 sm:max-h-48 md:max-h-64 object-contain drop-shadow-2xl" 
+            />
+          </div>
+        ) : (
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-black text-white mb-4 sm:mb-6 drop-shadow-2xl">
+            {heading}
+          </h1>
+        )}
 
         <p className="text-base sm:text-xl md:text-2xl text-white/90 mb-6 drop-shadow-lg max-w-4xl mx-auto">
           {subheading}

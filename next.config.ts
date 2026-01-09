@@ -3,9 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: 'standalone',
   reactStrictMode: true,
+  serverExternalPackages: ['tinacms'],
   // Optimize for Vercel serverless function size limits
   experimental: {
-    serverComponentsExternalPackages: ['tinacms'],
     optimizePackageImports: [
       '@radix-ui/react-accordion',
       '@radix-ui/react-alert-dialog',

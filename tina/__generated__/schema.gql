@@ -60,8 +60,6 @@ type Query {
   homeConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: HomeFilter): HomeConnection!
   mediaPage(relativePath: String): MediaPage!
   mediaPageConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: MediaPageFilter): MediaPageConnection!
-  blog(relativePath: String): Blog!
-  blogConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: BlogFilter): BlogConnection!
   media(relativePath: String): Media!
   mediaConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: MediaFilter): MediaConnection!
   publications(relativePath: String): Publications!
@@ -72,7 +70,6 @@ input DocumentFilter {
   global: GlobalFilter
   home: HomeFilter
   mediaPage: MediaPageFilter
-  blog: BlogFilter
   media: MediaFilter
   publications: PublicationsFilter
 }
@@ -100,7 +97,7 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Global | Home | MediaPage | Blog | Media | Publications | Folder
+union DocumentNode = Global | Home | MediaPage | Media | Publications | Folder
 
 type GlobalHeaderNavLinks {
   label: String
@@ -426,59 +423,6 @@ type MediaPageConnection implements Connection {
   edges: [MediaPageConnectionEdges]
 }
 
-type Blog implements Node & Document {
-  title: String!
-  excerpt: String!
-  image: String!
-  category: String!
-  date: String!
-  readTime: String
-  author: String!
-  authorRole: String
-  featured: Boolean
-  body: JSON
-  id: ID!
-  _sys: SystemInfo!
-  _values: JSON!
-}
-
-input DatetimeFilter {
-  after: String
-  before: String
-  eq: String
-  exists: Boolean
-  in: [String]
-}
-
-input BooleanFilter {
-  eq: Boolean
-  exists: Boolean
-}
-
-input BlogFilter {
-  title: StringFilter
-  excerpt: StringFilter
-  image: ImageFilter
-  category: StringFilter
-  date: DatetimeFilter
-  readTime: StringFilter
-  author: StringFilter
-  authorRole: StringFilter
-  featured: BooleanFilter
-  body: RichTextFilter
-}
-
-type BlogConnectionEdges {
-  cursor: String!
-  node: Blog
-}
-
-type BlogConnection implements Connection {
-  pageInfo: PageInfo!
-  totalCount: Float!
-  edges: [BlogConnectionEdges]
-}
-
 type Media implements Node & Document {
   title: String!
   type: String!
@@ -490,6 +434,14 @@ type Media implements Node & Document {
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
+}
+
+input DatetimeFilter {
+  after: String
+  before: String
+  eq: String
+  exists: Boolean
+  in: [String]
 }
 
 input MediaFilter {
@@ -573,8 +525,6 @@ type Mutation {
   createHome(relativePath: String!, params: HomeMutation!): Home!
   updateMediaPage(relativePath: String!, params: MediaPageMutation!): MediaPage!
   createMediaPage(relativePath: String!, params: MediaPageMutation!): MediaPage!
-  updateBlog(relativePath: String!, params: BlogMutation!): Blog!
-  createBlog(relativePath: String!, params: BlogMutation!): Blog!
   updateMedia(relativePath: String!, params: MediaMutation!): Media!
   createMedia(relativePath: String!, params: MediaMutation!): Media!
   updatePublications(relativePath: String!, params: PublicationsMutation!): Publications!
@@ -585,7 +535,6 @@ input DocumentUpdateMutation {
   global: GlobalMutation
   home: HomeMutation
   mediaPage: MediaPageMutation
-  blog: BlogMutation
   media: MediaMutation
   publications: PublicationsMutation
   relativePath: String
@@ -595,7 +544,6 @@ input DocumentMutation {
   global: GlobalMutation
   home: HomeMutation
   mediaPage: MediaPageMutation
-  blog: BlogMutation
   media: MediaMutation
   publications: PublicationsMutation
 }
@@ -729,19 +677,6 @@ input MediaPageGalleryMutation {
 input MediaPageMutation {
   title: String
   gallery: [MediaPageGalleryMutation]
-}
-
-input BlogMutation {
-  title: String
-  excerpt: String
-  image: String
-  category: String
-  date: String
-  readTime: String
-  author: String
-  authorRole: String
-  featured: Boolean
-  body: JSON
 }
 
 input MediaMutation {

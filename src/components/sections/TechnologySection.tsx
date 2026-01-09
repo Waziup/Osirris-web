@@ -112,12 +112,12 @@ export default function TechnologySection({ data }: { data: TechnologyData }) {
                 className="hover:scale-105 transition-transform duration-700 cursor-zoom-in"
               />
               {/* Floating Badge */}
-              <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md px-5 py-3 rounded-xl shadow-lg border border-white/50">
+              {/* <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md px-5 py-3 rounded-xl shadow-lg border border-white/50">
                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
                   Model
                 </p>
                 <p className="text-xl font-black text-gray-900">OSIRRIS T-1000</p>
-              </div>
+              </div> */}
             </div>
 
             {/* Thumbnail Grid */}
@@ -182,7 +182,7 @@ export default function TechnologySection({ data }: { data: TechnologyData }) {
               })}
             </div>
 
-            <div className="mt-12 pt-10 border-t border-gray-100 flex flex-wrap gap-4">
+            {/* <div className="mt-12 pt-10 border-t border-gray-100 flex flex-wrap gap-4">
               <div className="px-5 py-2 bg-gray-50 rounded-lg border border-gray-200 text-xs font-semibold text-gray-500 uppercase tracking-wide">
                 Made in EU
               </div>
@@ -192,7 +192,7 @@ export default function TechnologySection({ data }: { data: TechnologyData }) {
               <div className="px-5 py-2 bg-gray-50 rounded-lg border border-gray-200 text-xs font-semibold text-gray-500 uppercase tracking-wide">
                 24/7 Support
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

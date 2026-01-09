@@ -8,6 +8,8 @@ export default async function Page() {
   let tinaData = {
     title: "Home Page",
     hero: {
+      displayMode: "text",
+      logo: undefined as string | undefined,
       heading: "Welcome to Osirris",
       subheading: "The future of technology",
       images: [] as string[],
@@ -43,6 +45,8 @@ export default async function Page() {
       tinaData = {
         title: data.title || "Home Page",
         hero: {
+          displayMode: data.hero?.displayMode || "text",
+          logo: data.hero?.logo,
           heading: data.hero?.heading || "Welcome to Osirris",
           subheading: data.hero?.subheading || "The future of technology",
           images: data.hero?.images || [],

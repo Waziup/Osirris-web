@@ -88,8 +88,6 @@ export type Query = {
   homeConnection: HomeConnection;
   mediaPage: MediaPage;
   mediaPageConnection: MediaPageConnection;
-  blog: Blog;
-  blogConnection: BlogConnection;
   media: Media;
   mediaConnection: MediaConnection;
   publications: Publications;
@@ -163,21 +161,6 @@ export type QueryMediaPageConnectionArgs = {
 };
 
 
-export type QueryBlogArgs = {
-  relativePath?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type QueryBlogConnectionArgs = {
-  before?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Float']['input']>;
-  last?: InputMaybe<Scalars['Float']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<BlogFilter>;
-};
-
-
 export type QueryMediaArgs = {
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
@@ -211,7 +194,6 @@ export type DocumentFilter = {
   global?: InputMaybe<GlobalFilter>;
   home?: InputMaybe<HomeFilter>;
   mediaPage?: InputMaybe<MediaPageFilter>;
-  blog?: InputMaybe<BlogFilter>;
   media?: InputMaybe<MediaFilter>;
   publications?: InputMaybe<PublicationsFilter>;
 };
@@ -253,7 +235,7 @@ export type CollectionDocumentsArgs = {
   folder?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentNode = Global | Home | MediaPage | Blog | Media | Publications | Folder;
+export type DocumentNode = Global | Home | MediaPage | Media | Publications | Folder;
 
 export type GlobalHeaderNavLinks = {
   __typename?: 'GlobalHeaderNavLinks';
@@ -605,62 +587,6 @@ export type MediaPageConnection = Connection & {
   edges?: Maybe<Array<Maybe<MediaPageConnectionEdges>>>;
 };
 
-export type Blog = Node & Document & {
-  __typename?: 'Blog';
-  title: Scalars['String']['output'];
-  excerpt: Scalars['String']['output'];
-  image: Scalars['String']['output'];
-  category: Scalars['String']['output'];
-  date: Scalars['String']['output'];
-  readTime?: Maybe<Scalars['String']['output']>;
-  author: Scalars['String']['output'];
-  authorRole?: Maybe<Scalars['String']['output']>;
-  featured?: Maybe<Scalars['Boolean']['output']>;
-  body?: Maybe<Scalars['JSON']['output']>;
-  id: Scalars['ID']['output'];
-  _sys: SystemInfo;
-  _values: Scalars['JSON']['output'];
-};
-
-export type DatetimeFilter = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  eq?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type BooleanFilter = {
-  eq?: InputMaybe<Scalars['Boolean']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type BlogFilter = {
-  title?: InputMaybe<StringFilter>;
-  excerpt?: InputMaybe<StringFilter>;
-  image?: InputMaybe<ImageFilter>;
-  category?: InputMaybe<StringFilter>;
-  date?: InputMaybe<DatetimeFilter>;
-  readTime?: InputMaybe<StringFilter>;
-  author?: InputMaybe<StringFilter>;
-  authorRole?: InputMaybe<StringFilter>;
-  featured?: InputMaybe<BooleanFilter>;
-  body?: InputMaybe<RichTextFilter>;
-};
-
-export type BlogConnectionEdges = {
-  __typename?: 'BlogConnectionEdges';
-  cursor: Scalars['String']['output'];
-  node?: Maybe<Blog>;
-};
-
-export type BlogConnection = Connection & {
-  __typename?: 'BlogConnection';
-  pageInfo: PageInfo;
-  totalCount: Scalars['Float']['output'];
-  edges?: Maybe<Array<Maybe<BlogConnectionEdges>>>;
-};
-
 export type Media = Node & Document & {
   __typename?: 'Media';
   title: Scalars['String']['output'];
@@ -673,6 +599,14 @@ export type Media = Node & Document & {
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
+};
+
+export type DatetimeFilter = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type MediaFilter = {
@@ -762,8 +696,6 @@ export type Mutation = {
   createHome: Home;
   updateMediaPage: MediaPage;
   createMediaPage: MediaPage;
-  updateBlog: Blog;
-  createBlog: Blog;
   updateMedia: Media;
   createMedia: Media;
   updatePublications: Publications;
@@ -840,18 +772,6 @@ export type MutationCreateMediaPageArgs = {
 };
 
 
-export type MutationUpdateBlogArgs = {
-  relativePath: Scalars['String']['input'];
-  params: BlogMutation;
-};
-
-
-export type MutationCreateBlogArgs = {
-  relativePath: Scalars['String']['input'];
-  params: BlogMutation;
-};
-
-
 export type MutationUpdateMediaArgs = {
   relativePath: Scalars['String']['input'];
   params: MediaMutation;
@@ -879,7 +799,6 @@ export type DocumentUpdateMutation = {
   global?: InputMaybe<GlobalMutation>;
   home?: InputMaybe<HomeMutation>;
   mediaPage?: InputMaybe<MediaPageMutation>;
-  blog?: InputMaybe<BlogMutation>;
   media?: InputMaybe<MediaMutation>;
   publications?: InputMaybe<PublicationsMutation>;
   relativePath?: InputMaybe<Scalars['String']['input']>;
@@ -889,7 +808,6 @@ export type DocumentMutation = {
   global?: InputMaybe<GlobalMutation>;
   home?: InputMaybe<HomeMutation>;
   mediaPage?: InputMaybe<MediaPageMutation>;
-  blog?: InputMaybe<BlogMutation>;
   media?: InputMaybe<MediaMutation>;
   publications?: InputMaybe<PublicationsMutation>;
 };
@@ -1025,19 +943,6 @@ export type MediaPageMutation = {
   gallery?: InputMaybe<Array<InputMaybe<MediaPageGalleryMutation>>>;
 };
 
-export type BlogMutation = {
-  title?: InputMaybe<Scalars['String']['input']>;
-  excerpt?: InputMaybe<Scalars['String']['input']>;
-  image?: InputMaybe<Scalars['String']['input']>;
-  category?: InputMaybe<Scalars['String']['input']>;
-  date?: InputMaybe<Scalars['String']['input']>;
-  readTime?: InputMaybe<Scalars['String']['input']>;
-  author?: InputMaybe<Scalars['String']['input']>;
-  authorRole?: InputMaybe<Scalars['String']['input']>;
-  featured?: InputMaybe<Scalars['Boolean']['input']>;
-  body?: InputMaybe<Scalars['JSON']['input']>;
-};
-
 export type MediaMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   type?: InputMaybe<Scalars['String']['input']>;
@@ -1065,8 +970,6 @@ export type GlobalPartsFragment = { __typename: 'Global', header?: { __typename:
 export type HomePartsFragment = { __typename: 'Home', title: string, body?: any | null, hero?: { __typename: 'HomeHero', heading: string, subheading?: string | null, images?: Array<string | null> | null } | null, about?: { __typename: 'HomeAbout', heading?: string | null, subheading?: string | null, description?: string | null, objectives?: Array<string | null> | null, focusAreas?: Array<{ __typename: 'HomeAboutFocusAreas', title?: string | null, icon?: string | null } | null> | null } | null, technology?: { __typename: 'HomeTechnology', heading?: string | null, subheading?: string | null, description?: string | null, image?: string | null, gallery?: Array<string | null> | null, features?: Array<{ __typename: 'HomeTechnologyFeatures', title?: string | null, icon?: string | null, description?: string | null, detailedDescription?: string | null } | null> | null } | null, application?: { __typename: 'HomeApplication', heading?: string | null, subheading?: string | null, description?: string | null, features?: Array<{ __typename: 'HomeApplicationFeatures', title?: string | null, image?: string | null, description?: string | null, detailedDescription?: string | null } | null> | null } | null, pilots?: { __typename: 'HomePilots', heading?: string | null, subheading?: string | null, description?: string | null, sites?: Array<{ __typename: 'HomePilotsSites', name?: string | null, image?: string | null, description?: string | null, crop?: string | null, status?: string | null } | null> | null } | null, partners?: { __typename: 'HomePartners', heading?: string | null, subheading?: string | null, description?: string | null, partners?: Array<{ __typename: 'HomePartnersPartners', name?: string | null, logo?: string | null } | null> | null } | null };
 
 export type MediaPagePartsFragment = { __typename: 'MediaPage', title: string, gallery?: Array<{ __typename: 'MediaPageGallery', title?: string | null, image?: string | null, category?: string | null, description?: string | null } | null> | null };
-
-export type BlogPartsFragment = { __typename: 'Blog', title: string, excerpt: string, image: string, category: string, date: string, readTime?: string | null, author: string, authorRole?: string | null, featured?: boolean | null, body?: any | null };
 
 export type MediaPartsFragment = { __typename: 'Media', title: string, type: string, image: string, videoUrl?: string | null, category: string, description?: string | null, date?: string | null };
 
@@ -1128,25 +1031,6 @@ export type MediaPageConnectionQueryVariables = Exact<{
 
 
 export type MediaPageConnectionQuery = { __typename?: 'Query', mediaPageConnection: { __typename?: 'MediaPageConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'MediaPageConnectionEdges', cursor: string, node?: { __typename: 'MediaPage', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, gallery?: Array<{ __typename: 'MediaPageGallery', title?: string | null, image?: string | null, category?: string | null, description?: string | null } | null> | null } | null } | null> | null } };
-
-export type BlogQueryVariables = Exact<{
-  relativePath: Scalars['String']['input'];
-}>;
-
-
-export type BlogQuery = { __typename?: 'Query', blog: { __typename: 'Blog', id: string, title: string, excerpt: string, image: string, category: string, date: string, readTime?: string | null, author: string, authorRole?: string | null, featured?: boolean | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
-
-export type BlogConnectionQueryVariables = Exact<{
-  before?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Float']['input']>;
-  last?: InputMaybe<Scalars['Float']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<BlogFilter>;
-}>;
-
-
-export type BlogConnectionQuery = { __typename?: 'Query', blogConnection: { __typename?: 'BlogConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'BlogConnectionEdges', cursor: string, node?: { __typename: 'Blog', id: string, title: string, excerpt: string, image: string, category: string, date: string, readTime?: string | null, author: string, authorRole?: string | null, featured?: boolean | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export type MediaQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -1304,21 +1188,6 @@ export const MediaPagePartsFragmentDoc = gql`
     category
     description
   }
-}
-    `;
-export const BlogPartsFragmentDoc = gql`
-    fragment BlogParts on Blog {
-  __typename
-  title
-  excerpt
-  image
-  category
-  date
-  readTime
-  author
-  authorRole
-  featured
-  body
 }
     `;
 export const MediaPartsFragmentDoc = gql`
@@ -1518,63 +1387,6 @@ export const MediaPageConnectionDocument = gql`
   }
 }
     ${MediaPagePartsFragmentDoc}`;
-export const BlogDocument = gql`
-    query blog($relativePath: String!) {
-  blog(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        hasReferences
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...BlogParts
-  }
-}
-    ${BlogPartsFragmentDoc}`;
-export const BlogConnectionDocument = gql`
-    query blogConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: BlogFilter) {
-  blogConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    pageInfo {
-      hasPreviousPage
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    totalCount
-    edges {
-      cursor
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            hasReferences
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...BlogParts
-      }
-    }
-  }
-}
-    ${BlogPartsFragmentDoc}`;
 export const MediaDocument = gql`
     query media($relativePath: String!) {
   media(relativePath: $relativePath) {
@@ -1709,12 +1521,6 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     mediaPageConnection(variables?: MediaPageConnectionQueryVariables, options?: C): Promise<{data: MediaPageConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: MediaPageConnectionQueryVariables, query: string}> {
         return requester<{data: MediaPageConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: MediaPageConnectionQueryVariables, query: string}, MediaPageConnectionQueryVariables>(MediaPageConnectionDocument, variables, options);
-      },
-    blog(variables: BlogQueryVariables, options?: C): Promise<{data: BlogQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: BlogQueryVariables, query: string}> {
-        return requester<{data: BlogQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: BlogQueryVariables, query: string}, BlogQueryVariables>(BlogDocument, variables, options);
-      },
-    blogConnection(variables?: BlogConnectionQueryVariables, options?: C): Promise<{data: BlogConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: BlogConnectionQueryVariables, query: string}> {
-        return requester<{data: BlogConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: BlogConnectionQueryVariables, query: string}, BlogConnectionQueryVariables>(BlogConnectionDocument, variables, options);
       },
     media(variables: MediaQueryVariables, options?: C): Promise<{data: MediaQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: MediaQueryVariables, query: string}> {
         return requester<{data: MediaQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: MediaQueryVariables, query: string}, MediaQueryVariables>(MediaDocument, variables, options);

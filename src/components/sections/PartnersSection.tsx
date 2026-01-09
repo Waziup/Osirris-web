@@ -67,7 +67,7 @@ export default function PartnersSection({ data }: { data: PartnersData }) {
                             <img
                               src={partner.logo}
                               alt={partner.name}
-                              className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
+                              className="max-w-full max-h-full object-contain group-hover:grayscale-0 transition-all duration-300"
                               onError={(e) => {
                                 const img = e.target as HTMLImageElement;
                                 img.style.display = "none";

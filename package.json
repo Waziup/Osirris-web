@@ -8,9 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "tina:dev": "tinacms dev -c \"next dev\"",
-    "tina:build": "tinacms build && next build",
-    "optimize-images": "node scripts/optimize-images.js",
-    "prebuild": "npm run optimize-images"
+    "tina:build": "tinacms build && next build"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",

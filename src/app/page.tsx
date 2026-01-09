@@ -8,7 +8,7 @@ export default async function Page() {
   let tinaData = {
     title: "Home Page",
     hero: {
-      displayMode: "text",
+      displayMode: "text" as "text" | "logo",
       logo: undefined as string | undefined,
       heading: "Welcome to Osirris",
       subheading: "The future of technology",
@@ -45,7 +45,7 @@ export default async function Page() {
       tinaData = {
         title: data.title || "Home Page",
         hero: {
-          displayMode: data.hero?.displayMode || "text",
+          displayMode: (data.hero?.displayMode || "text") as "text" | "logo",
           logo: data.hero?.logo,
           heading: data.hero?.heading || "Welcome to Osirris",
           subheading: data.hero?.subheading || "The future of technology",

@@ -10,9 +10,15 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  // ...compat.extends("next/core-web-vitals"), // Temporarily disabled due to eslint-patch error
-  // ...compat.extends("next/typescript"),      // Temporarily disabled due to eslint-patch error
+  ...compat.extends("next/core-web-vitals"),
+  ...compat.extends("next/typescript"),
   {
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+      "@next/next/no-img-element": "off",
+      "@typescript-eslint/ban-ts-comment": "off"
+    },
     ignores: [
       ".next/**",
       "out/**",

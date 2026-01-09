@@ -1,6 +1,6 @@
 {
   "header": {
-    "logo": "/uploads/Screenshot_2026-01-07_at_13.52.58-removebg-preview.png",
+    "logo": "https://res.cloudinary.com/dhlgycqev/image/upload/v1767982852/Screenshot_2026-01-07_at_13.52.58-removebg-preview_rlwft2.png",
     "navLinks": [
       {
         "label": "The Project",
@@ -29,7 +29,7 @@
     ]
   },
   "footer": {
-    "logo": "/uploads/Screenshot_2026-01-07_at_13.52.58-removebg-preview.png",
+    "logo": "https://res.cloudinary.com/dhlgycqev/image/upload/v1767982852/Screenshot_2026-01-07_at_13.52.58-removebg-preview_rlwft2.png",
     "copyright": "© 2026 Osirris Project. All rights reserved.",
     "socialLinks": [
       {
@@ -43,7 +43,7 @@
     ],
     "funding": {
       "text": "This project has received funding from the TUNGER 2+2 research and innovation programme. The German project partners are funded by the BMBF and the Tunisian project partners are funded by the Tunisian Ministry of Higher Education and Scientific Research (MoHESR) under the guideline of TUNGER 2+2.",
-      "logo": "/uploads/Screenshot_2026-01-07_at_22.21.02-removebg-preview.png"
+      "logo": "https://res.cloudinary.com/dhlgycqev/image/upload/v1767982795/Screenshot_2026-01-07_at_22.21.02-removebg-preview_lwxk9u.png"
     }
   }
 }

@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   output: 'standalone',
   reactStrictMode: true,
   serverExternalPackages: ['tinacms'],
+  transpilePackages: ['next-tinacms-cloudinary'],
   // Optimize for Vercel serverless function size limits
   experimental: {
     optimizePackageImports: [

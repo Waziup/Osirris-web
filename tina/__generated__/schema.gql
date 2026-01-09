@@ -226,18 +226,18 @@ type HomeTechnology {
   features: [HomeTechnologyFeatures]
 }
 
-type HomeApplicationFeatures {
+type HomeAiModelFeatures {
   title: String
-  image: String
   description: String
-  detailedDescription: String
+  icon: String
 }
 
-type HomeApplication {
+type HomeAiModel {
   heading: String
   subheading: String
   description: String
-  features: [HomeApplicationFeatures]
+  image: String
+  features: [HomeAiModelFeatures]
 }
 
 type HomePilotsSites {
@@ -272,7 +272,7 @@ type Home implements Node & Document {
   hero: HomeHero
   about: HomeAbout
   technology: HomeTechnology
-  application: HomeApplication
+  aiModel: HomeAiModel
   pilots: HomePilots
   partners: HomePartners
   body: JSON
@@ -316,18 +316,18 @@ input HomeTechnologyFilter {
   features: HomeTechnologyFeaturesFilter
 }
 
-input HomeApplicationFeaturesFilter {
+input HomeAiModelFeaturesFilter {
   title: StringFilter
-  image: ImageFilter
   description: StringFilter
-  detailedDescription: StringFilter
+  icon: StringFilter
 }
 
-input HomeApplicationFilter {
+input HomeAiModelFilter {
   heading: StringFilter
   subheading: StringFilter
   description: StringFilter
-  features: HomeApplicationFeaturesFilter
+  image: ImageFilter
+  features: HomeAiModelFeaturesFilter
 }
 
 input HomePilotsSitesFilter {
@@ -368,7 +368,7 @@ input HomeFilter {
   hero: HomeHeroFilter
   about: HomeAboutFilter
   technology: HomeTechnologyFilter
-  application: HomeApplicationFilter
+  aiModel: HomeAiModelFilter
   pilots: HomePilotsFilter
   partners: HomePartnersFilter
   body: RichTextFilter
@@ -615,18 +615,18 @@ input HomeTechnologyMutation {
   features: [HomeTechnologyFeaturesMutation]
 }
 
-input HomeApplicationFeaturesMutation {
+input HomeAiModelFeaturesMutation {
   title: String
-  image: String
   description: String
-  detailedDescription: String
+  icon: String
 }
 
-input HomeApplicationMutation {
+input HomeAiModelMutation {
   heading: String
   subheading: String
   description: String
-  features: [HomeApplicationFeaturesMutation]
+  image: String
+  features: [HomeAiModelFeaturesMutation]
 }
 
 input HomePilotsSitesMutation {
@@ -661,7 +661,7 @@ input HomeMutation {
   hero: HomeHeroMutation
   about: HomeAboutMutation
   technology: HomeTechnologyMutation
-  application: HomeApplicationMutation
+  aiModel: HomeAiModelMutation
   pilots: HomePilotsMutation
   partners: HomePartnersMutation
   body: JSON

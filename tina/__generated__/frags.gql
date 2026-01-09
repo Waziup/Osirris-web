@@ -62,17 +62,17 @@ fragment HomeParts on Home {
       detailedDescription
     }
   }
-  application {
+  aiModel {
     __typename
     heading
     subheading
     description
+    image
     features {
       __typename
       title
-      image
       description
-      detailedDescription
+      icon
     }
   }
   pilots {

@@ -300,8 +300,8 @@ var config_default = defineConfig({
           },
           {
             type: "object",
-            name: "application",
-            label: "Application Section",
+            name: "aiModel",
+            label: "AI Model Section",
             fields: [
               {
                 type: "string",
@@ -322,9 +322,14 @@ var config_default = defineConfig({
                 }
               },
               {
+                type: "image",
+                name: "image",
+                label: "Model Architecture/Diagram"
+              },
+              {
                 type: "object",
                 name: "features",
-                label: "Features / Applications",
+                label: "Key Features",
                 list: true,
                 ui: {
                   itemProps: (item) => {
@@ -338,22 +343,14 @@ var config_default = defineConfig({
                     label: "Title"
                   },
                   {
-                    type: "image",
-                    name: "image",
-                    label: "Image"
-                  },
-                  {
                     type: "string",
                     name: "description",
-                    label: "Short Description"
+                    label: "Description"
                   },
                   {
                     type: "string",
-                    name: "detailedDescription",
-                    label: "Detailed Description",
-                    ui: {
-                      component: "textarea"
-                    }
+                    name: "icon",
+                    label: "Icon Name"
                   }
                 ]
               }

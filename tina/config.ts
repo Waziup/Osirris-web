@@ -303,8 +303,8 @@ export default defineConfig({
           },
           {
             type: "object",
-            name: "application",
-            label: "Application Section",
+            name: "aiModel",
+            label: "AI Model Section",
             fields: [
               {
                 type: "string",
@@ -325,9 +325,14 @@ export default defineConfig({
                 },
               },
               {
+                type: "image",
+                name: "image",
+                label: "Model Architecture/Diagram",
+              },
+              {
                 type: "object",
                 name: "features",
-                label: "Features / Applications",
+                label: "Key Features",
                 list: true,
                 ui: {
                   itemProps: (item) => {
@@ -341,22 +346,14 @@ export default defineConfig({
                     label: "Title",
                   },
                   {
-                    type: "image",
-                    name: "image",
-                    label: "Image",
-                  },
-                  {
                     type: "string",
                     name: "description",
-                    label: "Short Description",
+                    label: "Description",
                   },
                   {
                     type: "string",
-                    name: "detailedDescription",
-                    label: "Detailed Description",
-                    ui: {
-                      component: "textarea",
-                    },
+                    name: "icon",
+                    label: "Icon Name",
                   },
                 ],
               },

@@ -377,20 +377,20 @@ export type HomeTechnology = {
   features?: Maybe<Array<Maybe<HomeTechnologyFeatures>>>;
 };
 
-export type HomeApplicationFeatures = {
-  __typename?: 'HomeApplicationFeatures';
+export type HomeAiModelFeatures = {
+  __typename?: 'HomeAiModelFeatures';
   title?: Maybe<Scalars['String']['output']>;
-  image?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
-  detailedDescription?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
 };
 
-export type HomeApplication = {
-  __typename?: 'HomeApplication';
+export type HomeAiModel = {
+  __typename?: 'HomeAiModel';
   heading?: Maybe<Scalars['String']['output']>;
   subheading?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
-  features?: Maybe<Array<Maybe<HomeApplicationFeatures>>>;
+  image?: Maybe<Scalars['String']['output']>;
+  features?: Maybe<Array<Maybe<HomeAiModelFeatures>>>;
 };
 
 export type HomePilotsSites = {
@@ -430,7 +430,7 @@ export type Home = Node & Document & {
   hero?: Maybe<HomeHero>;
   about?: Maybe<HomeAbout>;
   technology?: Maybe<HomeTechnology>;
-  application?: Maybe<HomeApplication>;
+  aiModel?: Maybe<HomeAiModel>;
   pilots?: Maybe<HomePilots>;
   partners?: Maybe<HomePartners>;
   body?: Maybe<Scalars['JSON']['output']>;
@@ -474,18 +474,18 @@ export type HomeTechnologyFilter = {
   features?: InputMaybe<HomeTechnologyFeaturesFilter>;
 };
 
-export type HomeApplicationFeaturesFilter = {
+export type HomeAiModelFeaturesFilter = {
   title?: InputMaybe<StringFilter>;
-  image?: InputMaybe<ImageFilter>;
   description?: InputMaybe<StringFilter>;
-  detailedDescription?: InputMaybe<StringFilter>;
+  icon?: InputMaybe<StringFilter>;
 };
 
-export type HomeApplicationFilter = {
+export type HomeAiModelFilter = {
   heading?: InputMaybe<StringFilter>;
   subheading?: InputMaybe<StringFilter>;
   description?: InputMaybe<StringFilter>;
-  features?: InputMaybe<HomeApplicationFeaturesFilter>;
+  image?: InputMaybe<ImageFilter>;
+  features?: InputMaybe<HomeAiModelFeaturesFilter>;
 };
 
 export type HomePilotsSitesFilter = {
@@ -526,7 +526,7 @@ export type HomeFilter = {
   hero?: InputMaybe<HomeHeroFilter>;
   about?: InputMaybe<HomeAboutFilter>;
   technology?: InputMaybe<HomeTechnologyFilter>;
-  application?: InputMaybe<HomeApplicationFilter>;
+  aiModel?: InputMaybe<HomeAiModelFilter>;
   pilots?: InputMaybe<HomePilotsFilter>;
   partners?: InputMaybe<HomePartnersFilter>;
   body?: InputMaybe<RichTextFilter>;
@@ -879,18 +879,18 @@ export type HomeTechnologyMutation = {
   features?: InputMaybe<Array<InputMaybe<HomeTechnologyFeaturesMutation>>>;
 };
 
-export type HomeApplicationFeaturesMutation = {
+export type HomeAiModelFeaturesMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
-  image?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
-  detailedDescription?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type HomeApplicationMutation = {
+export type HomeAiModelMutation = {
   heading?: InputMaybe<Scalars['String']['input']>;
   subheading?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
-  features?: InputMaybe<Array<InputMaybe<HomeApplicationFeaturesMutation>>>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  features?: InputMaybe<Array<InputMaybe<HomeAiModelFeaturesMutation>>>;
 };
 
 export type HomePilotsSitesMutation = {
@@ -925,7 +925,7 @@ export type HomeMutation = {
   hero?: InputMaybe<HomeHeroMutation>;
   about?: InputMaybe<HomeAboutMutation>;
   technology?: InputMaybe<HomeTechnologyMutation>;
-  application?: InputMaybe<HomeApplicationMutation>;
+  aiModel?: InputMaybe<HomeAiModelMutation>;
   pilots?: InputMaybe<HomePilotsMutation>;
   partners?: InputMaybe<HomePartnersMutation>;
   body?: InputMaybe<Scalars['JSON']['input']>;
@@ -967,7 +967,7 @@ export type PublicationsMutation = {
 
 export type GlobalPartsFragment = { __typename: 'Global', header?: { __typename: 'GlobalHeader', logo?: string | null, navLinks?: Array<{ __typename: 'GlobalHeaderNavLinks', label?: string | null, href?: string | null } | null> | null } | null, footer?: { __typename: 'GlobalFooter', logo?: string | null, copyright?: string | null, socialLinks?: Array<{ __typename: 'GlobalFooterSocialLinks', platform?: string | null, url?: string | null } | null> | null, funding?: { __typename: 'GlobalFooterFunding', text?: string | null, logo?: string | null } | null } | null };
 
-export type HomePartsFragment = { __typename: 'Home', title: string, body?: any | null, hero?: { __typename: 'HomeHero', heading: string, subheading?: string | null, images?: Array<string | null> | null } | null, about?: { __typename: 'HomeAbout', heading?: string | null, subheading?: string | null, description?: string | null, objectives?: Array<string | null> | null, focusAreas?: Array<{ __typename: 'HomeAboutFocusAreas', title?: string | null, icon?: string | null } | null> | null } | null, technology?: { __typename: 'HomeTechnology', heading?: string | null, subheading?: string | null, description?: string | null, image?: string | null, gallery?: Array<string | null> | null, features?: Array<{ __typename: 'HomeTechnologyFeatures', title?: string | null, icon?: string | null, description?: string | null, detailedDescription?: string | null } | null> | null } | null, application?: { __typename: 'HomeApplication', heading?: string | null, subheading?: string | null, description?: string | null, features?: Array<{ __typename: 'HomeApplicationFeatures', title?: string | null, image?: string | null, description?: string | null, detailedDescription?: string | null } | null> | null } | null, pilots?: { __typename: 'HomePilots', heading?: string | null, subheading?: string | null, description?: string | null, sites?: Array<{ __typename: 'HomePilotsSites', name?: string | null, image?: string | null, description?: string | null, crop?: string | null, status?: string | null } | null> | null } | null, partners?: { __typename: 'HomePartners', heading?: string | null, subheading?: string | null, description?: string | null, partners?: Array<{ __typename: 'HomePartnersPartners', name?: string | null, logo?: string | null } | null> | null } | null };
+export type HomePartsFragment = { __typename: 'Home', title: string, body?: any | null, hero?: { __typename: 'HomeHero', heading: string, subheading?: string | null, images?: Array<string | null> | null } | null, about?: { __typename: 'HomeAbout', heading?: string | null, subheading?: string | null, description?: string | null, objectives?: Array<string | null> | null, focusAreas?: Array<{ __typename: 'HomeAboutFocusAreas', title?: string | null, icon?: string | null } | null> | null } | null, technology?: { __typename: 'HomeTechnology', heading?: string | null, subheading?: string | null, description?: string | null, image?: string | null, gallery?: Array<string | null> | null, features?: Array<{ __typename: 'HomeTechnologyFeatures', title?: string | null, icon?: string | null, description?: string | null, detailedDescription?: string | null } | null> | null } | null, aiModel?: { __typename: 'HomeAiModel', heading?: string | null, subheading?: string | null, description?: string | null, image?: string | null, features?: Array<{ __typename: 'HomeAiModelFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null, pilots?: { __typename: 'HomePilots', heading?: string | null, subheading?: string | null, description?: string | null, sites?: Array<{ __typename: 'HomePilotsSites', name?: string | null, image?: string | null, description?: string | null, crop?: string | null, status?: string | null } | null> | null } | null, partners?: { __typename: 'HomePartners', heading?: string | null, subheading?: string | null, description?: string | null, partners?: Array<{ __typename: 'HomePartnersPartners', name?: string | null, logo?: string | null } | null> | null } | null };
 
 export type MediaPagePartsFragment = { __typename: 'MediaPage', title: string, gallery?: Array<{ __typename: 'MediaPageGallery', title?: string | null, image?: string | null, category?: string | null, description?: string | null } | null> | null };
 
@@ -999,7 +999,7 @@ export type HomeQueryVariables = Exact<{
 }>;
 
 
-export type HomeQuery = { __typename?: 'Query', home: { __typename: 'Home', id: string, title: string, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero?: { __typename: 'HomeHero', heading: string, subheading?: string | null, images?: Array<string | null> | null } | null, about?: { __typename: 'HomeAbout', heading?: string | null, subheading?: string | null, description?: string | null, objectives?: Array<string | null> | null, focusAreas?: Array<{ __typename: 'HomeAboutFocusAreas', title?: string | null, icon?: string | null } | null> | null } | null, technology?: { __typename: 'HomeTechnology', heading?: string | null, subheading?: string | null, description?: string | null, image?: string | null, gallery?: Array<string | null> | null, features?: Array<{ __typename: 'HomeTechnologyFeatures', title?: string | null, icon?: string | null, description?: string | null, detailedDescription?: string | null } | null> | null } | null, application?: { __typename: 'HomeApplication', heading?: string | null, subheading?: string | null, description?: string | null, features?: Array<{ __typename: 'HomeApplicationFeatures', title?: string | null, image?: string | null, description?: string | null, detailedDescription?: string | null } | null> | null } | null, pilots?: { __typename: 'HomePilots', heading?: string | null, subheading?: string | null, description?: string | null, sites?: Array<{ __typename: 'HomePilotsSites', name?: string | null, image?: string | null, description?: string | null, crop?: string | null, status?: string | null } | null> | null } | null, partners?: { __typename: 'HomePartners', heading?: string | null, subheading?: string | null, description?: string | null, partners?: Array<{ __typename: 'HomePartnersPartners', name?: string | null, logo?: string | null } | null> | null } | null } };
+export type HomeQuery = { __typename?: 'Query', home: { __typename: 'Home', id: string, title: string, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero?: { __typename: 'HomeHero', heading: string, subheading?: string | null, images?: Array<string | null> | null } | null, about?: { __typename: 'HomeAbout', heading?: string | null, subheading?: string | null, description?: string | null, objectives?: Array<string | null> | null, focusAreas?: Array<{ __typename: 'HomeAboutFocusAreas', title?: string | null, icon?: string | null } | null> | null } | null, technology?: { __typename: 'HomeTechnology', heading?: string | null, subheading?: string | null, description?: string | null, image?: string | null, gallery?: Array<string | null> | null, features?: Array<{ __typename: 'HomeTechnologyFeatures', title?: string | null, icon?: string | null, description?: string | null, detailedDescription?: string | null } | null> | null } | null, aiModel?: { __typename: 'HomeAiModel', heading?: string | null, subheading?: string | null, description?: string | null, image?: string | null, features?: Array<{ __typename: 'HomeAiModelFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null, pilots?: { __typename: 'HomePilots', heading?: string | null, subheading?: string | null, description?: string | null, sites?: Array<{ __typename: 'HomePilotsSites', name?: string | null, image?: string | null, description?: string | null, crop?: string | null, status?: string | null } | null> | null } | null, partners?: { __typename: 'HomePartners', heading?: string | null, subheading?: string | null, description?: string | null, partners?: Array<{ __typename: 'HomePartnersPartners', name?: string | null, logo?: string | null } | null> | null } | null } };
 
 export type HomeConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -1011,7 +1011,7 @@ export type HomeConnectionQueryVariables = Exact<{
 }>;
 
 
-export type HomeConnectionQuery = { __typename?: 'Query', homeConnection: { __typename?: 'HomeConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HomeConnectionEdges', cursor: string, node?: { __typename: 'Home', id: string, title: string, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero?: { __typename: 'HomeHero', heading: string, subheading?: string | null, images?: Array<string | null> | null } | null, about?: { __typename: 'HomeAbout', heading?: string | null, subheading?: string | null, description?: string | null, objectives?: Array<string | null> | null, focusAreas?: Array<{ __typename: 'HomeAboutFocusAreas', title?: string | null, icon?: string | null } | null> | null } | null, technology?: { __typename: 'HomeTechnology', heading?: string | null, subheading?: string | null, description?: string | null, image?: string | null, gallery?: Array<string | null> | null, features?: Array<{ __typename: 'HomeTechnologyFeatures', title?: string | null, icon?: string | null, description?: string | null, detailedDescription?: string | null } | null> | null } | null, application?: { __typename: 'HomeApplication', heading?: string | null, subheading?: string | null, description?: string | null, features?: Array<{ __typename: 'HomeApplicationFeatures', title?: string | null, image?: string | null, description?: string | null, detailedDescription?: string | null } | null> | null } | null, pilots?: { __typename: 'HomePilots', heading?: string | null, subheading?: string | null, description?: string | null, sites?: Array<{ __typename: 'HomePilotsSites', name?: string | null, image?: string | null, description?: string | null, crop?: string | null, status?: string | null } | null> | null } | null, partners?: { __typename: 'HomePartners', heading?: string | null, subheading?: string | null, description?: string | null, partners?: Array<{ __typename: 'HomePartnersPartners', name?: string | null, logo?: string | null } | null> | null } | null } | null } | null> | null } };
+export type HomeConnectionQuery = { __typename?: 'Query', homeConnection: { __typename?: 'HomeConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HomeConnectionEdges', cursor: string, node?: { __typename: 'Home', id: string, title: string, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero?: { __typename: 'HomeHero', heading: string, subheading?: string | null, images?: Array<string | null> | null } | null, about?: { __typename: 'HomeAbout', heading?: string | null, subheading?: string | null, description?: string | null, objectives?: Array<string | null> | null, focusAreas?: Array<{ __typename: 'HomeAboutFocusAreas', title?: string | null, icon?: string | null } | null> | null } | null, technology?: { __typename: 'HomeTechnology', heading?: string | null, subheading?: string | null, description?: string | null, image?: string | null, gallery?: Array<string | null> | null, features?: Array<{ __typename: 'HomeTechnologyFeatures', title?: string | null, icon?: string | null, description?: string | null, detailedDescription?: string | null } | null> | null } | null, aiModel?: { __typename: 'HomeAiModel', heading?: string | null, subheading?: string | null, description?: string | null, image?: string | null, features?: Array<{ __typename: 'HomeAiModelFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null, pilots?: { __typename: 'HomePilots', heading?: string | null, subheading?: string | null, description?: string | null, sites?: Array<{ __typename: 'HomePilotsSites', name?: string | null, image?: string | null, description?: string | null, crop?: string | null, status?: string | null } | null> | null } | null, partners?: { __typename: 'HomePartners', heading?: string | null, subheading?: string | null, description?: string | null, partners?: Array<{ __typename: 'HomePartnersPartners', name?: string | null, logo?: string | null } | null> | null } | null } | null } | null> | null } };
 
 export type MediaPageQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -1136,17 +1136,17 @@ export const HomePartsFragmentDoc = gql`
       detailedDescription
     }
   }
-  application {
+  aiModel {
     __typename
     heading
     subheading
     description
+    image
     features {
       __typename
       title
-      image
       description
-      detailedDescription
+      icon
     }
   }
   pilots {

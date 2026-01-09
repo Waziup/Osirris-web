@@ -4,7 +4,7 @@ import Navigation from "../components/sections/Navigation";
 import HeroSlider from "../components/sections/HeroSlider";
 import AboutSection from "../components/sections/AboutSection";
 import TechnologySection from "../components/sections/TechnologySection";
-import ApplicationSection from "../components/sections/ApplicationSection";
+import AiModelSection from "../components/sections/AiModelSection";
 import PilotsSection from "../components/sections/PilotsSection";
 import PartnersSection from "../components/sections/PartnersSection";
 import Footer from "../components/sections/Footer";
@@ -22,7 +22,7 @@ interface TinaData {
   hero: HeroData;
   about?: any;
   technology: any;
-  application: any;
+  aiModel: any;
   pilots: any;
   partners: any;
   body: string;
@@ -56,12 +56,12 @@ export default function Home({ tinaData, globalData }: HomeProps) {
     hero: tinaData?.hero || { displayMode: "text", logo: undefined, heading: "Welcome", subheading: "", images: [] },
     about: tinaData?.about || {},
     technology: tinaData?.technology || {},
-    application: tinaData?.application || {},
+    aiModel: tinaData?.aiModel || {},
     pilots: tinaData?.pilots || {},
     partners: tinaData?.partners || {},
     body: tinaData?.body || "",
   };
-  const { title, hero, about, technology, application, pilots, partners, body } = safeData;
+  const { title, hero, about, technology, aiModel, pilots, partners, body } = safeData;
   const { header, footer } = globalData || { header: { navLinks: [] }, footer: { copyright: "", socialLinks: [] } };
 
   return (
@@ -88,7 +88,7 @@ export default function Home({ tinaData, globalData }: HomeProps) {
 
       <TechnologySection data={technology} />
 
-      <ApplicationSection data={application} />
+      <AiModelSection data={aiModel} />
 
       <PilotsSection data={pilots} />
 

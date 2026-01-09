@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 interface FooterProps {
-  heroHeading: string;
   data: {
     logo?: string;
     copyright: string;
@@ -13,7 +12,7 @@ interface FooterProps {
   };
 }
 
-export default function Footer({ heroHeading, data }: FooterProps) {
+export default function Footer({ data }: FooterProps) {
   const { logo, copyright, socialLinks, funding } = data;
 
   return (

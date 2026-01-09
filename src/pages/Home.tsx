@@ -90,7 +90,7 @@ export default function Home({ tinaData, globalData }: HomeProps) {
 
       <PartnersSection data={partners} />
 
-      <Footer heroHeading={hero.heading} data={footer} />
+      <Footer data={footer} />
     </div>
   );
 }

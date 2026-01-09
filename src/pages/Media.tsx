@@ -354,7 +354,7 @@ export default function Media({ mediaItems = [], publications = [], globalData }
         </div>
       </section>
 
-      <Footer heroHeading="OSIRRIS" data={globalData?.footer ? { logo: globalData.footer.logo, copyright: globalData.footer.copyright || "", socialLinks: globalData.footer.socialLinks || [], funding: globalData.footer.funding } : { copyright: "", socialLinks: [] }} />
+      <Footer data={globalData?.footer ? { logo: globalData.footer.logo, copyright: globalData.footer.copyright || "", socialLinks: globalData.footer.socialLinks || [], funding: globalData.footer.funding } : { copyright: "", socialLinks: [] }} />
     </div>
   );
 }

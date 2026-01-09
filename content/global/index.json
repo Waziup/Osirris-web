@@ -3,11 +3,11 @@
     "logo": "/uploads/Screenshot_2026-01-07_at_13.52.58-removebg-preview.png",
     "navLinks": [
       {
-        "label": "Home",
+        "label": "The Project",
         "href": "#hero"
       },
       {
-        "label": "Technology",
+        "label": "The Smart Tensiometer",
         "href": "#tensiometers"
       },
       {

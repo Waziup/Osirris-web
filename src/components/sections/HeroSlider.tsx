@@ -5,16 +5,14 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { useState, useEffect } from "react";
 
 interface HeroData {
-  displayMode?: "text" | "logo";
   logo?: string;
-  heading: string;
   subheading: string;
   body?: string;
   images: string[];
 }
 
 export default function HeroSlider({ hero }: { hero: HeroData }) {
-  const { displayMode, logo, heading, subheading, body, images } = hero;
+  const { logo, subheading, body, images } = hero;
   const [api, setApi] = useState<any>(null);
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -59,7 +57,7 @@ export default function HeroSlider({ hero }: { hero: HeroData }) {
   }, [api]);
 
   return (
-    <section id="hero" className="relative h-[100dvh] flex items-center justify-center overflow-hidden bg-gray-900">
+    <section id="hero" className="relative h-[calc(100dvh-4rem)] sm:h-[calc(100dvh-5rem)] mt-16 sm:mt-20 flex items-center justify-center overflow-hidden bg-gray-900">
       {/* Carousel */}
       <Carousel 
         className="absolute inset-0 w-full h-full"
@@ -97,24 +95,14 @@ export default function HeroSlider({ hero }: { hero: HeroData }) {
 
       {/* Content */}
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-        {/* <div className="mb-4 sm:mb-6 inline-block">
-          <span className="bg-white/20 backdrop-blur-md text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-full border border-white/30">
-            
-          </span>
-        </div> */}
-
-        {displayMode === 'logo' && logo ? (
-          <div className="mb-4 sm:mb-6 flex justify-center">
+        {logo && (
+          <div className="mb-8 sm:mb-12 flex justify-center w-full">
             <img 
               src={logo} 
               alt="Hero Logo" 
-              className="max-h-32 sm:max-h-48 md:max-h-64 object-contain drop-shadow-2xl" 
+              className="w-auto h-auto max-h-[250px] sm:max-h-[350px] md:max-h-[450px] lg:max-h-[500px] object-contain drop-shadow-2xl mx-auto" 
             />
           </div>
-        ) : (
-          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-black text-white mb-4 sm:mb-6 drop-shadow-2xl">
-            {heading}
-          </h1>
         )}
 
         <p className="text-base sm:text-xl md:text-2xl text-white/90 mb-6 drop-shadow-lg max-w-4xl mx-auto">

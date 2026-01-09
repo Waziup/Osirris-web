@@ -1,29 +1,31 @@
 ---
 title: Home Page
 hero:
-  heading: Welcome to Osirris
-  subheading: Revolutionizing Mediterranean Agriculture with AI-Powered Smart Irrigation
+  logo: /uploads/Screenshot_2026-01-07_at_13.52.58-removebg-preview.avif
+  subheading: >-
+    Precision Irrigation with Cost-effective and Autonomic IoT Devices using
+    Artificial Intelligence at the Edge
   images:
-    - /uploads/IMG_2029.webp
-    - /uploads/IMG_2192.webp
+    - /uploads/20250806_135103.webp
+    - /uploads/IMG_2094.webp
     - /uploads/IMG_2081.webp
-    - /uploads/IMG_2189.webp
-    - /uploads/20250805_102615.webp
-    - /uploads/IMG_2046.webp
+    - /uploads/IMG_2166.webp
 about:
-  heading: About Osirris
+  heading: The Osirris Project
   subheading: Innovative Edge AI-Driven Irrigation Management
   description: >-
-    OSIRRIS is an innovative project developing Edge AI-driven irrigation
-    management  systems for sustainable agriculture in Mediterranean regions.
-    Our mission is to  revolutionize water resource management through
-    intelligent, sensor-based irrigation  solutions that benefit both farmers
-    and the environment.
+    The Osirris project, funded by the TUNGER 2+2 research and innovation
+    program, is a 3-year initiative involving Germany and
+
+    Tunisia, focusing on creating an advanced irrigation platform. This platform
+    integrates Internet of Things (IoT), Artificial Intelligence (AI), and Edge
+    computing to enhance water management for agriculture, particularly in
+    challenging environments.
   objectives:
-    - Semi-autonomous operation with automatic calibration and soil evaluation
-    - High user acceptance through advanced user interfaces
-    - Easy to deploy and maintain across diverse agricultural settings
-    - Cost-effective solution for practical farmer adoption
+    - 'Create a Smart Tensiometer for measuring soil and plant water stress,'
+    - 'Create a Edge-capable AI model for autonomous irrigation,'
+    - 'Implement an AI-enabled IoT gateway for controlling the irrigation,'
+    - Pilot the OSIRRIS platform in several Tunisia farms.
   focusAreas:
     - title: Sustainability
       icon: "\U0001F33E"
@@ -50,28 +52,15 @@ technology:
   features:
     - title: Smart Tensiometer
       icon: droplets
-      description: Real-time soil moisture measurement
+      description: >-
+        Features ±2% accuracy at multiple depths with automatic calibration for
+        diverse soil types.
       detailedDescription: >-
-        IoT-enabled tensiometers measure soil tension and calculate soil water
-        content,  plant stress, and local irrigation recommendations. Features
-        ±2% accuracy at  multiple depths with automatic calibration for diverse
-        soil types.
-    - title: Edge Irrigation Controller
-      icon: radio
-      description: Automated irrigation management
-      detailedDescription: >-
-        Intelligent controller that calculates overall irrigation requirements
-        and  updates smart tensiometers with automatic actuation. Supports
-        multi-modal  interactions including SMS notifications and mobile app
-        control.
-    - title: Machine Learning Engine
-      icon: brain
-      description: Continuous optimization
-      detailedDescription: >-
-        Local ML models perform model refitting based on measured tension
-        values.  The system learns from context data and continuously improves
-        irrigation  recommendations through curated database updates and
-        inference engines.
+        Our smart tensiometers measure tension and calculate soil water content,
+        plant stress, and irrigation recommendations.
+
+        It is powered by solar energy and connects to the IoT gateway through
+        LoRaWAN.
     - title: LoRaWAN Connectivity
       icon: wifi
       description: 15km+ wireless range
@@ -83,24 +72,25 @@ aiModel:
   heading: The OSIRRIS AI Model
   subheading: Advanced Edge AI for Precision Agriculture
   description: >-
-    Our proprietary AI model is trained on vast datasets of soil conditions,
-    crop requirements, and local climate patterns. Running directly on the edge
-    controller, it provides real-time, low-latency decision making without
-    constant cloud connectivity.
-  image: /uploads/AI-models.jpg
+    The OSIRRIS AI model takes into account soil conditions, crop requirements,
+    and local weather predictions. It is running directly on the edge controller
+    and provides real-time, low-latency decision making for irrigation.
+  image: /uploads/image.png
   features:
-    - title: Local Inference
-      description: Zero-latency decision making directly on the device
-      icon: zap
-    - title: Adaptive Learning
-      description: Continuously improves based on local field conditions
+    - title: Machine Learning Engine
+      description: >-
+        Our local Machine Learning models are continuouly re-trained on measured
+        tension values and many other environmental parameters. The system
+        learns from context data and continuously improves irrigation
+        recommendations.
       icon: brain
-    - title: Data Efficiency
-      description: Optimized for low-bandwidth LoRaWAN networks
+    - title: Edge Irrigation Controller
+      description: >-
+        The intelligent controller calculates overall irrigation requirements
+        and can perform automatic actuation on the water pumps. It supports
+        multi-modal interactions including SMS notifications and mobile app
+        control.
       icon: database
-    - title: Predictive Analytics
-      description: Forecasts irrigation needs days in advance
-      icon: chart
 pilots:
   heading: Pilot Sites Across Europe
   subheading: Field Testing & Validation
@@ -113,28 +103,22 @@ pilots:
     - name: Nabeul - Tunisia
       image: /uploads/20250806_123311.webp
       description: >-
-        Deployed pilot site in Nabeul focusing on Citrus tree cultivation. 
-        Tests precision irrigation with automatic calibration using local
-        irrigation  from drilled boreholes. Demonstrates smart tensiometer
-        effectiveness in  real-world citrus production.
+        Active deployment site in Nabeul that is dedicated to the cultivation of
+        citrus trees.
       crop: Citrus Trees
       status: Active
     - name: Sbeitla (Kasserine) - Tunisia
       image: /uploads/IMG_2162.webp
       description: >-
-        Active pilot site in Sbeitla testing apple cultivation with integrated 
-        irrigation infrastructure. Features reservoir-based irrigation system
-        with  pump and flow meter for comprehensive water management validation
-        and  edge controller deployment.
+        Active deployment site in Sbeitla that is dedicated to the cultivation
+        of apples.
       crop: Apples
       status: Active
     - name: Cheffield - Tunisia
       image: /uploads/IMG_2107.webp
       description: >-
-        Deployment site in Cheffield focusing on wheat. The site is designed to
-        test precision irrigation with automatic calibration, using local
-        irrigation from drilled boreholes. This site demonstrates the
-        effectiveness of the smart tensiometer in real-world citrus production.
+        Active deployment site in Cheffield that is dedicated to the cultivation
+        of wheat.
       crop: Wheat
       status: Active
 partners:

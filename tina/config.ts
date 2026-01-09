@@ -150,17 +150,17 @@ export default defineConfig({
             label: "Hero Section",
             fields: [
               {
-                type: "string",
-                name: "heading",
-                label: "Heading",
-                description: "The main headline displayed on the hero slider.",
+                type: "image",
+                name: "logo",
+                label: "Hero Logo",
+                description: "The logo to display in the hero section.",
                 required: true,
               },
               {
                 type: "string",
                 name: "subheading",
                 label: "Subheading",
-                description: "A brief description or tagline below the headline.",
+                description: "A brief description or tagline below the logo.",
                 ui: {
                   component: "textarea",
                 },

@@ -13,19 +13,7 @@ interface NavigationProps {
 
 export default function Navigation({ heroHeading, navLinks, logo }: NavigationProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Check initial state
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -103,9 +91,7 @@ export default function Navigation({ heroHeading, navLinks, logo }: NavigationPr
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md shadow-md z-50 transition-all duration-300 transform ${
-        isScrolled ? "translate-y-0" : "-translate-y-full"
-      }`}
+      className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md shadow-md z-50 transition-all duration-300"
     >
 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
   <div className="flex justify-between items-center h-16 sm:h-20">

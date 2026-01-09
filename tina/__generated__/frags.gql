@@ -31,7 +31,7 @@ fragment HomeParts on Home {
   title
   hero {
     __typename
-    heading
+    logo
     subheading
     images
   }

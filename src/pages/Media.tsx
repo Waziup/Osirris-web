@@ -288,7 +288,7 @@ export default function Media({ mediaItems = [], publications = [], globalData }
               <FileText className="text-white w-7 h-7" />
             </div>
             <div>
-               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Scientific Publications</h2>
+               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Project Publications</h2>
                <p className="text-gray-500 mt-1">Research papers, reports, and technical documents</p>
             </div>
           </div>

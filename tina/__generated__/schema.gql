@@ -192,7 +192,7 @@ type GlobalConnection implements Connection {
 }
 
 type HomeHero {
-  heading: String!
+  logo: String!
   subheading: String
   images: [String]
 }
@@ -282,7 +282,7 @@ type Home implements Node & Document {
 }
 
 input HomeHeroFilter {
-  heading: StringFilter
+  logo: ImageFilter
   subheading: StringFilter
   images: ImageFilter
 }
@@ -581,7 +581,7 @@ input GlobalMutation {
 }
 
 input HomeHeroMutation {
-  heading: String
+  logo: String
   subheading: String
   images: [String]
 }

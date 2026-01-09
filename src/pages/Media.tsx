@@ -97,7 +97,7 @@ export default function Media({ mediaItems = [], publications = [], globalData }
 
   return (
     <div className="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
-      <Navigation heroHeading="OSIRRIS" navLinks={globalData?.header?.navLinks || []} logo={globalData?.header?.logo} />
+      <Navigation navLinks={globalData?.header?.navLinks || []} logo={globalData?.header?.logo} />
 
       {/* Lightbox Modal */}
       {selectedPhotoIndex !== null && (

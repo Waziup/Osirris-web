@@ -6,12 +6,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 interface NavigationProps {
-  heroHeading: string;
   navLinks: { label: string; href: string }[];
   logo?: string;
 }
 
-export default function Navigation({ heroHeading, navLinks, logo }: NavigationProps) {
+export default function Navigation({ navLinks, logo }: NavigationProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 

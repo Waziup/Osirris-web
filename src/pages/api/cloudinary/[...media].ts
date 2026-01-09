@@ -20,7 +20,6 @@ export default createMediaHandler({
         return true;
       }
       const user = await isUserAuthorized({
-        req,
         clientID: process.env.NEXT_PUBLIC_TINA_CLIENT_ID!,
         token: process.env.TINA_TOKEN!,
       });

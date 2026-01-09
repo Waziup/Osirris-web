@@ -1,11 +1,14 @@
 import {
-  mediaHandlerConfig,
   createMediaHandler,
 } from "next-tinacms-cloudinary/dist/handlers";
 
 import { isUserAuthorized } from "@tinacms/auth";
 
-export const config = mediaHandlerConfig;
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 export default createMediaHandler({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "",
@@ -21,7 +24,7 @@ export default createMediaHandler({
         clientID: process.env.NEXT_PUBLIC_TINA_CLIENT_ID,
         token: process.env.TINA_TOKEN,
       });
-      return user && user.verified;
+      return !!(user && user.verified);
     } catch (e) {
       console.error(e);
       return false;
